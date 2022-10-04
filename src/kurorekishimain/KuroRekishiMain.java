@@ -42,7 +42,7 @@ public class KuroRekishiMain {
 		frame.getContentPane().setLayout(null);
 		
 		JPanel Main = new JPanel();
-		Main.setBounds(0, 0, 578, 850);
+		Main.setBounds(0, 0, 588, 850);
 		frame.getContentPane().add(Main);
 		
 		JPanel Login = new JPanel();
