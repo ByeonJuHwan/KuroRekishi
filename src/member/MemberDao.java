@@ -23,7 +23,7 @@ public interface MemberDao {
 	 * @param member 업데이트할 정보
 	 * @return 업데이트 성공하면 1, 그렇지 않으면 0.
 	 */
-	public int updateMember(Member member);
+	public void updateMember(Member member);
 	
 	
 }

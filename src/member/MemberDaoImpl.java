@@ -15,9 +15,9 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public int updateMember(Member member) {
+	public void updateMember(Member member) {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
 }
