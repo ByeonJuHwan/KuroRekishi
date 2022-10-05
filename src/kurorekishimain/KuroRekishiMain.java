@@ -132,7 +132,7 @@ public class KuroRekishiMain {
         lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
         lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
         lblImage.setBackground(Color.WHITE);
-        lblImage.setBounds(6, 0, 652, 766);
+        lblImage.setBounds(0, 0, 646, 766);
         Login.add(lblImage);
 
       // ----------------- 로그인창 첫창
