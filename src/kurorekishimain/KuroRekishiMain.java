@@ -81,19 +81,67 @@ public class KuroRekishiMain {
         Login.setBounds(0, 0, 648, 850);
         frame.getContentPane().add(Login);
         Login.setLayout(null);
+        
+        JLabel lblId = new JLabel("아이디");
+        lblId.setBackground(Color.WHITE);
+        lblId.setOpaque(true);
+        lblId.setForeground(Color.BLACK);
+        lblId.setHorizontalAlignment(SwingConstants.CENTER);
+        lblId.setFont(new Font("궁서체", Font.BOLD, 15));
+        lblId.setEnabled(true);
+        lblId.setBounds(37, 690, 95, 41);
+        Login.add(lblId);
 		
+        JLabel lblPw = new JLabel("비밀번호");
+        lblPw.setBackground(Color.WHITE);
+        lblPw.setOpaque(true);
+        lblPw.setForeground(Color.BLACK);
+        lblPw.setFont(new Font("궁서체", Font.BOLD, 15));
+        lblPw.setHorizontalAlignment(SwingConstants.CENTER);
+        lblPw.setBounds(37, 758, 95, 41);
+        Login.add(lblPw);
 		
-		Join = new JPanel();
+        textId = new JTextField();
+        textId.setBounds(187, 690, 260, 41);
+        Login.add(textId);
+        textId.setColumns(10);
+        
+        passwordField = new JPasswordField();
+        passwordField.setBounds(187, 758, 260, 41);
+        Login.add(passwordField);
+        
+        btnLogin = new JButton("로그인");
+        btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
+        btnLogin.setBounds(492, 690, 119, 41);
+        Login.add(btnLogin);
+        
+        btnJoin = new JButton("회원가입");
+        btnJoin.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		joinMember();
+        	}
+        });
+        btnJoin.setFont(new Font("궁서체", Font.BOLD, 15));
+        btnJoin.setBounds(492, 758, 119, 41);
+        Login.add(btnJoin);
+
+        
+        lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
+        lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
+        lblImage.setBackground(Color.WHITE);
+        lblImage.setBounds(0, 0, 648, 850);
+        Login.add(lblImage);
+        
+        // ----------------- 로그인창 첫창
+		
+        Join = new JPanel();
 		Join.setBounds(0, 0, 648, 850);
 		frame.getContentPane().add(Join);
 		Join.setLayout(null);
 		
-		Photo = new JPanel();
-        Photo.setBounds(0, 0, 648, 850);
-        frame.getContentPane().add(Photo);
-        Photo.setLayout(null);
 		
-		JLabel JoinId = new JLabel("아이디");
+		
+        JLabel JoinId = new JLabel("아이디");
 		JoinId.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinId.setFont(new Font("굴림체", Font.BOLD, 18));
 		JoinId.setBounds(12, 42, 137, 66);
@@ -176,64 +224,20 @@ public class KuroRekishiMain {
 		btnBack.setBounds(350, 750, 124, 58);
 		Join.add(btnBack);
 		
-        
-        JLabel lblId = new JLabel("아이디");
-        lblId.setBackground(Color.WHITE);
-        lblId.setOpaque(true);
-        lblId.setForeground(Color.BLACK);
-        lblId.setHorizontalAlignment(SwingConstants.CENTER);
-        lblId.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblId.setEnabled(true);
-        lblId.setBounds(37, 690, 95, 41);
-        Login.add(lblId);
-        
-        JLabel lblPw = new JLabel("비밀번호");
-        lblPw.setBackground(Color.WHITE);
-        lblPw.setOpaque(true);
-        lblPw.setForeground(Color.BLACK);
-        lblPw.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblPw.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPw.setBounds(37, 758, 95, 41);
-        Login.add(lblPw);
-        
-        textId = new JTextField();
-        textId.setBounds(187, 690, 260, 41);
-        Login.add(textId);
-        textId.setColumns(10);
-        
-        passwordField = new JPasswordField();
-        passwordField.setBounds(187, 758, 260, 41);
-        Login.add(passwordField);
-        
-        btnLogin = new JButton("로그인");
-        btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnLogin.setBounds(492, 690, 119, 41);
-        Login.add(btnLogin);
-        
-        btnJoin = new JButton("회원가입");
-        btnJoin.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		joinMember();
-        	}
-        });
-        btnJoin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnJoin.setBounds(492, 758, 119, 41);
-        Login.add(btnJoin);
-
-        
-        lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
-        lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblImage.setBackground(Color.WHITE);
-        lblImage.setBounds(0, 0, 648, 850);
-        Login.add(lblImage);
-        
-        
-       
-		
-        JLabel JoinLabel = new JLabel("");
+		JLabel JoinLabel = new JLabel("");
 		JoinLabel.setBounds(0, 0, 648, 850);
 		Join.add(JoinLabel);
 		
+		
+		//--------------------- 회원가입창
+		
+		Photo = new JPanel();
+        Photo.setBounds(0, 0, 648, 850);
+        frame.getContentPane().add(Photo);
+        Photo.setLayout(null);
+		
+		
+        
 		 btnBack1 = new JButton("뒤로가기");
 	        btnBack1.setFont(new Font("D2Coding", Font.BOLD, 14));
 	        btnBack1.setBounds(79, 795, 115, 45);
@@ -267,7 +271,8 @@ public class KuroRekishiMain {
 	        });
 	        btnBack1_1.setBounds(266, 795, 115, 45);
 	        Photo.add(btnBack1_1);
-        
+	    
+	    //------------------------------ 사진입력창
         
 		Main = new JPanel();
 		Main.setBounds(0, 0, 648, 850);
