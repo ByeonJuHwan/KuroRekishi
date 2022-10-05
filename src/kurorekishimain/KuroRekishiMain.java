@@ -2,12 +2,15 @@ package kurorekishimain;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 public class KuroRekishiMain {
 
 	private JFrame frame;
+	private JLabel lblImage;
 
 	/**
 	 * Launch the application.
@@ -44,6 +47,11 @@ public class KuroRekishiMain {
 		JPanel Main = new JPanel();
 		Main.setBounds(0, 0, 578, 850);
 		frame.getContentPane().add(Main);
+		Main.setLayout(null);
+		
+		lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
+		lblImage.setBounds(0, 0, 578, 850);
+		Main.add(lblImage);
 		
 		JPanel Login = new JPanel();
 		Login.setBounds(0, 0, 578, 850);
