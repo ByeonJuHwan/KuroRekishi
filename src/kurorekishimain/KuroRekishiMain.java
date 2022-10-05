@@ -76,7 +76,6 @@ public class KuroRekishiMain {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		
 		Login = new JPanel();
         Login.setBounds(0, 0, 648, 761);
         frame.getContentPane().add(Login);
@@ -89,7 +88,7 @@ public class KuroRekishiMain {
         lblId.setHorizontalAlignment(SwingConstants.CENTER);
         lblId.setFont(new Font("궁서체", Font.BOLD, 15));
         lblId.setEnabled(true);
-        lblId.setBounds(37, 690, 95, 41);
+        lblId.setBounds(37, 634, 95, 41);
         Login.add(lblId);
 		
         JLabel lblPw = new JLabel("비밀번호");
@@ -98,21 +97,25 @@ public class KuroRekishiMain {
         lblPw.setForeground(Color.BLACK);
         lblPw.setFont(new Font("궁서체", Font.BOLD, 15));
         lblPw.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPw.setBounds(37, 758, 95, 41);
+        lblPw.setBounds(37, 685, 95, 41);
         Login.add(lblPw);
 		
         textId = new JTextField();
-        textId.setBounds(187, 690, 260, 41);
+        textId.setBounds(187, 634, 260, 41);
         Login.add(textId);
         textId.setColumns(10);
         
         passwordField = new JPasswordField();
-        passwordField.setBounds(187, 758, 260, 41);
+        passwordField.setBounds(187, 685, 260, 41);
         Login.add(passwordField);
         
         btnLogin = new JButton("로그인");
+        btnLogin.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	}
+        });
         btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnLogin.setBounds(492, 690, 119, 41);
+        btnLogin.setBounds(492, 634, 119, 41);
         Login.add(btnLogin);
         
         btnJoin = new JButton("회원가입");
@@ -122,86 +125,84 @@ public class KuroRekishiMain {
         	}
         });
         btnJoin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnJoin.setBounds(492, 758, 119, 41);
+        btnJoin.setBounds(492, 685, 119, 41);
         Login.add(btnJoin);
 
         
         lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
         lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
         lblImage.setBackground(Color.WHITE);
-        lblImage.setBounds(0, 0, 648, 850);
+        lblImage.setBounds(0, 0, 648, 761);
         Login.add(lblImage);
-        
-        // ----------------- 로그인창 첫창
+
+      // ----------------- 로그인창 첫창
 		
         Join = new JPanel();
 		Join.setBounds(0, 0, 648, 761);
 		frame.getContentPane().add(Join);
 		Join.setLayout(null);
 		
-		
-		
-        JLabel JoinId = new JLabel("아이디");
-		JoinId.setHorizontalAlignment(SwingConstants.CENTER);
-		JoinId.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinId.setBounds(12, 42, 137, 66);
-		Join.add(JoinId);
-		
-		JLabel JoinPw = new JLabel("비밀번호");
-		JoinPw.setHorizontalAlignment(SwingConstants.CENTER);
-		JoinPw.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinPw.setBounds(12, 119, 137, 66);
-		Join.add(JoinPw);
+		JLabel JoinId = new JLabel("아이디");
+        JoinId.setBounds(12, 10, 137, 66);
+        Join.add(JoinId);
+        JoinId.setHorizontalAlignment(SwingConstants.CENTER);
+        JoinId.setFont(new Font("굴림체", Font.BOLD, 18));
+        
+        JLabel JoinPw = new JLabel("비밀번호");
+        JoinPw.setBounds(12, 86, 137, 66);
+        Join.add(JoinPw);
+        JoinPw.setHorizontalAlignment(SwingConstants.CENTER);
+        JoinPw.setFont(new Font("굴림체", Font.BOLD, 18));
 		
 		JLabel JoinName = new JLabel("아이디");
 		JoinName.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinName.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinName.setBounds(12, 194, 137, 66);
+		JoinName.setBounds(12, 162, 137, 66);
 		Join.add(JoinName);
 		
 		inputId = new JTextField();
 		inputId.setFont(new Font("D2Coding", Font.BOLD, 17));
-		inputId.setBounds(161, 50, 313, 53);
+		inputId.setBounds(161, 17, 313, 53);
 		Join.add(inputId);
 		inputId.setColumns(10);
 		
 		inputPw = new JTextField();
 		inputPw.setFont(new Font("D2Coding", Font.BOLD, 17));
 		inputPw.setColumns(10);
-		inputPw.setBounds(161, 132, 313, 53);
+		inputPw.setBounds(161, 93, 313, 53);
 		Join.add(inputPw);
 		
 		inputName = new JTextField();
 		inputName.setFont(new Font("D2Coding", Font.BOLD, 17));
 		inputName.setColumns(10);
-		inputName.setBounds(161, 207, 313, 53);
+		inputName.setBounds(161, 169, 313, 53);
 		Join.add(inputName);
 		
 		btnCheckId = new JButton("중복확인");
 		btnCheckId.setFont(new Font("굴림", Font.BOLD, 16));
-		btnCheckId.setBounds(486, 50, 124, 58);
+		btnCheckId.setBounds(512, 14, 124, 58);
 		Join.add(btnCheckId);
 		
 		JComboBox LocationcomboBox = new JComboBox(locations);
 		LocationcomboBox.setFont(new Font("D2Coding", Font.BOLD, 17));
-		LocationcomboBox.setBounds(161, 319, 313, 53);
+		LocationcomboBox.setBounds(161, 245, 313, 53);
 		Join.add(LocationcomboBox);
 		
 		JLabel JoinName_1 = new JLabel("주소");
 		JoinName_1.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinName_1.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinName_1.setBounds(12, 319, 137, 66);
+		JoinName_1.setBounds(12, 238, 137, 66);
 		Join.add(JoinName_1);
 		
 		JLabel JoinExperience = new JLabel("흑역사");
 		JoinExperience.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinExperience.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinExperience.setBounds(12, 457, 137, 66);
+		JoinExperience.setBounds(12, 314, 137, 66);
 		Join.add(JoinExperience);
 		
 		JTextArea textAreaExperience = new JTextArea();
 		textAreaExperience.setFont(new Font("D2Coding", Font.BOLD, 17));
-		textAreaExperience.setBounds(161, 457, 313, 264);
+		textAreaExperience.setBounds(161, 335, 313, 264);
 		Join.add(textAreaExperience);
 		
 		JButton btnMemberJoin = new JButton("사진넣기");
@@ -211,7 +212,7 @@ public class KuroRekishiMain {
 			}
 		});
 		btnMemberJoin.setFont(new Font("굴림", Font.BOLD, 16));
-		btnMemberJoin.setBounds(161, 750, 124, 58);
+		btnMemberJoin.setBounds(161, 635, 124, 58);
 		Join.add(btnMemberJoin);
 		
 		JButton btnBack = new JButton("뒤로가기");
@@ -221,14 +222,14 @@ public class KuroRekishiMain {
 			}
 		});
 		btnBack.setFont(new Font("굴림", Font.BOLD, 16));
-		btnBack.setBounds(350, 750, 124, 58);
+		btnBack.setBounds(350, 635, 124, 58);
 		Join.add(btnBack);
 		
 		JLabel JoinLabel = new JLabel("");
-		JoinLabel.setBounds(0, 0, 648, 850);
+		JoinLabel.setBounds(0, 0, 648, 761);
 		Join.add(JoinLabel);
 		
-		
+       
 		//--------------------- 회원가입창
 		
 		Photo = new JPanel();
@@ -239,38 +240,39 @@ public class KuroRekishiMain {
 		
         
 		 btnBack1 = new JButton("뒤로가기");
-	        btnBack1.setFont(new Font("D2Coding", Font.BOLD, 14));
-	        btnBack1.setBounds(79, 795, 115, 45);
-	        btnBack1.addActionListener(new ActionListener() {
+	     btnBack1.setFont(new Font("D2Coding", Font.BOLD, 14));
+	     btnBack1.setBounds(80, 706, 115, 45);
+	     btnBack1.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		goBack1();
 	        	}
 	        });
-	        Photo.add(btnBack1);
+	     Photo.add(btnBack1);
 	        
-	        btnInputPhoto = new JButton("완료");
-	        btnInputPhoto.addActionListener(new ActionListener() {
+	     btnInputPhoto = new JButton("완료");
+	     btnInputPhoto.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		completeJoin();
 	        	}
 	        });
-	        btnInputPhoto.setFont(new Font("D2Coding", Font.BOLD, 14));
-	        btnInputPhoto.setBounds(455, 795, 115, 45);
-	        Photo.add(btnInputPhoto);
+	     btnInputPhoto.setFont(new Font("D2Coding", Font.BOLD, 14));
+	     btnInputPhoto.setBounds(447, 706, 115, 45);
+	     Photo.add(btnInputPhoto);
 	        
-	        lblPhoto = new JLabel("");
-	        lblPhoto.setBounds(0, 0, 648, 785);
-	        Photo.add(lblPhoto);
 	        
-	        btnBack1_1 = new JButton("사진저장");
-	        btnBack1_1.setFont(new Font("D2Coding", Font.BOLD, 14));
-	        btnBack1_1.addActionListener(new ActionListener() {
+	     btnBack1_1 = new JButton("사진저장");
+	     btnBack1_1.setFont(new Font("D2Coding", Font.BOLD, 14));
+	     btnBack1_1.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		insertImages();
 	        	}
 	        });
-	        btnBack1_1.setBounds(266, 795, 115, 45);
-	        Photo.add(btnBack1_1);
+	     btnBack1_1.setBounds(264, 706, 115, 45);
+	     Photo.add(btnBack1_1);
+	        
+	     lblPhoto = new JLabel("");
+	     lblPhoto.setBounds(0, 0, 648, 696);
+	     Photo.add(lblPhoto);
 	    
 	    //------------------------------ 사진입력창
         
