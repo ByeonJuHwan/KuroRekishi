@@ -69,7 +69,7 @@ public class KuroRekishiMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 664, 889);
+		frame.setBounds(100, 100, 664, 800);
 		frame.setTitle("쿠로렉시");
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -78,7 +78,7 @@ public class KuroRekishiMain {
 		
 		
 		Login = new JPanel();
-        Login.setBounds(0, 0, 648, 850);
+        Login.setBounds(0, 0, 648, 761);
         frame.getContentPane().add(Login);
         Login.setLayout(null);
         
@@ -135,7 +135,7 @@ public class KuroRekishiMain {
         // ----------------- 로그인창 첫창
 		
         Join = new JPanel();
-		Join.setBounds(0, 0, 648, 850);
+		Join.setBounds(0, 0, 648, 761);
 		frame.getContentPane().add(Join);
 		Join.setLayout(null);
 		
@@ -232,7 +232,7 @@ public class KuroRekishiMain {
 		//--------------------- 회원가입창
 		
 		Photo = new JPanel();
-        Photo.setBounds(0, 0, 648, 850);
+        Photo.setBounds(0, 0, 648, 761);
         frame.getContentPane().add(Photo);
         Photo.setLayout(null);
 		
@@ -275,7 +275,7 @@ public class KuroRekishiMain {
 	    //------------------------------ 사진입력창
         
 		Main = new JPanel();
-		Main.setBounds(0, 0, 648, 850);
+		Main.setBounds(0, 0, 648, 761);
 		frame.getContentPane().add(Main);
 		Main.setLayout(null);
 		
