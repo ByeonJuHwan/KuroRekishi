@@ -77,7 +77,7 @@ public class KuroRekishiMain {
 		frame.getContentPane().setLayout(null);
 		
 		Login = new JPanel();
-        Login.setBounds(0, 0, 648, 761);
+        Login.setBounds(0, 0, 658, 766);
         frame.getContentPane().add(Login);
         Login.setLayout(null);
         
@@ -132,7 +132,7 @@ public class KuroRekishiMain {
         lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
         lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
         lblImage.setBackground(Color.WHITE);
-        lblImage.setBounds(0, 0, 648, 761);
+        lblImage.setBounds(6, 0, 652, 766);
         Login.add(lblImage);
 
       // ----------------- 로그인창 첫창
