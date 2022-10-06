@@ -5,6 +5,7 @@ public class Member {
 	private String id;
 	private String pw;
 	private String name;
+	private String sex;
 	private String location;
 	private String history;
 	
@@ -14,17 +15,26 @@ public class Member {
 	}
 	
 	// argument를 갖는 생성자
-	public Member(String id, String pw, String name, String location, String history) {
+	public Member(String id, String pw, String name, String sex, String location, String history) {
 		super();
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
+		this.sex = sex;
 		this.location = location;
 		this.history = history;
 	}
 
 	// getters / setters
 	
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
 	public String getId() {
 		return id;
 	}

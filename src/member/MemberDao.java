@@ -25,5 +25,4 @@ public interface MemberDao {
 	 */
 	public void updateMember(Member member);
 	
-	
 }

@@ -16,14 +16,24 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 public class KuroRekishiMain {
 	private static final String[] locations = {"서울","경기","충북","충남","전북","전남","경북","경남","강원도","제주"};
-
+	private static final File[] images =  new File[5];
+	
+	
 	private JFrame frame;
 	private JLabel lblImage;
 	private JTextField textId;
@@ -40,8 +50,8 @@ public class KuroRekishiMain {
 	private JPanel Photo;
 	private JLabel lblPhoto;
 	private JButton btnBack1;
-	private JButton btnInputPhoto;
-	private JButton btnBack1_1;
+	private JButton btnClearMember;
+	private JButton btnInsertImages;
 	private JButton btnNotgood;
 	private JLabel lblMemberImages;
 
@@ -306,26 +316,26 @@ public class KuroRekishiMain {
 	        });
 	     Photo.add(btnBack1);
 	        
-	     btnInputPhoto = new JButton("완료");
-	     btnInputPhoto.addActionListener(new ActionListener() {
+	     btnClearMember = new JButton("완료");
+	     btnClearMember.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		completeJoin();
 	        	}
 	        });
-	     btnInputPhoto.setFont(new Font("D2Coding", Font.BOLD, 14));
-	     btnInputPhoto.setBounds(447, 706, 115, 45);
-	     Photo.add(btnInputPhoto);
+	     btnClearMember.setFont(new Font("D2Coding", Font.BOLD, 14));
+	     btnClearMember.setBounds(447, 706, 115, 45);
+	     Photo.add(btnClearMember);
 	        
 	        
-	     btnBack1_1 = new JButton("사진저장");
-	     btnBack1_1.setFont(new Font("D2Coding", Font.BOLD, 14));
-	     btnBack1_1.addActionListener(new ActionListener() {
+	     btnInsertImages = new JButton("사진저장");
+	     btnInsertImages.setFont(new Font("D2Coding", Font.BOLD, 14));
+	     btnInsertImages.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		insertImages();
 	        	}
 	        });
-	     btnBack1_1.setBounds(264, 706, 115, 45);
-	     Photo.add(btnBack1_1);
+	     btnInsertImages.setBounds(264, 706, 115, 45);
+	     Photo.add(btnInsertImages);
 	        
 	     lblPhoto = new JLabel("");
 	     lblPhoto.setBounds(0, 0, 648, 696);
@@ -337,7 +347,7 @@ public class KuroRekishiMain {
 		
 		
 	}
-	protected void insertPhoto() {
+	private void insertPhoto() {
 		Join.setVisible(false);
 		Photo.setVisible(true);
 		
@@ -352,6 +362,22 @@ public class KuroRekishiMain {
 		JFileChooser jFileChooser = new JFileChooser();
 		jFileChooser.setCurrentDirectory(new File("C:\\Users\\82107\\Desktop\\myJSP"));
 		int result = jFileChooser.showSaveDialog(null);
+		if(result == JFileChooser.APPROVE_OPTION) {
+			
+			File image = jFileChooser.getSelectedFile();
+			
+			File dataDir = new File("ImageEx");
+			try(
+					FileOutputStream out  = new FileOutputStream(image);
+					BufferedOutputStream bout = new BufferedOutputStream(out);
+					ObjectOutputStream oout = new ObjectOutputStream(bout);
+					){
+				oout.writeObject(dataDir);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+			
 		
 	}
 
