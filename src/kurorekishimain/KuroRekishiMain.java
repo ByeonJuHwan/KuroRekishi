@@ -18,6 +18,8 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 public class KuroRekishiMain {
 	private static final String[] locations = {"서울","경기","충북","충남","전북","전남","경북","경남","강원도","제주"};
@@ -40,6 +42,8 @@ public class KuroRekishiMain {
 	private JButton btnBack1;
 	private JButton btnInputPhoto;
 	private JButton btnBack1_1;
+	private JButton btnNotgood;
+	private JLabel lblMemberImages;
 
 	/**
 	 * Launch the application.
@@ -75,6 +79,59 @@ public class KuroRekishiMain {
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		
+		Main = new JPanel();
+        Main.setBounds(0, 0, 648, 761);
+        frame.getContentPane().add(Main);
+        Main.setLayout(null);
+        
+        JPanel mainButtonPanel = new JPanel();
+        mainButtonPanel.setBounds(0, 701, 648, 60);
+        Main.add(mainButtonPanel);
+        mainButtonPanel.setLayout(null);
+        
+        JButton btnNewChat = new JButton("채팅");
+        btnNewChat.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+        btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
+        btnNewChat.setBounds(140, 5, 122, 45);
+        mainButtonPanel.add(btnNewChat);
+        
+        JButton btnProfile = new JButton("프로필");
+        btnProfile.setFont(new Font("D2Coding", Font.BOLD, 16));
+        btnProfile.setBounds(382, 5, 122, 45);
+        mainButtonPanel.add(btnProfile);
+        
+        btnNotgood = new JButton("별로에요");
+        btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
+        btnNotgood.setBounds(138, 651, 122, 45);
+        Main.add(btnNotgood);
+        
+        JButton btnGood = new JButton("좋아요");
+        btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
+        btnGood.setBounds(380, 651, 122, 45);
+        Main.add(btnGood);
+        
+        
+        JButton btnGoPreImage = new JButton("<");
+        btnGoPreImage.setBounds(12, 264, 41, 45);
+        Main.add(btnGoPreImage);
+        
+        JButton btnGoNextImage = new JButton(">");
+        btnGoNextImage.setBounds(595, 264, 41, 45);
+        Main.add(btnGoNextImage);
+        
+        lblMemberImages = new JLabel(new ImageIcon("ImageEx/1.png"));
+        lblMemberImages.setBounds(0, 0, 648, 641);
+        Main.add(lblMemberImages);
+        
+		
+		// ---------------------------- 메인창작업
+		
 		
 		Login = new JPanel();
         Login.setBounds(0, 0, 658, 766);
@@ -276,10 +333,6 @@ public class KuroRekishiMain {
 	    
 	    //------------------------------ 사진입력창
         
-		Main = new JPanel();
-		Main.setBounds(0, 0, 648, 761);
-		frame.getContentPane().add(Main);
-		Main.setLayout(null);
 		
 		
 		
