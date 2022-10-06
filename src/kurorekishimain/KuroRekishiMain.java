@@ -2,6 +2,7 @@ package kurorekishimain;
 
 import java.awt.EventQueue;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -364,21 +366,10 @@ public class KuroRekishiMain {
 		int result = jFileChooser.showSaveDialog(null);
 		if(result == JFileChooser.APPROVE_OPTION) {
 			
-			File image = jFileChooser.getSelectedFile();
+			 
 			
-			File dataDir = new File("ImageEx");
-			try(
-					FileOutputStream out  = new FileOutputStream(image);
-					BufferedOutputStream bout = new BufferedOutputStream(out);
-					ObjectOutputStream oout = new ObjectOutputStream(bout);
-					){
-				oout.writeObject(dataDir);
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+			
 		}
-			
-		
 	}
 
 	private void goBack1() {
