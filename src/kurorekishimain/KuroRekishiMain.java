@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -33,7 +34,8 @@ import java.awt.FlowLayout;
 
 public class KuroRekishiMain {
 	private static final String[] locations = {"서울","경기","충북","충남","전북","전남","경북","경남","강원도","제주"};
-	private static final File[] images =  new File[5];
+	private static final BufferedImage[] images =  new BufferedImage[5];
+	int index=0;
 	
 	
 	private JFrame frame;
@@ -78,6 +80,7 @@ public class KuroRekishiMain {
 	 */
 	public KuroRekishiMain() {
 		initialize();
+		
 	}
 
 	/**
@@ -137,7 +140,7 @@ public class KuroRekishiMain {
         btnGoNextImage.setBounds(595, 264, 41, 45);
         Main.add(btnGoNextImage);
         
-        lblMemberImages = new JLabel(new ImageIcon("ImageEx/1.png"));
+        lblMemberImages = new JLabel(new ImageIcon("usersimage\\변주환\\변주환1"));
         lblMemberImages.setBounds(0, 0, 648, 641);
         Main.add(lblMemberImages);
         
@@ -364,11 +367,31 @@ public class KuroRekishiMain {
 		JFileChooser jFileChooser = new JFileChooser();
 		jFileChooser.setCurrentDirectory(new File("C:\\Users\\82107\\Desktop\\myJSP"));
 		int result = jFileChooser.showSaveDialog(null);
+		
+		// 회원가입 페이지에서 등록한 이름으로 이미지들을 저장할 파일 생성.
+		File newFolder = new File("usersimage","변주환");
+		if(!newFolder.exists()) {
+		    newFolder.mkdir();
+		}
+        
+
+        File userImages  = new File("usersimage\\변주환", "변주환"+index);
+        if(!userImages.exists()) {
+            userImages.mkdir();
+        }
 		if(result == JFileChooser.APPROVE_OPTION) {
+			File file = jFileChooser.getSelectedFile();
 			
-			 
-			
-			
+			try {
+                BufferedImage image = ImageIO.read(file);
+                images[index]=image;
+                ImageIO.write(image, "png", userImages);
+                index++;
+                System.out.println("success");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+				
 		}
 	}
 
