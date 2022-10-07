@@ -1,7 +1,14 @@
 package member;
 
 public class Member {
-	// field
+	
+    public interface Entity{
+        // TODO 컬럼들 정의해주기
+    }
+    
+    
+    
+    // field
 	private String id;
 	private String pw;
 	private String name;

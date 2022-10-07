@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import java.awt.Font;
@@ -351,9 +352,10 @@ public class KuroRekishiMain {
 		
 		
 		
-	}
+	} // end initialize()
 	private void insertPhoto() {
 		Join.setVisible(false);
+		JOptionPane.showMessageDialog(frame, "사진을 최대5장까지 넣어주세요~", "부탁", JOptionPane.PLAIN_MESSAGE);
 		Photo.setVisible(true);
 		
 	}
@@ -364,8 +366,18 @@ public class KuroRekishiMain {
 	}
 	
 	private void insertImages() {
-		JFileChooser jFileChooser = new JFileChooser();
-		jFileChooser.setCurrentDirectory(new File("C:\\Users\\82107\\Desktop\\myJSP"));
+		
+	    // 5장까지 저장 인지 확인.
+        if(index == 5) {
+            JOptionPane.showMessageDialog(frame, "5장 다 넣으셨습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            index=0;
+            return;
+        }
+	    
+        
+        // 5장보다 아래라면 더 추가 하도록 만듬.
+	    JFileChooser jFileChooser = new JFileChooser();
+		
 		int result = jFileChooser.showSaveDialog(null);
 		
 		// 회원가입 페이지에서 등록한 이름으로 이미지들을 저장할 파일 생성.
@@ -388,6 +400,7 @@ public class KuroRekishiMain {
                 ImageIO.write(image, "png", userImages);
                 index++;
                 System.out.println("success");
+                JOptionPane.showMessageDialog(frame, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
             } catch (Exception e) {
                 e.printStackTrace();
             }
