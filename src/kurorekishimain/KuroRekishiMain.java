@@ -34,7 +34,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 public class KuroRekishiMain {
-	private static final String[] locations = {"서울","경기","충북","충남","전북","전남","경북","경남","강원도","제주"};
 	private static final BufferedImage[] images =  new BufferedImage[5];
 	int index=0;
 	
@@ -45,18 +44,8 @@ public class KuroRekishiMain {
 	private JPasswordField passwordField;
 	private JButton btnLogin;
 	private JButton btnJoin;
-	private JTextField inputId;
-	private JTextField inputPw;
-	private JTextField inputName;
-	private JButton btnCheckId;
 	private JPanel Login;
-	private JPanel Join;
 	private JPanel Main;
-	private JPanel Photo;
-	private JLabel lblPhoto;
-	private JButton btnBack1;
-	private JButton btnClearMember;
-	private JButton btnInsertImages;
 	private JButton btnNotgood;
 	private JLabel lblMemberImages;
 
@@ -81,7 +70,6 @@ public class KuroRekishiMain {
 	 */
 	public KuroRekishiMain() {
 		initialize();
-		
 	}
 
 	/**
@@ -92,7 +80,6 @@ public class KuroRekishiMain {
 		frame.setBounds(100, 100, 664, 800);
 		frame.setTitle("쿠로렉시");
 		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -194,7 +181,7 @@ public class KuroRekishiMain {
         btnJoin = new JButton("회원가입");
         btnJoin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		joinMember();
+        		JoinMember.newJoinMember(frame);
         	}
         });
         btnJoin.setFont(new Font("궁서체", Font.BOLD, 15));
@@ -207,145 +194,6 @@ public class KuroRekishiMain {
         lblImage.setBackground(Color.WHITE);
         lblImage.setBounds(0, 0, 646, 766);
         Login.add(lblImage);
-
-      // ----------------- 로그인창 첫창
-		
-        Join = new JPanel();
-		Join.setBounds(0, 0, 648, 761);
-		frame.getContentPane().add(Join);
-		Join.setLayout(null);
-		
-		JLabel JoinId = new JLabel("아이디");
-        JoinId.setBounds(12, 10, 137, 66);
-        Join.add(JoinId);
-        JoinId.setHorizontalAlignment(SwingConstants.CENTER);
-        JoinId.setFont(new Font("굴림체", Font.BOLD, 18));
-        
-        JLabel JoinPw = new JLabel("비밀번호");
-        JoinPw.setBounds(12, 86, 137, 66);
-        Join.add(JoinPw);
-        JoinPw.setHorizontalAlignment(SwingConstants.CENTER);
-        JoinPw.setFont(new Font("굴림체", Font.BOLD, 18));
-		
-		JLabel JoinName = new JLabel("아이디");
-		JoinName.setHorizontalAlignment(SwingConstants.CENTER);
-		JoinName.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinName.setBounds(12, 162, 137, 66);
-		Join.add(JoinName);
-		
-		inputId = new JTextField();
-		inputId.setFont(new Font("D2Coding", Font.BOLD, 17));
-		inputId.setBounds(161, 17, 313, 53);
-		Join.add(inputId);
-		inputId.setColumns(10);
-		
-		inputPw = new JTextField();
-		inputPw.setFont(new Font("D2Coding", Font.BOLD, 17));
-		inputPw.setColumns(10);
-		inputPw.setBounds(161, 93, 313, 53);
-		Join.add(inputPw);
-		
-		inputName = new JTextField();
-		inputName.setFont(new Font("D2Coding", Font.BOLD, 17));
-		inputName.setColumns(10);
-		inputName.setBounds(161, 169, 313, 53);
-		Join.add(inputName);
-		
-		btnCheckId = new JButton("중복확인");
-		btnCheckId.setFont(new Font("굴림", Font.BOLD, 16));
-		btnCheckId.setBounds(512, 14, 124, 58);
-		Join.add(btnCheckId);
-		
-		JComboBox LocationcomboBox = new JComboBox(locations);
-		LocationcomboBox.setFont(new Font("D2Coding", Font.BOLD, 17));
-		LocationcomboBox.setBounds(161, 245, 313, 53);
-		Join.add(LocationcomboBox);
-		
-		JLabel JoinName_1 = new JLabel("주소");
-		JoinName_1.setHorizontalAlignment(SwingConstants.CENTER);
-		JoinName_1.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinName_1.setBounds(12, 238, 137, 66);
-		Join.add(JoinName_1);
-		
-		JLabel JoinExperience = new JLabel("흑역사");
-		JoinExperience.setHorizontalAlignment(SwingConstants.CENTER);
-		JoinExperience.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinExperience.setBounds(12, 314, 137, 66);
-		Join.add(JoinExperience);
-		
-		JTextArea textAreaExperience = new JTextArea();
-		textAreaExperience.setFont(new Font("D2Coding", Font.BOLD, 17));
-		textAreaExperience.setBounds(161, 335, 313, 264);
-		Join.add(textAreaExperience);
-		
-		JButton btnMemberJoin = new JButton("사진넣기");
-		btnMemberJoin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				insertPhoto();
-			}
-		});
-		btnMemberJoin.setFont(new Font("굴림", Font.BOLD, 16));
-		btnMemberJoin.setBounds(161, 635, 124, 58);
-		Join.add(btnMemberJoin);
-		
-		JButton btnBack = new JButton("뒤로가기");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				goBack();
-			}
-		});
-		btnBack.setFont(new Font("굴림", Font.BOLD, 16));
-		btnBack.setBounds(350, 635, 124, 58);
-		Join.add(btnBack);
-		
-		JLabel JoinLabel = new JLabel("");
-		JoinLabel.setBounds(0, 0, 648, 761);
-		Join.add(JoinLabel);
-		
-       
-		//--------------------- 회원가입창
-		
-		Photo = new JPanel();
-        Photo.setBounds(0, 0, 648, 761);
-        frame.getContentPane().add(Photo);
-        Photo.setLayout(null);
-		
-		
-        
-		 btnBack1 = new JButton("뒤로가기");
-	     btnBack1.setFont(new Font("D2Coding", Font.BOLD, 14));
-	     btnBack1.setBounds(80, 706, 115, 45);
-	     btnBack1.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		goBack1();
-	        	}
-	        });
-	     Photo.add(btnBack1);
-	        
-	     btnClearMember = new JButton("완료");
-	     btnClearMember.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		completeJoin();
-	        	}
-	        });
-	     btnClearMember.setFont(new Font("D2Coding", Font.BOLD, 14));
-	     btnClearMember.setBounds(447, 706, 115, 45);
-	     Photo.add(btnClearMember);
-	        
-	        
-	     btnInsertImages = new JButton("사진저장");
-	     btnInsertImages.setFont(new Font("D2Coding", Font.BOLD, 14));
-	     btnInsertImages.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		insertImages();
-	        	}
-	        });
-	     btnInsertImages.setBounds(264, 706, 115, 45);
-	     Photo.add(btnInsertImages);
-	        
-	     lblPhoto = new JLabel("");
-	     lblPhoto.setBounds(0, 0, 648, 696);
-	     Photo.add(lblPhoto);
 	    
 	    //------------------------------ 사진입력창
         
@@ -353,74 +201,8 @@ public class KuroRekishiMain {
 		
 		
 	} // end initialize()
-	private void insertPhoto() {
-		Join.setVisible(false);
-		JOptionPane.showMessageDialog(frame, "사진을 최대5장까지 넣어주세요~", "부탁", JOptionPane.PLAIN_MESSAGE);
-		Photo.setVisible(true);
-		
-	}
 
-	private void completeJoin() {
-		Photo.setVisible(false);
-		Main.setVisible(true);
-	}
 	
-	private void insertImages() {
-		
-	    // 5장까지 저장 인지 확인.
-        if(index == 5) {
-            JOptionPane.showMessageDialog(frame, "5장 다 넣으셨습니다.", "경고", JOptionPane.WARNING_MESSAGE);
-            index=0;
-            return;
-        }
-	    
-        
-        // 5장보다 아래라면 더 추가 하도록 만듬.
-	    JFileChooser jFileChooser = new JFileChooser();
-		
-		int result = jFileChooser.showSaveDialog(null);
-		
-		// 회원가입 페이지에서 등록한 이름으로 이미지들을 저장할 파일 생성.
-		File newFolder = new File("usersimage","변주환");
-		if(!newFolder.exists()) {
-		    newFolder.mkdir();
-		}
-        
 
-        File userImages  = new File("usersimage\\변주환", "변주환"+index);
-        if(!userImages.exists()) {
-            userImages.mkdir();
-        }
-		if(result == JFileChooser.APPROVE_OPTION) {
-			File file = jFileChooser.getSelectedFile();
-			
-			try {
-                BufferedImage image = ImageIO.read(file);
-                images[index]=image;
-                ImageIO.write(image, "png", userImages);
-                index++;
-                System.out.println("success");
-                JOptionPane.showMessageDialog(frame, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-				
-		}
-	}
-
-	private void goBack1() {
-		Photo.setVisible(false);
-		Join.setVisible(true);
-	}
-
-	private void goBack() {
-		Login.setVisible(true);
-		Join.setVisible(false);
-		
-	}
-
-	private void joinMember() {
-		Login.setVisible(false);
-		Join.setVisible(true);
-	}
+	
 }
