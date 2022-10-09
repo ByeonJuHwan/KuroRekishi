@@ -161,6 +161,14 @@ public class JoinMember extends JFrame {
 		JoinPanel.add(lblNewLabel);
 		
 		JButton btnComplete = new JButton("완료");
+		btnComplete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(index == 0) {
+		            JOptionPane.showMessageDialog(null, "사진을 적어도 한장 넣어주세요..", "알림", JOptionPane.WARNING_MESSAGE);
+		            return;
+		        }
+			}
+		});
 		btnComplete.setFont(new Font("굴림", Font.BOLD, 16));
 		btnComplete.setBounds(380, 693, 124, 58);
 		JoinPanel.add(btnComplete);

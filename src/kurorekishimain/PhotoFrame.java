@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 public class PhotoFrame extends JFrame {
 
 	private JPanel photoPane;
-	
+	int index = 0;
 
 	/**
 	 * Launch the application.
@@ -57,8 +57,16 @@ public class PhotoFrame extends JFrame {
 		showImages();
 	}
 
+	//TODO 2번째사진은 안나옴. 나머지 4장은 겁나잘나옴
 	private String showImages() {
-		int index = JoinMember.images.length-1;
+		for(int i=0; i<5; i++) {
+			if(i==4) {
+				index=4;
+			}else if(JoinMember.images[i+1]==null) {
+				index=i;
+				break;
+			}
+		}
 		String a = "usersimage\\변주환\\변주환"+index;
 		
 		System.out.println(index);
