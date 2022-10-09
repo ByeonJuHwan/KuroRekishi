@@ -5,6 +5,7 @@ public class MemberDaoImpl implements MemberDao{
 	// singleton
     // 1. 자기자신 타입의 private static인 변수 선언
     private static MemberDaoImpl instance = null;
+    
     // 2. private 생성자
     private MemberDaoImpl () {
         //TODO 연락처 프로그램 fileutil 패키지 참고해서 이미지 넣기랑 파일 만들기 참고.
@@ -21,19 +22,28 @@ public class MemberDaoImpl implements MemberDao{
     
     
     
-    
+    /**
+     * 중복되는 아이디 검열
+     * 
+     */
     @Override
 	public boolean findMember(String id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+    /**
+     * 회원 가입
+     */
 	@Override
 	public int addmember(Member member) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	/**
+	 * 회원수정
+	 */
 	@Override
 	public void updateMember(Member member) {
 		// TODO Auto-generated method stub

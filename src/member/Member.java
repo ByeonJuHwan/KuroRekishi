@@ -3,7 +3,13 @@ package member;
 public class Member {
 	
     public interface Entity{
-        // TODO 컬럼들 정의해주기
+    	String TBL_MEMBER = "MEMBER"; // 테이블 이름
+    	String COL_MEM_ID = "ID"; // 회원 아이디
+    	String COL_MEM_PW = "PW"; // 회원 비밀번호
+    	String COL_MEM_NAME = "NAME"; // 회원 이름
+    	String COL_MEM_SEX = "SEX"; // 회원 성별
+    	String COL_MEM_LOC = "LOC"; // 회원 지역
+    	String COL_MEM_HISTORY = "HISTORY"; // 회원 흑역사
     }
     
     
@@ -17,9 +23,7 @@ public class Member {
 	private String history;
 	
 	// 기본 생성자 (default constructor)
-	public Member() {
-		super();
-	}
+	public Member() {}
 	
 	// argument를 갖는 생성자
 	public Member(String id, String pw, String name, String sex, String location, String history) {
