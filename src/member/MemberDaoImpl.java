@@ -1,6 +1,21 @@
 package member;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import oracle.jdbc.OracleDriver;
+import static member.Member.Entity.*;
+import static ojdbc.OracleJdbc.*;
+import static member.
+
 public class MemberDaoImpl implements MemberDao{
+	
+	Connection conn = null;
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
 
 	// singleton
     // 1. 자기자신 타입의 private static인 변수 선언
@@ -15,8 +30,6 @@ public class MemberDaoImpl implements MemberDao{
         }
         return instance;
     }
-    
-    
     
     
     /**
@@ -34,7 +47,18 @@ public class MemberDaoImpl implements MemberDao{
      */
 	@Override
 	public int addmember(Member member) {
-		// TODO Auto-generated method stub
+		int result = 0;
+		try {
+			DriverManager.registerDriver(new OracleDriver());
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			
+			stmt = conn.prepareStatement(PASSWORD)
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 		return 0;
 	}
 	

@@ -48,8 +48,7 @@ public class MultiServerThread extends Thread{
             
         }catch(Exception e){
         	ServerMain.list.remove(this);
-            ChatFrame.textArea.append(ChatFrame.socket.getInetAddress()+"IP 주소의 사용자 께서 비정상종료하셨습니다. \n");
-            ChatFrame.textArea.setText("남은 사용자 수 : " + ServerMain.list.size());
+            e.printStackTrace();
         }
     }
 

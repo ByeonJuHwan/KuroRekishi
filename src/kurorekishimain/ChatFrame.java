@@ -69,7 +69,7 @@ public class ChatFrame extends JFrame implements Runnable{
 
 	private void insertChatName() {
 		// TODO 로그인한 회원 이름으로 chatName 설정
-		chatName ="";
+		chatName ="A";
 		if(chatName.length() == 0 || chatName ==null) {
 			System.exit(0);
 		}

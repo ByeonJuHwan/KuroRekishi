@@ -105,13 +105,19 @@ public class KuroRekishiMain {
         mainButtonPanel.add(btnNewChat);
         
         JButton btnProfile = new JButton("프로필");
+        btnProfile.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		// 프로필 수정/업데이트
+        		UpdateFrame.newUpdateFrame();
+        	}
+        });
         btnProfile.setFont(new Font("D2Coding", Font.BOLD, 16));
         btnProfile.setBounds(382, 5, 122, 45);
         mainButtonPanel.add(btnProfile);
         
         btnNotgood = new JButton("별로에요");
         btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnNotgood.setBounds(138, 651, 122, 45);
+        btnNotgood.setBounds(141, 651, 122, 45);
         Main.add(btnNotgood);
         
         JButton btnGood = new JButton("좋아요");
