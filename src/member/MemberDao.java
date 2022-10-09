@@ -25,4 +25,11 @@ public interface MemberDao {
 	 */
 	public void updateMember(Member member);
 	
+	/**
+	 * 아이디를 받아서 채팅창들어갈때 이름을 설정
+	 * @param id 로그인할때 입력한 아이디로 이름을 검색
+	 * @return id에 따른 이름을 리턴해준다.
+	 */
+	public String fineName(String id);
+	
 }

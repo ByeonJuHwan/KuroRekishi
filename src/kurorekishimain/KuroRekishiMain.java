@@ -97,7 +97,7 @@ public class KuroRekishiMain {
         JButton btnNewChat = new JButton("채팅");
         btnNewChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+                ChatFrame.newChatFrame();
             }
         });
         btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
