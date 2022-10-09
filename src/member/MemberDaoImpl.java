@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import oracle.jdbc.OracleDriver;
 import static member.Member.Entity.*;
 import static ojdbc.OracleJdbc.*;
-import static member.
+
 
 public class MemberDaoImpl implements MemberDao{
 	
@@ -52,7 +52,7 @@ public class MemberDaoImpl implements MemberDao{
 			DriverManager.registerDriver(new OracleDriver());
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
 			
-			stmt = conn.prepareStatement(PASSWORD)
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
