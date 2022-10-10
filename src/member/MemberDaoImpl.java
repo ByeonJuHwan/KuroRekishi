@@ -117,6 +117,7 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	/**
 	 * 채팅창 이름 설정
 	 */
@@ -125,5 +126,39 @@ public class MemberDaoImpl implements MemberDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * 로그인
+	 */
+    @Override
+    public void Login(String id, String pw) {
+        // TODO Auto-generated method stub
+        boolean result = false;
+        try {
+            connDB();
+            
+            stmt = conn.prepareStatement(SQL_LOGIN);
+            
+            stmt.setString(1, id);
+            stmt.setString(2, pw);
+            
+            rs = stmt.executeQuery();
+            rs.next();
+            
+            result = Boolean.parseBoolean(rs.getString("result"));
+            System.out.println("result : " + result);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            
+        }
+        
+    }
 
 }

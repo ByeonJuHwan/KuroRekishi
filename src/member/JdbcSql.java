@@ -13,5 +13,13 @@ public interface JdbcSql {
 	String SQL_ISEXIST = String.format("select decode(count(*),1,'true','false') as result from %s where %s =?",
 			TBL_MEMBER,COL_MEM_ID);
 	
+	// 프로필 수정
+	String SQL_UPDATE_MEMBER = String.format("update %s set ", null);
+	
+	// 로그인
+	String SQL_LOGIN = String.format("select decode(count(*),1,'true','false') as result from %s where %s =? and %s = ?",
+	       TBL_MEMBER,COL_MEM_ID,COL_MEM_PW);
+	           
+	     
 	
 }

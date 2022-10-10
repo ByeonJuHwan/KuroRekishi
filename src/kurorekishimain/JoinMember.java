@@ -226,31 +226,36 @@ public class JoinMember extends JFrame {
 
     // 회원 가입완료 최종 DB에 넣는 작업.
 	private void completeInsertMember() {
-        String id = inputId.getText();
-        String pw = String.valueOf(inputPw.getPassword());
-        String name = inputName.getText();
-        String sex = null;
-        if(!radioButtonMale.isSelected() && !radioButtonFemale.isSelected()) {
-            JOptionPane.showMessageDialog(JoinPanel, "성별을 선택해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
-            return;
-        }else if(radioButtonMale.isSelected()) {
-            sex = radioButtonMale.getText();
-        }else {
-            sex = radioButtonFemale.getText();
+        try {
+            String id = inputId.getText();
+            String pw = String.valueOf(inputPw.getPassword());
+            String name = inputName.getText();
+            String sex = null;
+            if(!radioButtonMale.isSelected() && !radioButtonFemale.isSelected()) {
+                JOptionPane.showMessageDialog(JoinPanel, "성별을 선택해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }else if(radioButtonMale.isSelected()) {
+                sex = radioButtonMale.getText();
+            }else {
+                sex = radioButtonFemale.getText();
+            }
+            String location = (String) LocationcomboBox.getSelectedItem();
+            String history = textAreaExperience.getText();
+	    
+            Member member  = new Member(id,pw,name,sex,location,history);
+	    
+            int result = dao.addmember(member);
+	    
+            if(result == 1) {
+                JOptionPane.showMessageDialog(JoinPanel, "회원가입이 완료되었습니다.", "환영",JOptionPane.PLAIN_MESSAGE);
+                JoinPanel.setVisible(false);
+            }else {
+                JOptionPane.showMessageDialog(JoinPanel, "입력이 안된 부분이 있습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+            JOptionPane.showConfirmDialog(JoinPanel, "누락된 부분없이 입력해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-        String location = (String) LocationcomboBox.getSelectedItem();
-	    String history = textAreaExperience.getText();
-	    
-	    Member member  = new Member(id,pw,name,sex,location,history);
-	    
-	    int result = dao.addmember(member);
-	    
-	    if(result == 1) {
-	        JOptionPane.showMessageDialog(JoinPanel, "회원가입이 완료되었습니다.", "환영",JOptionPane.PLAIN_MESSAGE);
-	        JoinPanel.setVisible(false);
-	    }else {
-	        JOptionPane.showMessageDialog(JoinPanel, "입력이 안된 부분이 있습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
-	    }
         
     }
 

@@ -32,4 +32,11 @@ public interface MemberDao {
 	 */
 	public String fineName(String id);
 	
+	/**
+	 * id,pw를 받아서 로그인동작을 수
+	 * @param id
+	 * @param pw
+	 */
+	public void Login(String id,String pw);
+	
 }
