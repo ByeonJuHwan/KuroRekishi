@@ -171,7 +171,6 @@ public class KuroRekishiMain {
         btnLogin = new JButton("로그인");
         btnLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        	    //TODO 로그인시 작성한 아이디로 이름을 검색 map에 id,name을 저장해서 가지고 있어야함.
         	   Login();
         	}
         });
@@ -204,7 +203,6 @@ public class KuroRekishiMain {
 	} // end initialize()
 
 	private void Login() {
-        // TODO map에 저장하는 기능까지 해야함.
 		String id = textId.getText();
 		String pw = String.valueOf(passwordField.getPassword());
 		if((id.equals(null) || id.equals(""))&&(pw.equals(null)||pw.equals(""))){

@@ -154,7 +154,8 @@ public class JoinMember extends JFrame {
 		btnMemberJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertImages();
-				PhotoFrame.newPhotoFrame();
+				String sex = sexCheck();
+				PhotoFrame.newPhotoFrame(inputName.getText(),sex);
 			}
 		});
 		btnMemberJoin.setFont(new Font("굴림", Font.BOLD, 16));
@@ -216,7 +217,17 @@ public class JoinMember extends JFrame {
 		
 		
 	}
-	
+	// photoFrame으로 가는 성별에 따라서 선택되는 폴더가 다르기때문
+	private String sexCheck() {
+		String sex = null;
+		if(radioButtonFemale.isSelected()) {
+			sex = radioButtonFemale.getText();
+		}else if (radioButtonMale.isSelected()) {
+			sex = radioButtonMale.getText();
+		}
+		return sex;
+	}
+
 	private void checkFindid() {
         if(clearCheckId != 1) {
             JOptionPane.showMessageDialog(JoinPanel, "아이디 중복확인을 해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -288,31 +299,56 @@ public class JoinMember extends JFrame {
 		int result = jFileChooser.showSaveDialog(null);
 		
 		// 회원가입 페이지에서 등록한 이름으로 이미지들을 저장할 파일 생성.
-		File newFolder = new File("usersimage","변주환");
-		if(!newFolder.exists()) {
-		    newFolder.mkdir();
-		}
-        
-
-        File userImages  = new File("usersimage\\변주환", "변주환"+index);
-        if(!userImages.exists()) {
-            userImages.mkdir();
-        }
-        
-		if(result == JFileChooser.APPROVE_OPTION) {
-			File file = jFileChooser.getSelectedFile();
-			
-			try {
-                BufferedImage image = ImageIO.read(file);
-                images[index]=image;
-                ImageIO.write(image, "png", userImages);
-                index++;
-                System.out.println("success");
-                JOptionPane.showMessageDialog(parent, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }	
-		}
+		if(radioButtonMale.isSelected()) { // 남자가 회원가입한경우 남자 파일생성.
+			File newFolder = new File("usersImageMale",inputName.getText());
+			if(!newFolder.exists()) {
+			    newFolder.mkdir();
+			}
 		
+			File userImages  = new File("usersImageMale\\"+inputName.getText(), inputName.getText()+index);
+	        if(!userImages.exists()) {
+	            userImages.mkdir();
+	        }
+	        
+			if(result == JFileChooser.APPROVE_OPTION) {
+				File file = jFileChooser.getSelectedFile();
+				
+				try {
+	                BufferedImage image = ImageIO.read(file);
+	                images[index]=image;
+	                ImageIO.write(image, "png", userImages);
+	                index++;
+	                System.out.println("success");
+	                JOptionPane.showMessageDialog(parent, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }	
+			}
+			
+		}else if(radioButtonFemale.isSelected()) { // 여자가 회원가읍한경우 여자 파일 생성.
+			File newFolder = new File("usersImageFemale",inputName.getText());
+			if(!newFolder.exists()) {
+			    newFolder.mkdir();
+			}
+			File userImages  = new File("usersimage\\"+inputName.getText(), inputName.getText()+index);
+	        if(!userImages.exists()) {
+	            userImages.mkdir();
+	        }
+	        
+			if(result == JFileChooser.APPROVE_OPTION) {
+				File file = jFileChooser.getSelectedFile();
+				
+				try {
+	                BufferedImage image = ImageIO.read(file);
+	                images[index]=image;
+	                ImageIO.write(image, "png", userImages);
+	                index++;
+	                System.out.println("success");
+	                JOptionPane.showMessageDialog(parent, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }	
+			}
+		}
 	}
 }

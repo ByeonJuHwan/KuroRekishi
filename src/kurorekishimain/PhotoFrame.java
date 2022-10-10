@@ -18,23 +18,28 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class PhotoFrame extends JFrame {
-
+	private String name;
+	private String sex;
 	private JPanel photoPane;
 	int index = 0;
 
 	/**
 	 * Launch the application.
+	 * @param name 
+	 * @param sex 
 	 */
-	public static void newPhotoFrame() {
+	public static void newPhotoFrame(String name, String sex) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				PhotoFrame frame = new PhotoFrame();
+				PhotoFrame frame = new PhotoFrame(name,sex);
 				frame.setVisible(true);
 			}
 		});
 	}
 
-	public PhotoFrame() {
+	public PhotoFrame(String name, String sex) {
+		this.name = name;
+		this.sex = sex;
 		initialize();
 	}
 	
@@ -50,7 +55,6 @@ public class PhotoFrame extends JFrame {
 		setContentPane(photoPane);
 		photoPane.setLayout(null);
 		
-		// TODO 저장한 이미지를 보여주기
 		JLabel lblNewLabel = new JLabel(new ImageIcon(showImages()));
 		lblNewLabel.setBounds(0, 0, 648, 761);
 		photoPane.add(lblNewLabel);
@@ -59,6 +63,8 @@ public class PhotoFrame extends JFrame {
 
 	//TODO 2번째사진은 안나옴. 나머지 4장은 겁나잘나옴
 	private String showImages() {
+		String image = null;
+		
 		for(int i=0; i<5; i++) {
 			if(i==4) {
 				index=4;
@@ -67,11 +73,21 @@ public class PhotoFrame extends JFrame {
 				break;
 			}
 		}
-		String a = "usersimage\\변주환\\변주환"+index;
 		
-		System.out.println(index);
-		System.out.println(a);
 		
-		return a;
+		if(sex.equals("남자")) {
+			image = "usersImageMale\\"+name+"\\"+name+index;
+			
+			System.out.println(index);
+			System.out.println(image);
+			
+		}else if(sex.equals("여자")) {
+			image = "usersImageFemale\\"+name+"\\"+name+index;
+			
+			System.out.println(index);
+			System.out.println(image);
+			
+		}
+		return image;
 	}
 }
