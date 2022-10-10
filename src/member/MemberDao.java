@@ -26,7 +26,7 @@ public interface MemberDao {
 	public void updateMember(Member member);
 	
 	/**
-	 * 아이디를 받아서 채팅창들어갈때 이름을 설정
+	 * 아이디를 받아서 이름을 알아내야할때 사용 (로그인, 채팅방 이름설정)
 	 * @param id 로그인할때 입력한 아이디로 이름을 검색
 	 * @return id에 따른 이름을 리턴해준다.
 	 */
@@ -37,6 +37,6 @@ public interface MemberDao {
 	 * @param id
 	 * @param pw
 	 */
-	public void Login(String id,String pw);
+	public boolean Login(String id,String pw);
 	
 }

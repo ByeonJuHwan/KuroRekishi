@@ -1,42 +1,34 @@
 package kurorekishimain;
 
-import java.awt.EventQueue;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import java.awt.Font;
-import javax.swing.SwingConstants;
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JTextArea;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import member.MemberDaoImpl;
 
 public class KuroRekishiMain {
 	private static final BufferedImage[] images =  new BufferedImage[5];
-	int index=0;
+	public static Map<String,String> userInfo = new  HashMap<>();
 	
+	int index=0;
+	boolean checkLogined;
+	
+	private MemberDaoImpl dao;
 	
 	private JFrame frame;
 	private JLabel lblImage;
@@ -69,6 +61,7 @@ public class KuroRekishiMain {
 	 * Create the application.
 	 */
 	public KuroRekishiMain() {
+		dao = MemberDaoImpl.getInstance();
 		initialize();
 	}
 
@@ -212,8 +205,37 @@ public class KuroRekishiMain {
 
 	private void Login() {
         // TODO map에 저장하는 기능까지 해야함.
-        
+		String id = textId.getText();
+		String pw = String.valueOf(passwordField.getPassword());
+		if((id.equals(null) || id.equals(""))&&(pw.equals(null)||pw.equals(""))){
+			JOptionPane.showMessageDialog(frame,"아이디, 비밀번호 를 입력해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
+			return;
+		}else if(id.equals(null) || id.equals("")) {
+			JOptionPane.showMessageDialog(frame, "아이디를 입력해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
+			return;
+		}else if(pw.equals(null)||pw.equals("")) {
+			JOptionPane.showMessageDialog(frame, "비밀번호를 입력해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+		checkLogined = dao.Login(id, pw);
+		
+		if(checkLogined) {
+			String name =findName(id);
+			userInfo.put(id, name);
+			System.out.println("MAP에 저장된 이름 = " +  userInfo.get(id));
+			JOptionPane.showMessageDialog(frame, "새짝을 찾아봐요~!!", "환영", JOptionPane.PLAIN_MESSAGE);
+			Login.setVisible(false);
+		}else {
+			JOptionPane.showMessageDialog(frame, "", "", JOptionPane.WARNING_MESSAGE);
+		}
+	
     }
+
+	private String findName(String id) {
+		String name = dao.fineName(id);
+		return name;
+	}
 
 	
 

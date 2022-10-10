@@ -119,20 +119,43 @@ public class MemberDaoImpl implements MemberDao{
 	}
 	
 	/**
-	 * 채팅창 이름 설정
+	 * 아이디를 주고 이름을 받는 메서드(채팅창, 로그인)
 	 */
 	@Override
 	public String fineName(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		String name = null;
+		try {
+			connDB();
+			
+			stmt = conn.prepareStatement(SQL_MEMBER_NAME_BY_ID);
+			stmt.setString(1, id);
+			
+			rs = stmt.executeQuery();
+			rs.next();
+			name = rs.getString(COL_MEM_NAME);
+			
+			
+			System.out.println("회원이름 = " + name);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		return name;
 	}
 	
 	/**
 	 * 로그인
 	 */
     @Override
-    public void Login(String id, String pw) {
-        // TODO Auto-generated method stub
+    public boolean Login(String id, String pw) {
         boolean result = false;
         try {
             connDB();
@@ -151,6 +174,7 @@ public class MemberDaoImpl implements MemberDao{
             e.printStackTrace();
         }finally {
             try {
+            	rs.close();
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
@@ -158,7 +182,6 @@ public class MemberDaoImpl implements MemberDao{
             }
             
         }
-        
+		return result;
     }
-
 }

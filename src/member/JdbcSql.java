@@ -20,6 +20,7 @@ public interface JdbcSql {
 	String SQL_LOGIN = String.format("select decode(count(*),1,'true','false') as result from %s where %s =? and %s = ?",
 	       TBL_MEMBER,COL_MEM_ID,COL_MEM_PW);
 	           
-	     
+	// 이름찾기
+	String SQL_MEMBER_NAME_BY_ID = String.format("select %s from %s where %s = ?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_ID);
 	
 }
