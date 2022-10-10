@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import oracle.jdbc.OracleDriver;
 import static member.Member.Entity.*;
 import static ojdbc.OracleJdbc.*;
+import static member.JdbcSql.*;
 
 
 public class MemberDaoImpl implements MemberDao{
@@ -16,6 +17,16 @@ public class MemberDaoImpl implements MemberDao{
 	Connection conn = null;
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
+	
+	// 데이터베이스 접속 메서드
+	private void connDB() {
+		try {
+			DriverManager.registerDriver(new OracleDriver());
+			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// singleton
     // 1. 자기자신 타입의 private static인 변수 선언
@@ -37,9 +48,32 @@ public class MemberDaoImpl implements MemberDao{
      * 
      */
     @Override
-	public boolean findMember(String id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean findIdExist(String id) {
+		boolean result = false;
+		try {
+			connDB();
+			
+			stmt = conn.prepareStatement(SQL_ISEXIST);
+			
+			stmt.setString(1, id);
+			
+			rs = stmt.executeQuery();
+			rs.next();
+			
+			result = Boolean.parseBoolean(rs.getString("result"));
+			System.out.println("result : " + result);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 
     /**
@@ -49,17 +83,30 @@ public class MemberDaoImpl implements MemberDao{
 	public int addmember(Member member) {
 		int result = 0;
 		try {
-			DriverManager.registerDriver(new OracleDriver());
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
+			connDB();
 			
+			stmt = conn.prepareStatement(SQL_INSERT_MEMBER);
 			
+			stmt.setString(1, member.getId());
+			stmt.setString(2, member.getPw());
+			stmt.setString(3, member.getName());
+			stmt.setString(4, member.getSex());
+			stmt.setString(5, member.getLocation());
+			stmt.setString(6, member.getHistory());
 			
+			result  = stmt.executeUpdate();
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		
-		
-		return 0;
+		return result;
 	}
 	
 	/**

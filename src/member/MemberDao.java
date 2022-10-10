@@ -8,7 +8,7 @@ public interface MemberDao {
 	 * @param id 회원가입시 원하는 아이디 입력.
 	 * @return 아이디가 존재하면 true, 아이디가 존재하지 않아서 사용할수 있으면 false.
 	 */
-	public boolean findMember(String id);
+	public boolean findIdExist(String id);
 	
 	/**
 	 * 새로운 멤버 객체를 받아서 저장

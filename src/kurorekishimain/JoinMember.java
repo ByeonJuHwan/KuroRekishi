@@ -19,6 +19,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import member.MemberDaoImpl;
+
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
@@ -33,6 +36,7 @@ public class JoinMember extends JFrame {
 	int index=0;
 	
 	private Component parent;
+	private MemberDaoImpl dao;
 	
 	private JPanel JoinPanel;
 	private JTextField inputId;
@@ -60,6 +64,7 @@ public class JoinMember extends JFrame {
 	
 	public JoinMember(Component parent) {
 		this.parent = parent;
+		dao = MemberDaoImpl.getInstance();
 		initialize();
 	}
 	
@@ -96,6 +101,11 @@ public class JoinMember extends JFrame {
 		JoinPanel.add(inputId);
 		
 		JButton btnCheckId = new JButton("중복확인");
+		btnCheckId.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				idIsExist();
+			}
+		});
 		btnCheckId.setFont(new Font("굴림", Font.BOLD, 16));
 		btnCheckId.setBounds(474, 10, 124, 58);
 		JoinPanel.add(btnCheckId);
@@ -197,6 +207,18 @@ public class JoinMember extends JFrame {
 		
 		
 		
+	}
+
+	private void idIsExist() {
+		boolean result = dao.findIdExist(inputId.getText());
+		if(inputId.getText().equals(null) || inputId.getText().equals("")) {
+			JOptionPane.showMessageDialog(JoinPanel, "아이디를 입력해주세요!", "Warnig", JOptionPane.WARNING_MESSAGE); // 공백을 입력한 경우
+		}else if(result == true) { 
+			JOptionPane.showMessageDialog(JoinPanel, "이미 사용중인 아이디입니다.", "중복", JOptionPane.WARNING_MESSAGE); // 중복되는 아이디를 입력한경우
+			inputId.setText("");
+		}else {
+			JOptionPane.showMessageDialog(JoinPanel, "사용할 수 있는 아이디입니다.", "사용가능", JOptionPane.PLAIN_MESSAGE); // 사용가능한 아이디
+		}
 	}
 
 	private void insertImages() {
