@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import member.Member;
 import member.MemberDaoImpl;
 
 import javax.swing.JRadioButton;
@@ -34,6 +35,7 @@ public class JoinMember extends JFrame {
 	public static final BufferedImage[] images =  new BufferedImage[5];
 	
 	int index=0;
+	int clearCheckId=0;
 	
 	private Component parent;
 	private MemberDaoImpl dao;
@@ -41,8 +43,12 @@ public class JoinMember extends JFrame {
 	private JPanel JoinPanel;
 	private JTextField inputId;
 	private JTextField inputName;
-	private JPasswordField passwordField;
+	private JPasswordField inputPw;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JRadioButton radioButtonMale;
+	private JRadioButton radioButtonFemale;
+	private JComboBox LocationcomboBox;
+	private JTextArea textAreaExperience;
 
 	/**
 	 * Launch the application.
@@ -103,7 +109,7 @@ public class JoinMember extends JFrame {
 		JButton btnCheckId = new JButton("중복확인");
 		btnCheckId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				idIsExist();
+			    clearCheckId = idIsExist();
 			}
 		});
 		btnCheckId.setFont(new Font("굴림", Font.BOLD, 16));
@@ -128,7 +134,7 @@ public class JoinMember extends JFrame {
 		JoinName_1.setBounds(0, 228, 137, 66);
 		JoinPanel.add(JoinName_1);
 		
-		JComboBox LocationcomboBox = new JComboBox(locations);
+		LocationcomboBox = new JComboBox(locations);
 		LocationcomboBox.setFont(new Font("D2Coding", Font.BOLD, 17));
 		LocationcomboBox.setBounds(149, 235, 313, 53);
 		JoinPanel.add(LocationcomboBox);
@@ -139,7 +145,7 @@ public class JoinMember extends JFrame {
 		JoinExperience.setBounds(0, 382, 137, 66);
 		JoinPanel.add(JoinExperience);
 		
-		JTextArea textAreaExperience = new JTextArea();
+		textAreaExperience = new JTextArea();
 		textAreaExperience.setFont(new Font("D2Coding", Font.BOLD, 17));
 		textAreaExperience.setBounds(149, 382, 313, 264);
 		JoinPanel.add(textAreaExperience);
@@ -173,10 +179,12 @@ public class JoinMember extends JFrame {
 		JButton btnComplete = new JButton("완료");
 		btnComplete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(index == 0) {
+				checkFindid(); // 중복확인을 하고 회원가입시 정상적으로 회원가입성공, 중복확인을 하지않을시 경고메세
+			    if(index == 0) {
 		            JOptionPane.showMessageDialog(null, "사진을 적어도 한장 넣어주세요..", "알림", JOptionPane.WARNING_MESSAGE);
 		            return;
 		        }
+				completeInsertMember();
 			}
 		});
 		btnComplete.setFont(new Font("굴림", Font.BOLD, 16));
@@ -189,17 +197,17 @@ public class JoinMember extends JFrame {
 		JoinSex.setBounds(0, 304, 137, 66);
 		JoinPanel.add(JoinSex);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(149, 76, 313, 53);
-		JoinPanel.add(passwordField);
+		inputPw = new JPasswordField();
+		inputPw.setBounds(149, 76, 313, 53);
+		JoinPanel.add(inputPw);
 		
-		JRadioButton radioButtonMale = new JRadioButton("남자");
+		radioButtonMale = new JRadioButton("남자");
 		radioButtonMale.setFont(new Font("D2Coding", Font.BOLD, 15));
 		buttonGroup.add(radioButtonMale);
 		radioButtonMale.setBounds(149, 327, 121, 23);
 		JoinPanel.add(radioButtonMale);
 		
-		JRadioButton radioButtonFemale = new JRadioButton("여자");
+		radioButtonFemale = new JRadioButton("여자");
 		radioButtonFemale.setFont(new Font("D2Coding", Font.BOLD, 15));
 		buttonGroup.add(radioButtonFemale);
 		radioButtonFemale.setBounds(341, 327, 121, 23);
@@ -208,8 +216,45 @@ public class JoinMember extends JFrame {
 		
 		
 	}
+	
+	private void checkFindid() {
+        if(clearCheckId != 1) {
+            JOptionPane.showMessageDialog(JoinPanel, "아이디 중복확인을 해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+    }
 
-	private void idIsExist() {
+    // 회원 가입완료 최종 DB에 넣는 작업.
+	private void completeInsertMember() {
+        String id = inputId.getText();
+        String pw = String.valueOf(inputPw.getPassword());
+        String name = inputName.getText();
+        String sex = null;
+        if(!radioButtonMale.isSelected() && !radioButtonFemale.isSelected()) {
+            JOptionPane.showMessageDialog(JoinPanel, "성별을 선택해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }else if(radioButtonMale.isSelected()) {
+            sex = radioButtonMale.getText();
+        }else {
+            sex = radioButtonFemale.getText();
+        }
+        String location = (String) LocationcomboBox.getSelectedItem();
+	    String history = textAreaExperience.getText();
+	    
+	    Member member  = new Member(id,pw,name,sex,location,history);
+	    
+	    int result = dao.addmember(member);
+	    
+	    if(result == 1) {
+	        JOptionPane.showMessageDialog(JoinPanel, "회원가입이 완료되었습니다.", "환영",JOptionPane.PLAIN_MESSAGE);
+	        JoinPanel.setVisible(false);
+	    }else {
+	        JOptionPane.showMessageDialog(JoinPanel, "입력이 안된 부분이 있습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
+	    }
+        
+    }
+
+    private int idIsExist() {
 		boolean result = dao.findIdExist(inputId.getText());
 		if(inputId.getText().equals(null) || inputId.getText().equals("")) {
 			JOptionPane.showMessageDialog(JoinPanel, "아이디를 입력해주세요!", "Warnig", JOptionPane.WARNING_MESSAGE); // 공백을 입력한 경우
@@ -218,7 +263,9 @@ public class JoinMember extends JFrame {
 			inputId.setText("");
 		}else {
 			JOptionPane.showMessageDialog(JoinPanel, "사용할 수 있는 아이디입니다.", "사용가능", JOptionPane.PLAIN_MESSAGE); // 사용가능한 아이디
+			clearCheckId=1;
 		}
+        return clearCheckId;
 	}
 
 	private void insertImages() {
