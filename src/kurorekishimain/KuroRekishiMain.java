@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
 
 import member.MemberDaoImpl;
 
-public class KuroRekishiMain {
+public class KuroRekishiMain implements Runnable{
 	private static final BufferedImage[] images =  new BufferedImage[5];
 	public static Map<String,String> userInfo = new  HashMap<>(); // 로그인시 로그인한 아이디, 이름을 다른 클래스에서도 쓰기위해서
 	public static String idKey = null; // idKey를 통해서 map에 저장한 value값을 가져온다.
@@ -194,15 +194,21 @@ public class KuroRekishiMain {
         btnGoNextImage.setBounds(595, 264, 41, 45);
         Main.add(btnGoNextImage);
         
-        lblMemberImages = new JLabel(new ImageIcon("usersimage\\변주환\\변주환1"));
+        lblMemberImages = new JLabel(new ImageIcon(showDiffrentSexImages()));
         lblMemberImages.setBounds(0, 0, 648, 641);
         Main.add(lblMemberImages);
 		
      // ---------------------------- 메인창작업
 		
 	} // end initialize()
+	
+	
+	private String showDiffrentSexImages() {
+        // TODO 메인창에 여자들 사진나오게 설정
+        return null;
+    }
 
-	private  String getLoginedId() {
+    private  String getLoginedId() {
 	    String userId = null;
 	    for(String id : userInfo.keySet()) {
 	        userId = id;
@@ -251,6 +257,12 @@ public class KuroRekishiMain {
 		String name = dao.fineName(id);
 		return name;
 	}
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        
+    }
 
 	
 

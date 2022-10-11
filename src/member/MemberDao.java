@@ -45,5 +45,12 @@ public interface MemberDao {
      *  회원 정보를 id로 검색해서 리턴
      */
     public List<Member> selectById(String id);
+    
+    
+    /**
+     * 메인창에 다른성별의 사진을 띄우기 위해 랜덤하게 한명을 뽑음
+     * @return 뽑은 사람의 이름을 리턴
+     */
+    public String pickUserRamdom();
 		
 }

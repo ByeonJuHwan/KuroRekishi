@@ -256,4 +256,27 @@ public class MemberDaoImpl implements MemberDao{
         }
         return list;
     }
+
+    @Override
+    public String pickUserRamdom() {
+        // TODO select NAME,SEX
+//        FROM (SELECT NAME,SEX
+//                FROM MEMBER
+//                ORDER BY DBMS_RANDOM.RANDOM)
+//        where rownum<2 and SEX='남자'; 참고해서 작성
+        String name = null;
+        try {
+            connDB();
+            
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            
+        }
+        
+        
+        
+        return null;
+    }
 }
