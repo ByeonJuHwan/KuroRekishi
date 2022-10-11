@@ -159,8 +159,6 @@ public class JoinMember extends JFrame {
 		btnMemberJoin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				insertImages();
-				String sex = sexCheck();
-				PhotoFrame.newPhotoFrame(inputName.getText(),sex);
 			}
 		});
 		btnMemberJoin.setFont(new Font("굴림", Font.BOLD, 16));
@@ -265,6 +263,7 @@ public class JoinMember extends JFrame {
             if(result == 1) {
                 JOptionPane.showMessageDialog(JoinPanel, "회원가입이 완료되었습니다.", "환영",JOptionPane.PLAIN_MESSAGE);
                 JoinPanel.setVisible(false);
+                dispose();
             }else {
                 JOptionPane.showMessageDialog(JoinPanel, "입력이 안된 부분이 있습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
             }
@@ -294,7 +293,6 @@ public class JoinMember extends JFrame {
 		// 5장까지 저장 인지 확인.
         if(index == 5) {
             JOptionPane.showMessageDialog(null, "5장 다 넣으셨습니다.", "경고", JOptionPane.WARNING_MESSAGE);
-            index=0;
             return;
         }
 	    
@@ -349,10 +347,14 @@ public class JoinMember extends JFrame {
 	                ImageIO.write(image, "png", userImages);
 	                index++;
 	                System.out.println("success");
-	                JOptionPane.showMessageDialog(parent, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
+	                JOptionPane.showMessageDialog(this, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
+	                String sex = sexCheck();
+					PhotoFrame.newPhotoFrame(this,inputName.getText(),sex);
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	            }	
+			}else {
+				return;
 			}
 		}
 	}

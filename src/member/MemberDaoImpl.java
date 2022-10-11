@@ -234,7 +234,6 @@ public class MemberDaoImpl implements MemberDao{
             
             rs = stmt.executeQuery();
             while(rs.next()) {
-                //TODO 회원 정보 작성
                 String userid = rs.getString(COL_MEM_ID);
                 String pw = rs.getString(COL_MEM_PW);
                 String name = rs.getString(COL_MEM_NAME);
@@ -258,25 +257,56 @@ public class MemberDaoImpl implements MemberDao{
     }
 
     @Override
-    public String pickUserRamdom() {
-        // TODO select NAME,SEX
-//        FROM (SELECT NAME,SEX
-//                FROM MEMBER
-//                ORDER BY DBMS_RANDOM.RANDOM)
-//        where rownum<2 and SEX='남자'; 참고해서 작성
+    public String pickUserRamdom(String sex) {
+        // TODO 
         String name = null;
+        String gender = null;
         try {
             connDB();
             
+            stmt = conn.prepareStatement(SQL_SELECT_NAME_RANDOM);
+            stmt.setString(1, sex);
             
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+            	name = rs.getString(COL_MEM_NAME);
+            	gender = rs.getString(COL_MEM_SEX);
+            }
         }catch(Exception e) {
             e.printStackTrace();
         }finally {
-            
+            try {
+				closeResources(conn, stmt, rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
         }
-        
-        
-        
-        return null;
+        return name;
     }
+
+	@Override
+	public String loginedUserSex(String id) {
+		String sex = null;
+		try {
+			connDB();
+			
+			stmt = conn.prepareStatement(SQL_SELECT_SEX_BY_ID);
+			stmt.setString(1, id);
+			
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				sex = rs.getString(COL_MEM_SEX);
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				closeResources(conn, stmt, rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return sex;
+	}
 }

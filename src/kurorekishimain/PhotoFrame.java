@@ -1,5 +1,6 @@
 package kurorekishimain;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -21,23 +22,26 @@ public class PhotoFrame extends JFrame {
 	private String name;
 	private String sex;
 	private JPanel photoPane;
+	private Component parent;
 	int index = 0;
 
 	/**
 	 * Launch the application.
+	 * @param parent 
 	 * @param name 
 	 * @param sex 
 	 */
-	public static void newPhotoFrame(String name, String sex) {
+	public static void newPhotoFrame(Component parent, String name, String sex) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				PhotoFrame frame = new PhotoFrame(name,sex);
+				PhotoFrame frame = new PhotoFrame(parent,name,sex);
 				frame.setVisible(true);
 			}
 		});
 	}
 
-	public PhotoFrame(String name, String sex) {
+	public PhotoFrame(Component parent, String name, String sex) {
+		this.parent = parent;
 		this.name = name;
 		this.sex = sex;
 		initialize();
@@ -48,7 +52,9 @@ public class PhotoFrame extends JFrame {
 	 */
 	public void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 664, 800);
+		int x = parent.getX(); // 부모창 의 X 좌표
+        int y = parent.getY(); // 부모창 의 Y 좌표
+		setBounds(x+664, y, 664, 800);
 		photoPane = new JPanel();
 		photoPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setTitle("사진 미리보기");

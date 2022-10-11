@@ -226,7 +226,6 @@ public class UpdateFrame extends JFrame {
 	}
 
     private void updateProfile() {
-        // TODO update
         String id = updateIdField.getText();
         String pw = String.valueOf(updatePasswordField.getPassword());
         String name = updateNameField.getText();
@@ -250,8 +249,8 @@ public class UpdateFrame extends JFrame {
         int result = dao.updateMember(member);
         
         if(result == 1) {
+        	dispose();
             JOptionPane.showMessageDialog(parent, "수정 완료");
-            dispose();
         }else {
             JOptionPane.showMessageDialog(parent, "수정 불가");
         }

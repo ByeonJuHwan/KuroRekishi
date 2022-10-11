@@ -26,4 +26,11 @@ public interface JdbcSql {
 	
 	// ID로 회원 정보찾기
 	String SQL_SELECT_MEMBER_BY_ID = String.format("select * from %s where %s=?", TBL_MEMBER,COL_MEM_ID);
+	
+	// ID로 회원 성별 찾기
+	String SQL_SELECT_SEX_BY_ID = String.format("select %s from %s where %s=?" ,COL_MEM_SEX,TBL_MEMBER,COL_MEM_ID);
+	
+	// Random하게 회원이름 가져와서 사진띄우기
+	String SQL_SELECT_NAME_RANDOM = String.format("select %s,%s from (select %s,%s from %s order by dbms_random.random) where rownum<2 and %s=?",
+			COL_MEM_NAME,COL_MEM_SEX,COL_MEM_NAME,COL_MEM_SEX,TBL_MEMBER,COL_MEM_SEX);
 }

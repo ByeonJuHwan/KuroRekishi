@@ -28,6 +28,7 @@ public class KuroRekishiMain implements Runnable{
 	
 	int index=0;
 	boolean checkLogined;
+	private String sex;
 	
 	private MemberDaoImpl dao;
 	
@@ -176,6 +177,11 @@ public class KuroRekishiMain implements Runnable{
         mainButtonPanel.add(btnProfile);
         
         btnNotgood = new JButton("별로에요");
+        btnNotgood.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		showDiffrentSexImages();
+        	}
+        });
         btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
         btnNotgood.setBounds(141, 651, 122, 45);
         Main.add(btnNotgood);
@@ -187,14 +193,24 @@ public class KuroRekishiMain implements Runnable{
         
         
         JButton btnGoPreImage = new JButton("<");
+        btnGoPreImage.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		goBackImage();
+        	}
+        });
         btnGoPreImage.setBounds(12, 264, 41, 45);
         Main.add(btnGoPreImage);
         
         JButton btnGoNextImage = new JButton(">");
+        btnGoNextImage.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		goPrevImage();
+        	}
+        });
         btnGoNextImage.setBounds(595, 264, 41, 45);
         Main.add(btnGoNextImage);
         
-        lblMemberImages = new JLabel(new ImageIcon(showDiffrentSexImages()));
+        lblMemberImages = new JLabel(new ImageIcon());
         lblMemberImages.setBounds(0, 0, 648, 641);
         Main.add(lblMemberImages);
 		
@@ -202,11 +218,40 @@ public class KuroRekishiMain implements Runnable{
 		
 	} // end initialize()
 	
-	
-	private String showDiffrentSexImages() {
+	// 사진을 다음장으로 이동
+	private void goPrevImage() {
+		// TODO 
+		
+	}
+	// 사진을 이전장을 이동
+	private void goBackImage() {
+		// TODO 
+		
+	}
+
+	private void showDiffrentSexImages() {
         // TODO 메인창에 여자들 사진나오게 설정
-        return null;
+		String name = null;
+		String imageLink = null;
+		if(sex.equals("여자")) { // 여자가 로그인했을때
+			name = dao.pickUserRamdom("남자");
+			imageLink = "usersImageMale/"+name+"/"+name+0;
+			System.out.println(imageLink);
+			lblMemberImages.setIcon(new ImageIcon(imageLink));
+			chageImage();
+		}else { // 남자가 로그인했을때
+			name = dao.pickUserRamdom("여자");
+			imageLink = "usersImageFeMale/"+name+"/"+name+0;
+			System.out.println(imageLink);
+			lblMemberImages.setIcon(new ImageIcon(imageLink));
+			chageImage();
+		}
     }
+	
+	private void chageImage() {
+		lblMemberImages.setBounds(0, 0, 648, 641);
+        Main.add(lblMemberImages);
+	}
 
     private  String getLoginedId() {
 	    String userId = null;
@@ -244,6 +289,13 @@ public class KuroRekishiMain implements Runnable{
 			userInfo.put(idKey, name);
 			System.out.println("MAP에 저장된 이름 = " +  userInfo.get(idKey));
 			JOptionPane.showMessageDialog(frame, "새짝을 찾아봐요~!!", "환영", JOptionPane.PLAIN_MESSAGE);
+			
+			// 아이디에따른 성별도 가져옴
+			sex = dao.loginedUserSex(idKey);
+			
+			// 기본이미지 설정
+			showDiffrentSexImages();
+			
 			Login.setVisible(false);
 			Main.setVisible(true);
 		}else {
@@ -260,7 +312,7 @@ public class KuroRekishiMain implements Runnable{
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
+        // TODO 
         
     }
 

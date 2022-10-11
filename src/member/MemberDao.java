@@ -51,6 +51,13 @@ public interface MemberDao {
      * 메인창에 다른성별의 사진을 띄우기 위해 랜덤하게 한명을 뽑음
      * @return 뽑은 사람의 이름을 리턴
      */
-    public String pickUserRamdom();
+    public String pickUserRamdom(String sex);
+    
+    /**
+     * 로그안한 사람의 성별이 여자,남자인지를 구한다
+     * 성별에따라 메인페이지 사진이 바뀜.
+     * @return 성별
+     */
+    public String loginedUserSex(String id);
 		
 }
