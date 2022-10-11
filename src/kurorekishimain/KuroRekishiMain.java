@@ -24,6 +24,7 @@ import member.MemberDaoImpl;
 public class KuroRekishiMain {
 	private static final BufferedImage[] images =  new BufferedImage[5];
 	public static Map<String,String> userInfo = new  HashMap<>();
+	public static String idKey = null;
 	
 	int index=0;
 	boolean checkLogined;
@@ -203,12 +204,12 @@ public class KuroRekishiMain {
 	} // end initialize()
 
 	private void Login() {
-		String id = textId.getText();
+		idKey = textId.getText();
 		String pw = String.valueOf(passwordField.getPassword());
-		if((id.equals(null) || id.equals(""))&&(pw.equals(null)||pw.equals(""))){
+		if((idKey.equals(null) || idKey.equals(""))&&(pw.equals(null)||pw.equals(""))){
 			JOptionPane.showMessageDialog(frame,"아이디, 비밀번호 를 입력해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
 			return;
-		}else if(id.equals(null) || id.equals("")) {
+		}else if(idKey.equals(null) || idKey.equals("")) {
 			JOptionPane.showMessageDialog(frame, "아이디를 입력해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
 			return;
 		}else if(pw.equals(null)||pw.equals("")) {
@@ -216,16 +217,16 @@ public class KuroRekishiMain {
 			return;
 		}
 		
-		checkLogined = dao.Login(id, pw);
+		checkLogined = dao.Login(idKey, pw);
 		
 		if(checkLogined) {
-			String name =findName(id);
-			userInfo.put(id, name);
-			System.out.println("MAP에 저장된 이름 = " +  userInfo.get(id));
+			String name =findName(idKey);
+			userInfo.put(idKey, name);
+			System.out.println("MAP에 저장된 이름 = " +  userInfo.get(idKey));
 			JOptionPane.showMessageDialog(frame, "새짝을 찾아봐요~!!", "환영", JOptionPane.PLAIN_MESSAGE);
 			Login.setVisible(false);
 		}else {
-			JOptionPane.showMessageDialog(frame, "", "", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "등록된 아이디가 없습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	
     }
