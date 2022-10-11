@@ -51,7 +51,9 @@ public class PhotoFrame extends JFrame {
 		setBounds(100, 100, 664, 800);
 		photoPane = new JPanel();
 		photoPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		setTitle("사진 미리보기");
+		setResizable(false);
+		
 		setContentPane(photoPane);
 		photoPane.setLayout(null);
 		

@@ -1,5 +1,7 @@
 package member;
 
+import java.util.List;
+
 public interface MemberDao {
 	
 	
@@ -23,7 +25,7 @@ public interface MemberDao {
 	 * @param member 업데이트할 정보
 	 * @return 업데이트 성공하면 1, 그렇지 않으면 0.
 	 */
-	public void updateMember(Member member);
+	public int updateMember(Member member);
 	
 	/**
 	 * 아이디를 받아서 이름을 알아내야할때 사용 (로그인, 채팅방 이름설정)
@@ -38,5 +40,10 @@ public interface MemberDao {
 	 * @param pw
 	 */
 	public boolean Login(String id,String pw);
-	
+
+    /**
+     *  회원 정보를 id로 검색해서 리턴
+     */
+    public List<Member> selectById(String id);
+		
 }

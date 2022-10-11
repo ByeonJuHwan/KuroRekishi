@@ -31,7 +31,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 
 public class JoinMember extends JFrame {
-	private static final String[] locations = {"서울","경기","충북","충남","전북","전남","경북","경남","강원도","제주"};
+	public static final String[] locations = {"서울","경기","충북","충남","전북","전남","경북","경남","강원도","제주"};
 	public static final BufferedImage[] images =  new BufferedImage[5];
 	
 	int index=0;
@@ -81,9 +81,14 @@ public class JoinMember extends JFrame {
 	 */
 	public void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 664, 800);
+		int x = parent.getX(); // 부모창 의 X 좌표
+        int y = parent.getY(); // 부모창 의 Y 좌표
+		setBounds(x, y, 664, 800);
 		JoinPanel = new JPanel();
 		JoinPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setTitle("회원가입");
+		setResizable(false);
+		
 
 		setContentPane(JoinPanel);
 		JoinPanel.setLayout(null);
@@ -330,7 +335,7 @@ public class JoinMember extends JFrame {
 			if(!newFolder.exists()) {
 			    newFolder.mkdir();
 			}
-			File userImages  = new File("usersimage\\"+inputName.getText(), inputName.getText()+index);
+			File userImages  = new File("usersImageFemale\\"+inputName.getText(), inputName.getText()+index);
 	        if(!userImages.exists()) {
 	            userImages.mkdir();
 	        }

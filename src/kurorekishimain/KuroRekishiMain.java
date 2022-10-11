@@ -23,8 +23,8 @@ import member.MemberDaoImpl;
 
 public class KuroRekishiMain {
 	private static final BufferedImage[] images =  new BufferedImage[5];
-	public static Map<String,String> userInfo = new  HashMap<>();
-	public static String idKey = null;
+	public static Map<String,String> userInfo = new  HashMap<>(); // 로그인시 로그인한 아이디, 이름을 다른 클래스에서도 쓰기위해서
+	public static String idKey = null; // idKey를 통해서 map에 저장한 value값을 가져온다.
 	
 	int index=0;
 	boolean checkLogined;
@@ -71,70 +71,13 @@ public class KuroRekishiMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		//TODO 화면 중앙에 오도록설정 / 모든 프레임 상황에 맞춰서 크기 조정
 		frame.setBounds(100, 100, 664, 800);
 		frame.setTitle("쿠로렉시");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		
-		Main = new JPanel();
-        Main.setBounds(0, 0, 648, 761);
-        frame.getContentPane().add(Main);
-        Main.setLayout(null);
-        
-        JPanel mainButtonPanel = new JPanel();
-        mainButtonPanel.setBounds(0, 701, 648, 60);
-        Main.add(mainButtonPanel);
-        mainButtonPanel.setLayout(null);
-        
-        JButton btnNewChat = new JButton("채팅");
-        btnNewChat.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ChatFrame.newChatFrame();
-            }
-        });
-        btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnNewChat.setBounds(140, 5, 122, 45);
-        mainButtonPanel.add(btnNewChat);
-        
-        JButton btnProfile = new JButton("프로필");
-        btnProfile.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		// 프로필 수정/업데이트
-        		UpdateFrame.newUpdateFrame();
-        	}
-        });
-        btnProfile.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnProfile.setBounds(382, 5, 122, 45);
-        mainButtonPanel.add(btnProfile);
-        
-        btnNotgood = new JButton("별로에요");
-        btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnNotgood.setBounds(141, 651, 122, 45);
-        Main.add(btnNotgood);
-        
-        JButton btnGood = new JButton("좋아요");
-        btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnGood.setBounds(380, 651, 122, 45);
-        Main.add(btnGood);
-        
-        
-        JButton btnGoPreImage = new JButton("<");
-        btnGoPreImage.setBounds(12, 264, 41, 45);
-        Main.add(btnGoPreImage);
-        
-        JButton btnGoNextImage = new JButton(">");
-        btnGoNextImage.setBounds(595, 264, 41, 45);
-        Main.add(btnGoNextImage);
-        
-        lblMemberImages = new JLabel(new ImageIcon("usersimage\\변주환\\변주환1"));
-        lblMemberImages.setBounds(0, 0, 648, 641);
-        Main.add(lblMemberImages);
-        
-		
-		// ---------------------------- 메인창작업
-		
+		frame.setLocationRelativeTo(null);
 		
 		Login = new JPanel();
         Login.setBounds(0, 0, 658, 766);
@@ -196,16 +139,85 @@ public class KuroRekishiMain {
         lblImage.setBounds(0, 0, 646, 766);
         Login.add(lblImage);
 	    
-	    //------------------------------ 사진입력창
+	    //------------------------------ 로그인창
         
+        Main = new JPanel();
+        Main.setBounds(0, 0, 648, 761);
+        frame.getContentPane().add(Main);
+        Main.setLayout(null);
+        Main.setVisible(false);
+        
+        JPanel mainButtonPanel = new JPanel();
+        mainButtonPanel.setBounds(0, 701, 648, 60);
+        Main.add(mainButtonPanel);
+        mainButtonPanel.setLayout(null);
+        
+        JButton btnNewChat = new JButton("채팅");
+        btnNewChat.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ChatFrame.newChatFrame();
+            }
+        });
+        btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
+        btnNewChat.setBounds(140, 5, 122, 45);
+        mainButtonPanel.add(btnNewChat);
+        
+        JButton btnProfile = new JButton("프로필");
+        btnProfile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // 프로필 수정/업데이트
+                String id = getLoginedId();
+                System.out.println(id);
+                UpdateFrame.newUpdateFrame(frame,id);
+            }
+        });
+        btnProfile.setFont(new Font("D2Coding", Font.BOLD, 16));
+        btnProfile.setBounds(382, 5, 122, 45);
+        mainButtonPanel.add(btnProfile);
+        
+        btnNotgood = new JButton("별로에요");
+        btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
+        btnNotgood.setBounds(141, 651, 122, 45);
+        Main.add(btnNotgood);
+        
+        JButton btnGood = new JButton("좋아요");
+        btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
+        btnGood.setBounds(380, 651, 122, 45);
+        Main.add(btnGood);
+        
+        
+        JButton btnGoPreImage = new JButton("<");
+        btnGoPreImage.setBounds(12, 264, 41, 45);
+        Main.add(btnGoPreImage);
+        
+        JButton btnGoNextImage = new JButton(">");
+        btnGoNextImage.setBounds(595, 264, 41, 45);
+        Main.add(btnGoNextImage);
+        
+        lblMemberImages = new JLabel(new ImageIcon("usersimage\\변주환\\변주환1"));
+        lblMemberImages.setBounds(0, 0, 648, 641);
+        Main.add(lblMemberImages);
 		
-		
+     // ---------------------------- 메인창작업
 		
 	} // end initialize()
 
-	private void Login() {
+	private  String getLoginedId() {
+	    String userId = null;
+	    for(String id : userInfo.keySet()) {
+	        userId = id;
+       }
+        return userId;
+    }
+
+    private void Login() {
+        // 입력창에서 아이디, 비밀번호를 받는다.
 		idKey = textId.getText();
 		String pw = String.valueOf(passwordField.getPassword());
+		System.out.println("ID : " + idKey);
+		System.out.println("PW : " + pw);
+		
+		// 아이디 또는 비밀번호를 입력하지 않았을경우
 		if((idKey.equals(null) || idKey.equals(""))&&(pw.equals(null)||pw.equals(""))){
 			JOptionPane.showMessageDialog(frame,"아이디, 비밀번호 를 입력해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
 			return;
@@ -217,15 +229,19 @@ public class KuroRekishiMain {
 			return;
 		}
 		
+		// 로그인 메서드로 유저가 있는지 없는지 검사.
 		checkLogined = dao.Login(idKey, pw);
 		
+		// 회원인 경우에는 map에 id,이름을 저장하고 메인화면 입장.
 		if(checkLogined) {
 			String name =findName(idKey);
 			userInfo.put(idKey, name);
 			System.out.println("MAP에 저장된 이름 = " +  userInfo.get(idKey));
 			JOptionPane.showMessageDialog(frame, "새짝을 찾아봐요~!!", "환영", JOptionPane.PLAIN_MESSAGE);
 			Login.setVisible(false);
+			Main.setVisible(true);
 		}else {
+		    // 회원이 아닌경우 회원가입 유도.
 			JOptionPane.showMessageDialog(frame, "등록된 아이디가 없습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	

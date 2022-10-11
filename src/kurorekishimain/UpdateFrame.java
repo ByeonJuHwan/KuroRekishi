@@ -1,14 +1,18 @@
 package kurorekishimain;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import member.Member;
 import member.MemberDaoImpl;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -19,42 +23,97 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class UpdateFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
-	private JTextField textField_1;
+	private JTextField updateIdField;
+	private JPasswordField updatePasswordField;
+	private JTextField updateNameField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private MemberDaoImpl dao;
-
+	private Component parent;
+	private String loginedId;
+	private JTextArea updateTextAreaExperience;
+	private JRadioButton radioButtonMale;
+	private JRadioButton radioButtonFemale;
+	private JComboBox updateLocationcomboBox;
 	/**
 	 * Launch the application.
+	 * @param loginedId 
+	 * @param frame 
 	 */
-	public static void newUpdateFrame() {
+	public static void newUpdateFrame(Component parent, String loginedId) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-					UpdateFrame frame = new UpdateFrame();
+					UpdateFrame frame = new UpdateFrame(parent,loginedId);
 					frame.setVisible(true);
 			}
 		});
 	}
 	
-	public UpdateFrame() {
+	public UpdateFrame(Component parent, String loginedId) {
+	    this.parent = parent;
+	    this.loginedId = loginedId;
 		dao = MemberDaoImpl.getInstance();
 		initialize();
+		inserInfo(); // 현재 로그인하고 있는 회원의 정보를 상세 정보창에 입력.
 	}
 
-	/**
+	private void inserInfo() {
+       List<Member> list = dao.selectById(loginedId);
+       for(Member m : list) {
+           updateIdField.setText(m.getId());
+           updatePasswordField.setText(m.getPw());
+           updateNameField.setText(m.getName());
+           updateTextAreaExperience.setText(m.getHistory());
+           // 성별
+           if(m.getSex().equals("남자")) {
+               radioButtonMale.setSelected(true);
+           }else {
+               radioButtonFemale.setSelected(true);
+           }
+           // 주소
+           if(m.getLocation().equals("서울")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[0]);
+           }else if(m.getLocation().equals("경기")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[1]);
+           }else if(m.getLocation().equals("충북")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[2]);
+           }else if(m.getLocation().equals("충남")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[3]);
+           }else if(m.getLocation().equals("전북")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[4]);
+           }else if(m.getLocation().equals("전남")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[5]);
+           }else if(m.getLocation().equals("경북")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[6]);
+           }else if(m.getLocation().equals("경남")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[7]);
+           }else if(m.getLocation().equals("강원도")) {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[8]);
+           }else {
+               updateLocationcomboBox.setSelectedItem(JoinMember.locations[9]);
+           }
+       }
+    }
+
+    
+
+    /**
 	 * Create the frame.
 	 */
 	public void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 664, 800);
+		int x = parent.getX();
+		int y = parent.getY();
+		setBounds(x, y, 664, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setTitle("프로필 수정");
+		setResizable(false);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -65,21 +124,22 @@ public class UpdateFrame extends JFrame {
 		JoinId.setBounds(0, 0, 137, 66);
 		contentPane.add(JoinId);
 		
-		textField = new JTextField();
-		textField.setFont(new Font("D2Coding", Font.BOLD, 17));
-		textField.setColumns(10);
-		textField.setBounds(149, 10, 313, 53);
-		contentPane.add(textField);
+		updateIdField = new JTextField();
+		updateIdField.setFont(new Font("D2Coding", Font.BOLD, 17));
+		updateIdField.setColumns(10);
+		updateIdField.setBounds(149, 10, 313, 53);
+		updateIdField.setEditable(false);
+		contentPane.add(updateIdField);
 		
-		JLabel JoinPw = new JLabel("비밀번호");
-		JoinPw.setHorizontalAlignment(SwingConstants.CENTER);
-		JoinPw.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinPw.setBounds(0, 76, 137, 66);
-		contentPane.add(JoinPw);
+		JLabel updatePwField = new JLabel("비밀번호");
+		updatePwField.setHorizontalAlignment(SwingConstants.CENTER);
+		updatePwField.setFont(new Font("굴림체", Font.BOLD, 18));
+		updatePwField.setBounds(0, 76, 137, 66);
+		contentPane.add(updatePwField);
 		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(149, 89, 313, 53);
-		contentPane.add(passwordField);
+		updatePasswordField = new JPasswordField();
+		updatePasswordField.setBounds(149, 89, 313, 53);
+		contentPane.add(updatePasswordField);
 		
 		JLabel JoinName = new JLabel("이름");
 		JoinName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -87,11 +147,11 @@ public class UpdateFrame extends JFrame {
 		JoinName.setBounds(0, 152, 137, 66);
 		contentPane.add(JoinName);
 		
-		textField_1 = new JTextField();
-		textField_1.setFont(new Font("D2Coding", Font.BOLD, 17));
-		textField_1.setColumns(10);
-		textField_1.setBounds(149, 165, 313, 53);
-		contentPane.add(textField_1);
+		updateNameField = new JTextField();
+		updateNameField.setFont(new Font("D2Coding", Font.BOLD, 17));
+		updateNameField.setColumns(10);
+		updateNameField.setBounds(149, 165, 313, 53);
+		contentPane.add(updateNameField);
 		
 		JLabel JoinName_1 = new JLabel("주소");
 		JoinName_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -99,10 +159,10 @@ public class UpdateFrame extends JFrame {
 		JoinName_1.setBounds(0, 228, 137, 66);
 		contentPane.add(JoinName_1);
 		
-		JComboBox LocationcomboBox = new JComboBox(new Object[]{});
-		LocationcomboBox.setFont(new Font("D2Coding", Font.BOLD, 17));
-		LocationcomboBox.setBounds(149, 228, 313, 53);
-		contentPane.add(LocationcomboBox);
+		updateLocationcomboBox = new JComboBox(JoinMember.locations);
+		updateLocationcomboBox.setFont(new Font("D2Coding", Font.BOLD, 17));
+		updateLocationcomboBox.setBounds(149, 228, 313, 53);
+		contentPane.add(updateLocationcomboBox);
 		
 		JLabel JoinSex = new JLabel("성별");
 		JoinSex.setHorizontalAlignment(SwingConstants.CENTER);
@@ -110,13 +170,13 @@ public class UpdateFrame extends JFrame {
 		JoinSex.setBounds(0, 304, 137, 66);
 		contentPane.add(JoinSex);
 		
-		JRadioButton radioButtonMale = new JRadioButton("남자");
+		radioButtonMale = new JRadioButton("남자");
 		buttonGroup.add(radioButtonMale);
 		radioButtonMale.setFont(new Font("D2Coding", Font.BOLD, 15));
 		radioButtonMale.setBounds(149, 327, 121, 23);
 		contentPane.add(radioButtonMale);
 		
-		JRadioButton radioButtonFemale = new JRadioButton("여자");
+		radioButtonFemale = new JRadioButton("여자");
 		buttonGroup.add(radioButtonFemale);
 		radioButtonFemale.setFont(new Font("D2Coding", Font.BOLD, 15));
 		radioButtonFemale.setBounds(341, 327, 121, 23);
@@ -128,10 +188,10 @@ public class UpdateFrame extends JFrame {
 		JoinExperience.setBounds(0, 380, 137, 66);
 		contentPane.add(JoinExperience);
 		
-		JTextArea textAreaExperience = new JTextArea();
-		textAreaExperience.setFont(new Font("D2Coding", Font.BOLD, 17));
-		textAreaExperience.setBounds(149, 380, 313, 264);
-		contentPane.add(textAreaExperience);
+		updateTextAreaExperience = new JTextArea();
+		updateTextAreaExperience.setFont(new Font("D2Coding", Font.BOLD, 17));
+		updateTextAreaExperience.setBounds(149, 380, 313, 264);
+		contentPane.add(updateTextAreaExperience);
 		
 		JLabel lblNewLabel = new JLabel("자신의 흑역사를 간단하게 적어주세요!!");
 		lblNewLabel.setFont(new Font("D2Coding", Font.BOLD, 12));
@@ -157,16 +217,43 @@ public class UpdateFrame extends JFrame {
 		btnComplete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// TODO dao.update로 프로필 수정
-				
+				updateProfile();
 			}
 		});
 		btnComplete.setFont(new Font("굴림", Font.BOLD, 16));
 		btnComplete.setBounds(365, 691, 124, 58);
 		contentPane.add(btnComplete);
-		
-		JButton btnCheckId = new JButton("중복확인");
-		btnCheckId.setFont(new Font("굴림", Font.BOLD, 16));
-		btnCheckId.setBounds(495, 10, 124, 58);
-		contentPane.add(btnCheckId);
 	}
+
+    private void updateProfile() {
+        // TODO update
+        String id = updateIdField.getText();
+        String pw = String.valueOf(updatePasswordField.getPassword());
+        String name = updateNameField.getText();
+        String loc = (String) updateLocationcomboBox.getSelectedItem();
+        String sex = null;
+        if(radioButtonMale.isSelected()) {
+            sex = radioButtonMale.getText();
+        }else {
+            sex = radioButtonFemale.getText();
+        }
+        String history = updateTextAreaExperience.getText();
+        
+        Member member  = new Member(id,pw,name,loc,sex,history);
+        System.out.println(id);
+        System.out.println(pw);
+        System.out.println(name);
+        System.out.println(loc);
+        System.out.println(sex);
+        System.out.println(history);
+        
+        int result = dao.updateMember(member);
+        
+        if(result == 1) {
+            JOptionPane.showMessageDialog(parent, "수정 완료");
+            dispose();
+        }else {
+            JOptionPane.showMessageDialog(parent, "수정 불가");
+        }
+    }
 }

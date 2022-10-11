@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import oracle.jdbc.OracleDriver;
 import static member.Member.Entity.*;
@@ -27,6 +30,18 @@ public class MemberDaoImpl implements MemberDao{
 			e.printStackTrace();
 		}
 	}
+	
+	// 연결 close() 시 사용하는 메서드 -- executeUpdate() 인경우
+	private void closeResources(Connection conn, Statement stmt) throws SQLException{
+        stmt.close();
+        conn.close();
+    }
+	
+	// 연결 close() 시 사용하는 메서드 -- executeQuery() 인경우 / 위 메서드를 오버로드 해준다.
+	private void closeResources(Connection conn, Statement stmt, ResultSet rs) throws SQLException{
+        rs.close();
+        closeResources(conn,stmt);
+    }
 
 	// singleton
     // 1. 자기자신 타입의 private static인 변수 선언
@@ -67,8 +82,7 @@ public class MemberDaoImpl implements MemberDao{
 			e.printStackTrace();
 		}finally {
 			try {
-				stmt.close();
-				conn.close();
+				closeResources(conn, stmt, rs);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -100,8 +114,7 @@ public class MemberDaoImpl implements MemberDao{
 			e.printStackTrace();
 		}finally {
 			try {
-				stmt.close();
-				conn.close();
+				closeResources(conn, stmt);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -111,11 +124,35 @@ public class MemberDaoImpl implements MemberDao{
 	
 	/**
 	 * 회원수정
+	 * @return 
 	 */
 	@Override
-	public void updateMember(Member member) {
-		// TODO Auto-generated method stub
-		
+	public int updateMember(Member member) {
+        int result = 0;
+	    try {
+	        connDB();
+	        
+	        stmt = conn.prepareStatement(SQL_UPDATE_MEMBER);
+	        stmt.setString(1, member.getId());
+	        stmt.setString(2, member.getPw());
+	        stmt.setString(3, member.getName());
+	        stmt.setString(4, member.getSex());
+	        stmt.setString(5, member.getLocation());
+	        stmt.setString(6, member.getHistory());
+	        stmt.setString(7, member.getId());
+	        
+	        result = stmt.executeUpdate();
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	    }finally {
+	        try {
+                closeResources(conn, stmt);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+	    }
+	    System.out.println("result = " + result);
+	    return result;
 	}
 	
 	/**
@@ -140,9 +177,7 @@ public class MemberDaoImpl implements MemberDao{
 			e.printStackTrace();
 		}finally {
 			try {
-				rs.close();
-				stmt.close();
-				conn.close();
+				closeResources(conn, stmt, rs);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -166,22 +201,59 @@ public class MemberDaoImpl implements MemberDao{
             stmt.setString(2, pw);
             
             rs = stmt.executeQuery();
-            rs.next();
-            
-            result = Boolean.parseBoolean(rs.getString("result"));
-            System.out.println("result : " + result);
+            if(rs.next()) {
+                result = Boolean.parseBoolean(rs.getString("result"));
+                System.out.println("result : " + result);
+            }
         }catch(Exception e) {
             e.printStackTrace();
         }finally {
             try {
-            	rs.close();
-                stmt.close();
-                conn.close();
+            	closeResources(conn, stmt, rs);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             
         }
 		return result;
+    }
+
+    
+    /**
+     *  회원 정보를 id로 검색해서 리턴
+     */
+    @Override
+    public List<Member> selectById(String id) {
+        List<Member> list = new  ArrayList<Member>();
+        try {
+            connDB();
+            
+            stmt = conn.prepareStatement(SQL_SELECT_MEMBER_BY_ID);
+            
+            stmt.setString(1, id);
+            
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                //TODO 회원 정보 작성
+                String userid = rs.getString(COL_MEM_ID);
+                String pw = rs.getString(COL_MEM_PW);
+                String name = rs.getString(COL_MEM_NAME);
+                String sex = rs.getString(COL_MEM_SEX);
+                String loc = rs.getString(COL_MEM_LOC);
+                String history = rs.getString(COL_MEM_HISTORY);
+                
+                Member member = new Member(userid,pw,name,sex,loc,history);
+                list.add(member);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) { 
+                e.printStackTrace();
+            }
+        }
+        return list;
     }
 }

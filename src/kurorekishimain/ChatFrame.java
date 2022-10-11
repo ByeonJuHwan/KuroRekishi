@@ -80,10 +80,11 @@ public class ChatFrame extends JFrame implements Runnable{
 	 */
 	public void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//TODO 메인프레임에서 바로 오른쪽 옆에 채팅창이 뜨도록 setBounds 메인프레임 componet받아서 설정 getX,getY
 		setBounds(760, 100, 664, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		setResizable(false);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
