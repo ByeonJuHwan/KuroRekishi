@@ -30,10 +30,12 @@ import javax.swing.SwingConstants;
 
 import member.MemberDaoImpl;
 import server.MultiServerThread;
+import server.ServerMain;
 
 public class KuroRekishiMain implements Runnable{
 	private static final BufferedImage[] images =  new BufferedImage[5];
 	public static Map<String,String> userInfo = new  HashMap<>(); // 로그인시 로그인한 아이디, 이름을 다른 클래스에서도 쓰기위해서
+//	public static Map<String, String> wantChat = new HashMap<>();
 	public static String idKey = null; // idKey를 통해서 map에 저장한 value값을 가져온다.
 	public static ArrayList<MultiServerThread> list;
 	
@@ -45,7 +47,7 @@ public class KuroRekishiMain implements Runnable{
 	
 	private MemberDaoImpl dao;
 	
-	private JFrame frame;
+	private static JFrame frame;
 	private JLabel lblImage;
 	private JTextField textId;
 	private JPasswordField passwordField;
@@ -142,7 +144,7 @@ public class KuroRekishiMain implements Runnable{
         	public void actionPerformed(ActionEvent e) {
         	   Login();
         	   //TODO 받은 채팅의 사람이 로그인했는지 확인하고 알림발송
-//        	   ChatFrame.newChatFrame(frame);
+        	   ServerMain.checkThumb();
         	}
         });
         btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
@@ -215,7 +217,6 @@ public class KuroRekishiMain implements Runnable{
         JButton btnGood = new JButton("좋아요");
         btnGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ChatFrame.newChatFrame(frame);
                 giveThumb();
             }
         });
@@ -251,8 +252,9 @@ public class KuroRekishiMain implements Runnable{
 	} // end initialize()
 	
 	public static void giveThumb() {
-        
-        
+	    ServerMain.wantChat.put(name, userInfo.get(idKey));
+	    System.out.println("wantChat = " + ServerMain.wantChat);
+        ChatFrame.newChatFrame(frame);
     }
 
     // 사진을 다음장으로 이동
