@@ -57,16 +57,6 @@ public class KuroRekishiMain {
 	private JButton btnNotgood;
 	private JLabel lblMemberImages;
 	
-	
-	InputStream is;
-    OutputStream os;
-    Socket socket = null;
-    BufferedReader br_in;
-    BufferedReader br_out;
-    PrintWriter pw = null;
-    BufferedWriter bw;
-    String message = null;
-
 	/**
 	 * Launch the application.
 	 */
