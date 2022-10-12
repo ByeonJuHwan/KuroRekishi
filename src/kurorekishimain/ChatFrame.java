@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import member.MemberDaoImpl;
+import server.MultiServerThread;
+import server.ServerMain;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

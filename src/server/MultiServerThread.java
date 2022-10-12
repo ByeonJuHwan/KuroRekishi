@@ -48,12 +48,10 @@ public class MultiServerThread extends Thread{
             
         }catch(Exception e){
         	ServerMain.list.remove(this);
-            e.printStackTrace();
+//            System.out.println(ChatFrame.socket.getInetAddress()+"비정상 종료됩니다.");
+            System.out.println("남은 사용자 수 : " + ServerMain.list.size());
         }
     }
-
-   
-	
 
 	private void chat(String message) {
         System.out.println("Chatting");
@@ -63,7 +61,7 @@ public class MultiServerThread extends Thread{
         
     }
 
-    private void send(String message) {
+    public void send(String message) {
         pw.println(message);
         
     }

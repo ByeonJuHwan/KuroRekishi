@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 import member.Member;
 import member.MemberDaoImpl;
 import server.MultiServerThread;
+import server.ServerMain;
 
 
 public class KuroRekishiMain {
