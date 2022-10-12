@@ -27,16 +27,18 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 
 public class ChatFrame extends JFrame implements Runnable{
 	private static final String SERVER_IP = "127.0.0.1";
 	public static Socket socket;
 	private MemberDaoImpl dao;
+	private Component parent;
 	
 	private JPanel contentPane;
 	public static JTextField textField;
 	private JButton btnSend;
-	
 	private String chatName;
 	private String ip;
 	private InputStream is;
@@ -50,16 +52,17 @@ public class ChatFrame extends JFrame implements Runnable{
 	/**
 	 * Launch the application.
 	 */
-	public static void newChatFrame() {
+	public static void newChatFrame(Component parent) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				ChatFrame frame = new ChatFrame();
+				ChatFrame frame = new ChatFrame(parent);
 				frame.setVisible(true);
 			}
 		});
 	}
 
-	public ChatFrame() {
+	public ChatFrame(Component parent) {
+	    this.parent = parent;
 		dao = MemberDaoImpl.getInstance();
 		insertChatName();
 		initialize();
@@ -81,7 +84,9 @@ public class ChatFrame extends JFrame implements Runnable{
 	public void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//TODO 메인프레임에서 바로 오른쪽 옆에 채팅창이 뜨도록 setBounds 메인프레임 componet받아서 설정 getX,getY
-		setBounds(760, 100, 664, 500);
+		int x = parent.getX();
+		int y = parent.getY();
+		setBounds(x+664, y, 664, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setResizable(false);
@@ -134,6 +139,8 @@ public class ChatFrame extends JFrame implements Runnable{
 		contentPane.add(btnSend);
 		
 		textArea = new JTextArea();
+		textArea.setFont(new Font("D2Coding", Font.BOLD, 15));
+		textArea.setEditable(false);
 		textArea.setBackground(Color.PINK);
 		textArea.setBounds(0, 37, 648, 393);
 		contentPane.add(textArea);

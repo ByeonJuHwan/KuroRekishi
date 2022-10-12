@@ -6,6 +6,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,16 +29,19 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import member.MemberDaoImpl;
+import server.MultiServerThread;
 
 public class KuroRekishiMain implements Runnable{
 	private static final BufferedImage[] images =  new BufferedImage[5];
 	public static Map<String,String> userInfo = new  HashMap<>(); // 로그인시 로그인한 아이디, 이름을 다른 클래스에서도 쓰기위해서
 	public static String idKey = null; // idKey를 통해서 map에 저장한 value값을 가져온다.
+	public static ArrayList<MultiServerThread> list;
+	
 	
 	int index=0;
 	boolean checkLogined;
 	private String sex; // 어떤 성별이 로그인 되느냐에 따라 남자면 여자사진, 여자면 남자사진이 띄워짐.
-	private String name; // 랜덤으로 받아오는 이름 -- 이 이름에 따라 메인화면에 띄워지는 사진이 바뀐다.
+	public static String name; // 랜덤으로 받아오는 이름 -- 이 이름에 따라 메인화면에 띄워지는 사진이 바뀐다.
 	
 	private MemberDaoImpl dao;
 	
@@ -43,6 +55,16 @@ public class KuroRekishiMain implements Runnable{
 	private JPanel Main;
 	private JButton btnNotgood;
 	private JLabel lblMemberImages;
+	
+	
+	InputStream is;
+    OutputStream os;
+    Socket socket = null;
+    BufferedReader br_in;
+    BufferedReader br_out;
+    PrintWriter pw = null;
+    BufferedWriter bw;
+    String message = null;
 
 	/**
 	 * Launch the application.
@@ -68,18 +90,17 @@ public class KuroRekishiMain implements Runnable{
 		initialize();
 	}
 
-	/**
+    /**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		//TODO 화면 중앙에 오도록설정 / 모든 프레임 상황에 맞춰서 크기 조정
-		frame.setBounds(100, 100, 664, 800);
+		frame.setBounds(200, 200, 664, 800);
 		frame.setTitle("쿠로렉시");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
+		
 		
 		Login = new JPanel();
         Login.setBounds(0, 0, 658, 766);
@@ -106,11 +127,13 @@ public class KuroRekishiMain implements Runnable{
         Login.add(lblPw);
 		
         textId = new JTextField();
+        textId.setFont(new Font("D2Coding", Font.BOLD, 15));
         textId.setBounds(187, 634, 260, 41);
         Login.add(textId);
         textId.setColumns(10);
         
         passwordField = new JPasswordField();
+        passwordField.setFont(new Font("D2Coding", Font.BOLD, 15));
         passwordField.setBounds(187, 685, 260, 41);
         Login.add(passwordField);
         
@@ -118,6 +141,8 @@ public class KuroRekishiMain implements Runnable{
         btnLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	   Login();
+        	   //TODO 받은 채팅의 사람이 로그인했는지 확인하고 알림발송
+//        	   ChatFrame.newChatFrame(frame);
         	}
         });
         btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
@@ -157,7 +182,7 @@ public class KuroRekishiMain implements Runnable{
         JButton btnNewChat = new JButton("채팅");
         btnNewChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ChatFrame.newChatFrame();
+                
             }
         });
         btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -188,6 +213,12 @@ public class KuroRekishiMain implements Runnable{
         Main.add(btnNotgood);
         
         JButton btnGood = new JButton("좋아요");
+        btnGood.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ChatFrame.newChatFrame(frame);
+                giveThumb();
+            }
+        });
         btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
         btnGood.setBounds(380, 651, 122, 45);
         Main.add(btnGood);
@@ -219,7 +250,12 @@ public class KuroRekishiMain implements Runnable{
 		
 	} // end initialize()
 	
-	// 사진을 다음장으로 이동
+	public static void giveThumb() {
+        
+        
+    }
+
+    // 사진을 다음장으로 이동
 	private void goNextImage() {
         if(index<4) {
             index++;
