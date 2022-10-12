@@ -28,7 +28,8 @@ public class KuroRekishiMain implements Runnable{
 	
 	int index=0;
 	boolean checkLogined;
-	private String sex;
+	private String sex; // 어떤 성별이 로그인 되느냐에 따라 남자면 여자사진, 여자면 남자사진이 띄워짐.
+	private String name; // 랜덤으로 받아오는 이름 -- 이 이름에 따라 메인화면에 띄워지는 사진이 바뀐다.
 	
 	private MemberDaoImpl dao;
 	
@@ -204,7 +205,7 @@ public class KuroRekishiMain implements Runnable{
         JButton btnGoNextImage = new JButton(">");
         btnGoNextImage.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		goPrevImage();
+        	    goNextImage();
         	}
         });
         btnGoNextImage.setBounds(595, 264, 41, 45);
@@ -219,19 +220,58 @@ public class KuroRekishiMain implements Runnable{
 	} // end initialize()
 	
 	// 사진을 다음장으로 이동
-	private void goPrevImage() {
-		// TODO 
-		
+	private void goNextImage() {
+        if(index<4) {
+            index++;
+        }else {
+            index=0;
+        }
+        goNext();
 	}
-	// 사진을 이전장을 이동
+	
+	private void goNext() {
+	    String imageLink = null;
+	    if(sex.equals("여자")) { // 여자가 로그인했을때
+            imageLink = "usersImageMale/"+name+"/"+name+index;
+            System.out.println(imageLink);
+            lblMemberImages.setIcon(new ImageIcon(imageLink));
+            chageImage();
+        }else { // 남자가 로그인했을때
+            imageLink = "usersImageFeMale/"+name+"/"+name+index;
+            System.out.println(imageLink);
+            lblMemberImages.setIcon(new ImageIcon(imageLink));
+            chageImage();
+        }
+        
+    }
+
+    // 사진을 이전장을 이동
 	private void goBackImage() {
-		// TODO 
-		
+	    if(index>0) {
+	        index--;
+	    }else {
+	        index=4;
+	    }
+		goBack();
 	}
 
-	private void showDiffrentSexImages() {
-        // TODO 메인창에 여자들 사진나오게 설정
-		String name = null;
+	private void goBack() {
+	    String imageLink = null;
+        if(sex.equals("여자")) { // 여자가 로그인했을때
+            imageLink = "usersImageMale/"+name+"/"+name+index;
+            System.out.println(imageLink);
+            lblMemberImages.setIcon(new ImageIcon(imageLink));
+            chageImage();
+        }else { // 남자가 로그인했을때
+            imageLink = "usersImageFeMale/"+name+"/"+name+index;
+            System.out.println(imageLink);
+            lblMemberImages.setIcon(new ImageIcon(imageLink));
+            chageImage();
+        }
+    }
+
+    private void showDiffrentSexImages() {
+		name = null;
 		String imageLink = null;
 		if(sex.equals("여자")) { // 여자가 로그인했을때
 			name = dao.pickUserRamdom("남자");

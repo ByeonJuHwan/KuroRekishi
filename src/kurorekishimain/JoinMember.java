@@ -184,10 +184,6 @@ public class JoinMember extends JFrame {
 		btnComplete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				checkFindid(); // 중복확인을 하고 회원가입시 정상적으로 회원가입성공, 중복확인을 하지않을시 경고메세
-			    if(index == 0) {
-		            JOptionPane.showMessageDialog(null, "사진을 적어도 한장 넣어주세요..", "알림", JOptionPane.WARNING_MESSAGE);
-		            return;
-		        }
 				completeInsertMember();
 			}
 		});
@@ -220,7 +216,8 @@ public class JoinMember extends JFrame {
 		
 		
 	}
-	// photoFrame으로 가는 성별에 따라서 선택되는 폴더가 다르기때문
+
+    // photoFrame으로 가는 성별에 따라서 선택되는 폴더가 다르기때문
 	private String sexCheck() {
 		String sex = null;
 		if(radioButtonFemale.isSelected()) {
@@ -241,6 +238,14 @@ public class JoinMember extends JFrame {
     // 회원 가입완료 최종 DB에 넣는 작업.
 	private void completeInsertMember() {
         try {
+            if(index == 0) {
+                JOptionPane.showMessageDialog(JoinPanel, "사진을 적어도 한장 넣어주세요..", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }else if(index !=5 ){
+                JOptionPane.showMessageDialog(JoinPanel, "사진은 5장까지 넣어주세요", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            } // 사진이 5장 다 들어있거나, 0장일경우 메서드 종료.
+            
             String id = inputId.getText();
             String pw = String.valueOf(inputPw.getPassword());
             String name = inputName.getText();

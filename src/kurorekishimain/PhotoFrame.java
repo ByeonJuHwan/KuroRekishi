@@ -54,7 +54,7 @@ public class PhotoFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		int x = parent.getX(); // 부모창 의 X 좌표
         int y = parent.getY(); // 부모창 의 Y 좌표
-		setBounds(x+664, y, 664, 800);
+		setBounds(x, y, 664, 800);
 		photoPane = new JPanel();
 		photoPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setTitle("사진 미리보기");
@@ -69,7 +69,7 @@ public class PhotoFrame extends JFrame {
 		showImages();
 	}
 
-	//TODO 2번째사진은 안나옴. 나머지 4장은 겁나잘나옴
+	
 	private String showImages() {
 		String image = null;
 		
