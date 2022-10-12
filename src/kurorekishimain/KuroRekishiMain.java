@@ -11,8 +11,6 @@ import java.io.BufferedWriter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,14 +26,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import member.Member;
 import member.MemberDaoImpl;
 import server.MultiServerThread;
-import server.ServerMain;
 
-public class KuroRekishiMain implements Runnable{
+
+public class KuroRekishiMain {
 	private static final BufferedImage[] images =  new BufferedImage[5];
 	public static Map<String,String> userInfo = new  HashMap<>(); // 로그인시 로그인한 아이디, 이름을 다른 클래스에서도 쓰기위해서
-//	public static Map<String, String> wantChat = new HashMap<>();
 	public static String idKey = null; // idKey를 통해서 map에 저장한 value값을 가져온다.
 	public static ArrayList<MultiServerThread> list;
 	
@@ -47,7 +45,7 @@ public class KuroRekishiMain implements Runnable{
 	
 	private MemberDaoImpl dao;
 	
-	private static JFrame frame;
+	private JFrame frame;
 	private JLabel lblImage;
 	private JTextField textId;
 	private JPasswordField passwordField;
@@ -144,7 +142,7 @@ public class KuroRekishiMain implements Runnable{
         	public void actionPerformed(ActionEvent e) {
         	   Login();
         	   //TODO 받은 채팅의 사람이 로그인했는지 확인하고 알림발송
-        	   ServerMain.checkThumb();
+        	   checkThumb();
         	}
         });
         btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
@@ -184,7 +182,7 @@ public class KuroRekishiMain implements Runnable{
         JButton btnNewChat = new JButton("채팅");
         btnNewChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+                ChatFrame.newChatFrame(frame);
             }
         });
         btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -217,7 +215,7 @@ public class KuroRekishiMain implements Runnable{
         JButton btnGood = new JButton("좋아요");
         btnGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                giveThumb();
+            	giveThumb();
             }
         });
         btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -250,14 +248,29 @@ public class KuroRekishiMain implements Runnable{
      // ---------------------------- 메인창작업
 		
 	} // end initialize()
-	
-	public static void giveThumb() {
-	    ServerMain.wantChat.put(name, userInfo.get(idKey));
-	    System.out.println("wantChat = " + ServerMain.wantChat);
-        ChatFrame.newChatFrame(frame);
-    }
 
-    // 사진을 다음장으로 이동
+
+    private void checkThumb() {
+		Member member = dao.checkThumb(idKey);
+		System.out.println(member.getName());
+		if(member.getName().equals(member.getGavedThumbName())) {
+			int result = JOptionPane.showConfirmDialog(frame, member.getGivedThumbName() + " 님 께서 채팅을 원합니다.", "알림", JOptionPane.YES_NO_OPTION);
+			if(result == JOptionPane.YES_OPTION) {
+				ChatFrame.newChatFrame(frame);
+			}
+		}
+	}
+
+	private void giveThumb() {
+		int result = dao.giveThumb(userInfo.get(idKey),name);
+		if(result == 1) {
+			JOptionPane.showMessageDialog(frame, name + " 님에게 좋아요를 보냈습니다.");
+		}else {
+			JOptionPane.showMessageDialog(frame, "좋아요를 보낼수 없습니다.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	// 사진을 다음장으로 이동
 	private void goNextImage() {
         if(index<4) {
             index++;
@@ -388,13 +401,4 @@ public class KuroRekishiMain implements Runnable{
 		return name;
 	}
 
-    @Override
-    public void run() {
-        // TODO 
-        
-    }
-
-	
-
-	
 }

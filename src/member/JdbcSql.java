@@ -33,4 +33,9 @@ public interface JdbcSql {
 	// Random하게 회원이름 가져와서 사진띄우기
 	String SQL_SELECT_NAME_RANDOM = String.format("select %s,%s from (select %s,%s from %s order by dbms_random.random) where rownum<2 and %s=?",
 			COL_MEM_NAME,COL_MEM_SEX,COL_MEM_NAME,COL_MEM_SEX,TBL_MEMBER,COL_MEM_SEX);
+	
+	// 좋아요를 눌렀을때 내 이름을 입력해준다.
+	String SQL_UPDATE_GIVETHUMB = String.format("update %s set %s=?, %s=? where %s=?", TBL_MEMBER,COL_MEM_GIVETHUMBNAME,COL_MEM_GAVEDTHUMBNAME,COL_MEM_NAME);
+	
+	
 }

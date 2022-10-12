@@ -10,6 +10,8 @@ public class Member {
     	String COL_MEM_SEX = "SEX"; // 회원 성별
     	String COL_MEM_LOC = "LOC"; // 회원 지역
     	String COL_MEM_HISTORY = "HISTORY"; // 회원 흑역사
+    	String COL_MEM_GAVEDTHUMBNAME = "GAVEDTHUMB";
+    	String COL_MEM_GIVETHUMBNAME = "GIVETHUMB";
     }
     
     
@@ -21,10 +23,19 @@ public class Member {
 	private String sex;
 	private String location;
 	private String history;
+	private String gavedThumbName;
+	private String givedThumbName;
 	
 	// 기본 생성자 (default constructor)
 	public Member() {}
 	
+	public Member(String name, String gavedThumbName, String givedThumbName) {
+		super();
+		this.name = name;
+		this.gavedThumbName = gavedThumbName;
+		this.givedThumbName = givedThumbName;
+	}
+
 	// argument를 갖는 생성자
 	public Member(String id, String pw, String name, String sex, String location, String history) {
 		super();
@@ -35,6 +46,9 @@ public class Member {
 		this.location = location;
 		this.history = history;
 	}
+	
+	
+	
 
 	// getters / setters
 	
@@ -84,6 +98,22 @@ public class Member {
 
 	public void setHistory(String history) {
 		this.history = history;
+	}
+
+	public String getGavedThumbName() {
+		return gavedThumbName;
+	}
+
+	public void setGavedThumbName(String gavedThumbName) {
+		this.gavedThumbName = gavedThumbName;
+	}
+
+	public String getGivedThumbName() {
+		return givedThumbName;
+	}
+
+	public void setGivedThumbName(String givedThumbName) {
+		this.givedThumbName = givedThumbName;
 	}
 	
 	

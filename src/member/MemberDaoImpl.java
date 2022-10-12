@@ -258,7 +258,6 @@ public class MemberDaoImpl implements MemberDao{
 
     @Override
     public String pickUserRamdom(String sex) {
-        // TODO 
         String name = null;
         String gender = null;
         try {
@@ -308,5 +307,60 @@ public class MemberDaoImpl implements MemberDao{
 			}
 		}
 		return sex;
+	}
+
+	@Override
+	public int giveThumb(String giveName,String gavedname) {
+		int result = 0;
+		try {
+			connDB();
+			stmt = conn.prepareStatement(SQL_UPDATE_GIVETHUMB);
+			stmt.setString(1, giveName);
+			stmt.setString(2, gavedname);
+			stmt.setString(3, gavedname);
+			
+			result = stmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				closeResources(conn, stmt);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Member checkThumb(String id) {
+		Member member = null;
+		try {
+			connDB();
+			String query = "select NAME,GAVEDTHUMB,GIVETHUMB FROM MEMBER";
+			query += " where ID=?";
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, id);
+			
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				String name = rs.getString(COL_MEM_NAME);
+				String gavedName = rs.getString(COL_MEM_GAVEDTHUMBNAME);
+				String giveName = rs.getString(COL_MEM_GIVETHUMBNAME);
+				
+				member = new Member(name,gavedName,giveName);
+			}
+	
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				closeResources(conn, stmt, rs);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return member;
 	}
 }

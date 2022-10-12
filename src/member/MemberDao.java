@@ -59,5 +59,20 @@ public interface MemberDao {
      * @return 성별
      */
     public String loginedUserSex(String id);
+    
+    /**
+     * 좋아요 버튼을 눌렀을시 상대방에게 좋아요를 보낼수 있따.
+     * @param giveName
+     * @param gavedname
+     * @return 성공하면 1, 실패하면 0
+     */
+    public int giveThumb(String giveName,String gavedname);
+    
+    /**
+     * 로그인 후에 채팅요청받은 사람을 알려준다.
+     * @param id
+     * @return 이름, 좋아요받은이름, 좋아요를 준사람 이름
+     */
+    public Member checkThumb(String id);
 		
 }
