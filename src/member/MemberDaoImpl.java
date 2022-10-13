@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import oracle.jdbc.OracleDriver;
+import static ojdbc.MysqlJdbc.*; // 맥북용 Mysql jdbc
 import static member.Member.Entity.*;
-import static ojdbc.OracleJdbc.*;
+//import static ojdbc.OracleJdbc.*; // oracle jdbc
 import static member.JdbcSql.*;
 
 
@@ -21,15 +22,25 @@ public class MemberDaoImpl implements MemberDao{
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	
-	// 데이터베이스 접속 메서드
+	// 데이터베이스 접속 메서드 -- for MAC
 	private void connDB() {
 		try {
-			DriverManager.registerDriver(new OracleDriver());
-			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-		} catch (SQLException e) {
+		    Class.forName(DRIVER);
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	// 데이터베이스 접속 메서드 -- for Windows
+//	private void connDB() {
+//        try {
+//            DriverManager.registerDriver(new OracleDriver());
+//            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+	
 	
 	// 연결 close() 시 사용하는 메서드 -- executeUpdate() 인경우
 	private void closeResources(Connection conn, Statement stmt) throws SQLException{
@@ -68,7 +79,7 @@ public class MemberDaoImpl implements MemberDao{
 		try {
 			connDB();
 			
-			stmt = conn.prepareStatement(SQL_ISEXIST);
+			stmt = conn.prepareStatement(SQL_ISEXIST_FOR_MAC);
 			
 			stmt.setString(1, id);
 			
@@ -194,17 +205,13 @@ public class MemberDaoImpl implements MemberDao{
         boolean result = false;
         try {
             connDB();
-            
-            stmt = conn.prepareStatement(SQL_LOGIN);
-            
-            stmt.setString(1, id);
-            stmt.setString(2, pw);
-            
-            rs = stmt.executeQuery();
-            if(rs.next()) {
-                result = Boolean.parseBoolean(rs.getString("result"));
-                System.out.println("result : " + result);
-            }
+            stmt = conn.prepareStatement(SQL_LOGIN_FORMAC); 
+            stmt.setString(1, id);               
+            stmt.setString(2, pw);               
+            rs = stmt.executeQuery(); 
+            rs.next(); 
+            result = Boolean.parseBoolean(rs.getString("result"));
+            System.out.println("result=" + result);
         }catch(Exception e) {
             e.printStackTrace();
         }finally {
@@ -259,17 +266,15 @@ public class MemberDaoImpl implements MemberDao{
     @Override
     public String pickUserRamdom(String sex) {
         String name = null;
-        String gender = null;
         try {
             connDB();
             
-            stmt = conn.prepareStatement(SQL_SELECT_NAME_RANDOM);
+            stmt = conn.prepareStatement(SQL_SELECT_NAME_RANDOM_FOR_MAC);
             stmt.setString(1, sex);
             
             rs = stmt.executeQuery();
             if(rs.next()) {
             	name = rs.getString(COL_MEM_NAME);
-            	gender = rs.getString(COL_MEM_SEX);
             }
         }catch(Exception e) {
             e.printStackTrace();

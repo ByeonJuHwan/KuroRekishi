@@ -8,9 +8,12 @@ public interface JdbcSql {
 	String SQL_INSERT_MEMBER = String.format("insert into %s (%s,%s,%s,%s,%s,%s) values(?,?,?,?,?,?)",
 			TBL_MEMBER,COL_MEM_ID,COL_MEM_PW,COL_MEM_NAME,COL_MEM_SEX,COL_MEM_LOC,COL_MEM_HISTORY);
 	
-	// 회원 아이디 중복확인
+	// 회원 아이디 중복확인 -- for Window
 	String SQL_ISEXIST = String.format("select decode(count(*),1,'true','false') as result from %s where %s =?",
 			TBL_MEMBER,COL_MEM_ID);
+	
+	// 회원 아이디 중복확인 -- for MAC
+	String SQL_ISEXIST_FOR_MAC = String.format("select if(count(*)>0,'true','false') as result from %s wherer %s=?", TBL_MEMBER,COL_MEM_ID);
 	
 	// 프로필 수정
 	String SQL_UPDATE_MEMBER = String.format("update %s set %s=?,%s=?,%s=?,%s=?,%s=?,%s=? where %s=?",
@@ -19,6 +22,10 @@ public interface JdbcSql {
 	// 로그인
 	String SQL_LOGIN = String.format("select decode(count(*),1,'true','false') as result from %s where %s =? and %s = ?",
 	       TBL_MEMBER,COL_MEM_ID,COL_MEM_PW);
+	
+	// 맥북으로 로그인 시 사용
+	String SQL_LOGIN_FORMAC = String.format("select if(count(*)>0,'true','false') as result from %s where %s=? and %s=?", TBL_MEMBER,COL_MEM_ID,COL_MEM_PW);
+	
 	           
 	// 이름찾기
 	String SQL_MEMBER_NAME_BY_ID = String.format("select %s from %s where %s = ?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_ID);
@@ -29,9 +36,12 @@ public interface JdbcSql {
 	// ID로 회원 성별 찾기
 	String SQL_SELECT_SEX_BY_ID = String.format("select %s from %s where %s=?" ,COL_MEM_SEX,TBL_MEMBER,COL_MEM_ID);
 	
-	// Random하게 회원이름 가져와서 사진띄우기
+	// Random하게 회원이름 가져와서 사진띄우기 -- for window
 	String SQL_SELECT_NAME_RANDOM = String.format("select %s,%s from (select %s,%s from %s order by dbms_random.random) where rownum<2 and %s=?",
 			COL_MEM_NAME,COL_MEM_SEX,COL_MEM_NAME,COL_MEM_SEX,TBL_MEMBER,COL_MEM_SEX);
+	
+	// Random하게 회원이름 가져와서 사진띄우기 -- for MAC
+	String SQL_SELECT_NAME_RANDOM_FOR_MAC = String.format("select %s from %s where %s=? order by rand() limit 1", COL_MEM_NAME,TBL_MEMBER,COL_MEM_SEX);
 	
 	// 좋아요를 눌렀을때 내 이름을 입력해준다.
 	String SQL_UPDATE_GIVETHUMB = String.format("update %s set %s=?, %s=? where %s=?", TBL_MEMBER,COL_MEM_GIVETHUMBNAME,COL_MEM_GAVEDTHUMBNAME,COL_MEM_NAME);

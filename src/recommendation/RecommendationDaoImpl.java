@@ -1,8 +1,12 @@
 package recommendation;
 
-import static ojdbc.OracleJdbc.PASSWORD;
-import static ojdbc.OracleJdbc.URL;
-import static ojdbc.OracleJdbc.USER;
+import static ojdbc.MysqlJdbc.DRIVER;
+import static ojdbc.MysqlJdbc.PASSWORD;
+import static ojdbc.MysqlJdbc.URL;
+import static ojdbc.MysqlJdbc.USER;
+//import static ojdbc.OracleJdbc.PASSWORD;
+//import static ojdbc.OracleJdbc.URL;
+//import static ojdbc.OracleJdbc.USER;
 import static recommendation.DateSql.*;
 import static recommendation.Recommendation.Entity.*;
 
@@ -33,15 +37,24 @@ public class RecommendationDaoImpl implements RecommendationDao {
         }
         return instance;
     }
-    
     private void connDB() {
         try {
-            DriverManager.registerDriver(new OracleDriver());
+            Class.forName(DRIVER);
             conn = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    
+    // connection for window
+//    private void connDB() {
+//        try {
+//            DriverManager.registerDriver(new OracleDriver());
+//            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
     
  // 연결 close() 시 사용하는 메서드 -- executeUpdate() 인경우
     private void closeResources(Connection conn, Statement stmt) throws SQLException{
