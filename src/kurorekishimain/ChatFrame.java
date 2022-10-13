@@ -187,7 +187,12 @@ public class ChatFrame extends JFrame implements Runnable{
 					textArea.setCaretPosition(
 							textArea.getDocument().getLength());
 				}
-			}else { // exit이 아닌 경우 채팅 내용을 화면에 보여준다.
+			}else if(receiveMag[1].equals("시작됩니다.")) {
+			    textArea.append(receiveMag[0] + " " + receiveMag[1] + "\n");
+                textArea.setCaretPosition(
+                        textArea.getDocument().getLength());
+			}
+			else { // exit이 아닌 경우 채팅 내용을 화면에 보여준다.
 				textArea.append(receiveMag[0] + ":" + receiveMag[1] + "\n");
 				textArea.setCaretPosition(
 						textArea.getDocument().getLength());

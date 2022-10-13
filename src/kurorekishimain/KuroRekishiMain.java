@@ -132,7 +132,6 @@ public class KuroRekishiMain {
         btnLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         	   Login();
-        	   //TODO 받은 채팅의 사람이 로그인했는지 확인하고 알림발송
         	   checkThumb();
         	}
         });
@@ -173,7 +172,7 @@ public class KuroRekishiMain {
         JButton btnNewChat = new JButton("채팅");
         btnNewChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ChatFrame.newChatFrame(frame);
+                //ChatFrame.newChatFrame(frame);
             }
         });
         btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -207,6 +206,8 @@ public class KuroRekishiMain {
         btnGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	giveThumb();
+            	JOptionPane.showMessageDialog(frame, "상대방의 응답을 기다려보세요!");
+            	ChatFrame.newChatFrame(frame);
             }
         });
         btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));

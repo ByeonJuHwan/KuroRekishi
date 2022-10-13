@@ -31,6 +31,9 @@ public class MultiServerThread extends Thread{
             br_in = new BufferedReader(new InputStreamReader(is));
             bw = new BufferedWriter(new OutputStreamWriter(os));
             pw = new PrintWriter(bw,true);
+            if(ServerMain.list.size()==2) {
+                chatALL("대화가#시작됩니다.");
+            }
             while(!isStop) {
                 message = br_in.readLine();
                 String[] str = message.split("#");
@@ -53,7 +56,16 @@ public class MultiServerThread extends Thread{
         }
     }
 
-	private void chat(String message) {
+	private void chatALL(String message) {
+	    System.out.println("Chatt ALL");
+        for(MultiServerThread mt : ServerMain.list) {
+            mt.send(message);
+        }
+        
+        
+    }
+
+    private void chat(String message) {
         System.out.println("Chatting");
         for(MultiServerThread mt : ServerMain.list) {
             mt.send(message);
