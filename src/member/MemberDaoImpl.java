@@ -363,4 +363,31 @@ public class MemberDaoImpl implements MemberDao{
 		}
 		return member;
 	}
+
+    @Override
+    public String findLocById(String id) {
+        String loc=null;
+        try {
+            connDB();
+            
+            stmt = conn.prepareStatement(SQL_SELECT_LOC);
+            stmt.setString(1, id);
+            
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                loc = rs.getString(COL_MEM_LOC);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        
+        return loc;
+    }
 }

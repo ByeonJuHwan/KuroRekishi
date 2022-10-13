@@ -56,6 +56,8 @@ public class KuroRekishiMain {
 	private JPanel Main;
 	private JButton btnNotgood;
 	private JLabel lblMemberImages;
+	private JLabel lblBack;
+	private JLabel lblButtonBack;
 	
 	/**
 	 * Launch the application.
@@ -155,7 +157,9 @@ public class KuroRekishiMain {
         lblImage.setBackground(Color.WHITE);
         lblImage.setBounds(0, 0, 646, 766);
         Login.add(lblImage);
-	    
+        
+        
+        
 	    //------------------------------ 로그인창
         
         Main = new JPanel();
@@ -164,15 +168,21 @@ public class KuroRekishiMain {
         Main.setLayout(null);
         Main.setVisible(false);
         
+        
+        
+        
         JPanel mainButtonPanel = new JPanel();
         mainButtonPanel.setBounds(0, 701, 648, 60);
         Main.add(mainButtonPanel);
         mainButtonPanel.setLayout(null);
         
-        JButton btnNewChat = new JButton("채팅");
+        
+        
+        JButton btnNewChat = new JButton("데이트추천");
         btnNewChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //ChatFrame.newChatFrame(frame);
+                //TODO 데이트코스추천 띄우기
+                DateFrame.newDateFrame(frame);
             }
         });
         btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -196,6 +206,7 @@ public class KuroRekishiMain {
         btnNotgood.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		showDiffrentSexImages();
+        		//TODO 하루 5번만 누를수있게 변경
         	}
         });
         btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -234,13 +245,26 @@ public class KuroRekishiMain {
         Main.add(btnGoNextImage);
         
         lblMemberImages = new JLabel(new ImageIcon());
+        lblMemberImages.setFont(new Font("궁서체", Font.BOLD, 14));
+        lblMemberImages.setBackground(new Color(240, 240, 240));
         lblMemberImages.setBounds(0, 0, 648, 641);
         Main.add(lblMemberImages);
+        
+        
+        
+//        lblBack = new JLabel(new ImageIcon("backgroundimage/배경.png"));
+//        lblBack.setBounds(0, 0, 646, 766);
+//        Main.add(lblBack);
 		
      // ---------------------------- 메인창작업
 		
 	} // end initialize()
 
+
+    private String setName() {
+        
+        return null;
+    }
 
     private void checkThumb() {
 		Member member = dao.checkThumb(idKey);
@@ -388,7 +412,7 @@ public class KuroRekishiMain {
 	
     }
 
-	private String findName(String id) {
+    private String findName(String id) {
 		String name = dao.fineName(id);
 		return name;
 	}

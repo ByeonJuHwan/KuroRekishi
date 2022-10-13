@@ -1,0 +1,94 @@
+package recommendation;
+
+import static ojdbc.OracleJdbc.PASSWORD;
+import static ojdbc.OracleJdbc.URL;
+import static ojdbc.OracleJdbc.USER;
+import static recommendation.DateSql.*;
+import static recommendation.Recommendation.Entity.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import oracle.jdbc.OracleDriver;
+
+
+
+public class RecommendationDaoImpl implements RecommendationDao {
+    Connection conn = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    
+ // Singleton 적용
+    private static RecommendationDaoImpl instance = null;
+    private RecommendationDaoImpl() {}
+    public static RecommendationDaoImpl getInstance() {
+        if(instance == null) {
+            instance = new RecommendationDaoImpl();
+        }
+        return instance;
+    }
+    
+    private void connDB() {
+        try {
+            DriverManager.registerDriver(new OracleDriver());
+            conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+ // 연결 close() 시 사용하는 메서드 -- executeUpdate() 인경우
+    private void closeResources(Connection conn, Statement stmt) throws SQLException{
+        stmt.close();
+        conn.close();
+    }
+    
+    // 연결 close() 시 사용하는 메서드 -- executeQuery() 인경우 / 위 메서드를 오버로드 해준다.
+    private void closeResources(Connection conn, Statement stmt, ResultSet rs) throws SQLException{
+        rs.close();
+        closeResources(conn,stmt);
+    }
+    
+    
+    
+    @Override
+    public List<Recommendation> search(String loc, String category) {
+        List<Recommendation>list = new ArrayList<>();
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SEARCH);
+            stmt.setString(1, loc);
+            stmt.setString(2, category);
+            
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                String name = rs.getString(COL_NAME);
+                String location = rs.getString(COL_LOC);
+                String cate = rs.getString(COL_CATEGORY);
+                String enjoy = rs.getString(COL_ENJOY);
+                
+                Recommendation rec = new Recommendation(name, location, enjoy, cate);
+                list.add(rec);
+            }
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+    
+    
+    
+}

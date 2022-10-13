@@ -74,5 +74,12 @@ public interface MemberDao {
      * @return 이름, 좋아요받은이름, 좋아요를 준사람 이름
      */
     public Member checkThumb(String id);
+    
+    /**
+     * 메인화면에서 상대방 이름, 사는 곳을 띄울때 사는곳을 찾기위해 사용
+     * @param id
+     * @return 사는 곳
+     */
+    public String findLocById(String id);
 		
 }

@@ -2,8 +2,7 @@ package member;
 
 import static member.Member.Entity.*;
 
-public interface JdbcSql {
-	// TODO SQL문 작성 
+public interface JdbcSql { 
 	
 	// 회원가입 -> 새로운 회원 등록
 	String SQL_INSERT_MEMBER = String.format("insert into %s (%s,%s,%s,%s,%s,%s) values(?,?,?,?,?,?)",
@@ -37,5 +36,6 @@ public interface JdbcSql {
 	// 좋아요를 눌렀을때 내 이름을 입력해준다.
 	String SQL_UPDATE_GIVETHUMB = String.format("update %s set %s=?, %s=? where %s=?", TBL_MEMBER,COL_MEM_GIVETHUMBNAME,COL_MEM_GAVEDTHUMBNAME,COL_MEM_NAME);
 	
-	
+	// 메인창에 띄울 주소 리턴
+	String SQL_SELECT_LOC = String.format("select %s from %s where %s=?", COL_MEM_LOC,TBL_MEMBER,COL_MEM_ID);
 }
