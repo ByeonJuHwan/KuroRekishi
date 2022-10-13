@@ -209,6 +209,12 @@ public class UpdateFrame extends JFrame {
 		contentPane.add(btnBack);
 		
 		JButton btnUpdateImages = new JButton("사진변경");
+		btnUpdateImages.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        //TODO 사진 변경
+		        UpdateImageFrame.newUpdateImageFrame(parent,updateNameField.getText(),sendSex());
+		    }
+		});
 		btnUpdateImages.setFont(new Font("굴림", Font.BOLD, 16));
 		btnUpdateImages.setBounds(229, 691, 124, 58);
 		contentPane.add(btnUpdateImages);
@@ -216,14 +222,23 @@ public class UpdateFrame extends JFrame {
 		JButton btnComplete = new JButton("완료");
 		btnComplete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO dao.update로 프로필 수정
 				updateProfile();
 			}
 		});
 		btnComplete.setFont(new Font("굴림", Font.BOLD, 16));
 		btnComplete.setBounds(365, 691, 124, 58);
 		contentPane.add(btnComplete);
-	}
+	} // end initialize
+
+    private String sendSex() {
+        String sex = null;
+        if(radioButtonMale.isSelected()) {
+            sex = radioButtonMale.getText();
+        }else {
+            sex = radioButtonFemale.getText();
+        }
+        return sex;
+    }
 
     private void updateProfile() {
         String id = updateIdField.getText();
