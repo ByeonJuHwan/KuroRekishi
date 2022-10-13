@@ -85,17 +85,17 @@ public class ChatFrame extends JFrame implements Runnable{
 	 */
 	public void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//TODO 메인프레임에서 바로 오른쪽 옆에 채팅창이 뜨도록 setBounds 메인프레임 componet받아서 설정 getX,getY
 		int x = parent.getX();
 		int y = parent.getY();
-		setBounds(x+664, y, 664, 500);
+		setBounds(x+650, y, 664, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setResizable(false);
+		setTitle(chatName+" 님 채팅창");
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblChatName = new JLabel("대화명 : [[" + chatName + "]]");
+		JLabel lblChatName = new JLabel("사용자 : [[" + chatName + "]]");
 		lblChatName.setBounds(0, 0, 311, 38);
 		contentPane.add(lblChatName);
 		
