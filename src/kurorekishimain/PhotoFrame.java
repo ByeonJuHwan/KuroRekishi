@@ -84,13 +84,13 @@ public class PhotoFrame extends JFrame {
 		
 		
 		if(sex.equals("남자")) {
-			image = "usersImageMale\\"+name+"\\"+name+index;
+			image = "usersImageMale/"+name+"/"+name+index;
 			
 			System.out.println(index);
 			System.out.println(image);
 			
 		}else if(sex.equals("여자")) {
-			image = "usersImageFemale\\"+name+"\\"+name+index;
+			image = "usersImageFemale/"+name+"/"+name+index;
 			
 			System.out.println(index);
 			System.out.println(image);

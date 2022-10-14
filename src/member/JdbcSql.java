@@ -13,7 +13,7 @@ public interface JdbcSql {
 			TBL_MEMBER,COL_MEM_ID);
 	
 	// 회원 아이디 중복확인 -- for MAC
-	String SQL_ISEXIST_FOR_MAC = String.format("select if(count(*)>0,'true','false') as result from %s wherer %s=?", TBL_MEMBER,COL_MEM_ID);
+	String SQL_ISEXIST_FOR_MAC = String.format("select if(count(*)>0,'true','false') as result from %s where %s=?", TBL_MEMBER,COL_MEM_ID);
 	
 	// 프로필 수정
 	String SQL_UPDATE_MEMBER = String.format("update %s set %s=?,%s=?,%s=?,%s=?,%s=?,%s=? where %s=?",

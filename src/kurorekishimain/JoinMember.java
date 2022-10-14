@@ -294,7 +294,16 @@ public class JoinMember extends JFrame {
 	}
 
 	private void insertImages() {
-		
+	    // 이름 입력했는지 확인
+	    if(inputName.getText()==null || inputName.getText().equals("")) {
+	        JOptionPane.showMessageDialog(this, "이름을 먼저 입력해주세요.", "ERROR", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
+	    // 성별란에 체크했는지 확인
+		if(!radioButtonMale.isSelected() && !radioButtonFemale.isSelected()) {
+		    JOptionPane.showMessageDialog(this, "성별을 먼저 입력해주세요.", "ERROR", JOptionPane.ERROR_MESSAGE);
+		    return;
+		}
 		// 5장까지 저장 인지 확인.
         if(index == 5) {
             JOptionPane.showMessageDialog(null, "5장 다 넣으셨습니다.", "경고", JOptionPane.WARNING_MESSAGE);
@@ -313,7 +322,7 @@ public class JoinMember extends JFrame {
 			    newFolder.mkdir();
 			}
 		
-			File userImages  = new File("usersImageMale\\"+inputName.getText(), inputName.getText()+index);
+			File userImages  = new File("usersImageMale/"+inputName.getText(), inputName.getText()+index);
 	        if(!userImages.exists()) {
 	            userImages.mkdir();
 	        }
@@ -338,7 +347,7 @@ public class JoinMember extends JFrame {
 			if(!newFolder.exists()) {
 			    newFolder.mkdir();
 			}
-			File userImages  = new File("usersImageFemale\\"+inputName.getText(), inputName.getText()+index);
+			File userImages  = new File("usersImageFemale/"+inputName.getText(), inputName.getText()+index);
 	        if(!userImages.exists()) {
 	            userImages.mkdir();
 	        }
