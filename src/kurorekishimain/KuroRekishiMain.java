@@ -176,19 +176,6 @@ public class KuroRekishiMain {
         Main.add(mainButtonPanel);
         mainButtonPanel.setLayout(null);
         
-        
-        
-        JButton btnNewChat = new JButton("데이트추천");
-        btnNewChat.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                //TODO 데이트코스추천 띄우기
-                DateFrame.newDateFrame(frame);
-            }
-        });
-        btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnNewChat.setBounds(140, 5, 122, 45);
-        mainButtonPanel.add(btnNewChat);
-        
         JButton btnProfile = new JButton("프로필");
         btnProfile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -199,8 +186,32 @@ public class KuroRekishiMain {
             }
         });
         btnProfile.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnProfile.setBounds(382, 5, 122, 45);
+        btnProfile.setBounds(420, 5, 122, 45);
         mainButtonPanel.add(btnProfile);
+        
+        JButton searchOption = new JButton("검색 설정");
+        searchOption.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // TODO 나이,키, mbti로 검색 
+                System.out.println(sex); // 로그인한 사람의 성
+                SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex);
+            }
+        });
+        searchOption.setBounds(70, 5, 122, 45);
+        searchOption.setFont(new Font("D2Coding", Font.BOLD, 16));
+        mainButtonPanel.add(searchOption);
+        
+        
+        
+        JButton btnNewChat = new JButton("데이트추천");
+        btnNewChat.setBounds(250, 5, 122, 45);
+        mainButtonPanel.add(btnNewChat);
+        btnNewChat.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DateFrame.newDateFrame(frame);
+            }
+        });
+        btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
         
         btnNotgood = new JButton("별로에요");
         btnNotgood.addActionListener(new ActionListener() {
@@ -416,5 +427,4 @@ public class KuroRekishiMain {
 		String name = dao.fineName(id);
 		return name;
 	}
-
 }
