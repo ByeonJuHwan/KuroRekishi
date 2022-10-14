@@ -7,6 +7,7 @@ public class Recommendation {
         String COL_LOC = "LOC";
         String COL_ENJOY = "ENJOY";
         String COL_CATEGORY = "CATEGORY";
+        String COL_URL = "URL";
     }
     
     
@@ -15,7 +16,12 @@ public class Recommendation {
     private String loc;
     private String enjoy;
     private String category;
+    private String URL;
     
+    public String getURL() {
+        return URL;
+    }
+
     // constructor
     public Recommendation() {}
 

@@ -6,4 +6,5 @@ public interface RecommendationDao {
 
     
     List<Recommendation> search(String loc, String category);
+    String searchUrl(String name);
 }

@@ -105,10 +105,7 @@ public class DateFrame extends JFrame {
         btnViewAll = new JButton("자세히 보기");
         btnViewAll.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO 누르면 상세한 내용과 링크까지 제공
                 datail();
-                //jLabelWebpageMouseClicked(null); 아래 메서드 사용해서 링크 넣기.
-                
             }
         });
         panel.add(btnViewAll);
@@ -151,19 +148,4 @@ public class DateFrame extends JFrame {
         }
         
     }
-
-    private void jLabelWebpageMouseClicked(java.awt.event.MouseEvent evt) {                                           
-        if (Desktop.isDesktopSupported()) {
-                Desktop desktop = Desktop.getDesktop();
-                try {
-                    URI uri = new URI("https://jack-of-all-trades.tistory.com/");
-                    desktop.browse(uri);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (URISyntaxException ex) {
-                    ex.printStackTrace();
-                }
-        }
-    }
-
 }

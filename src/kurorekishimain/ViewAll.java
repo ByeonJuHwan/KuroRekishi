@@ -23,6 +23,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import recommendation.Recommendation;
+import recommendation.RecommendationDaoImpl;
 
 public class ViewAll extends JFrame {
 
@@ -34,6 +35,7 @@ public class ViewAll extends JFrame {
     private JTextField enjoyText;
     private Recommendation rec;
     private JLabel lblImage1;
+    private RecommendationDaoImpl dao;
     /**
      * Launch the application.
      * @param rec 
@@ -51,6 +53,7 @@ public class ViewAll extends JFrame {
     public ViewAll(Component parent, Recommendation rec) {
         this.rec = rec;
         this.parent = parent;
+        dao = RecommendationDaoImpl.getInstance();
         initialize();
         setView();
     }
@@ -162,13 +165,20 @@ public class ViewAll extends JFrame {
         if(Desktop.isDesktopSupported()) {
             Desktop desktop = Desktop.getDesktop();
             try {
-                URI uri = new URI("https://map.naver.com/v5/entry/place/19479566?c=14146078.1026956,4493752.4024150,13,0,0,0,dh&placePath=%2Fhome&entry=plt");
+                URI uri = new URI(getURL());
                 desktop.browse(uri);
             }catch(Exception e) {
                 e.printStackTrace();
             }
         }
         
+    }
+
+    private String getURL() {
+        String url = null;
+        String name = nameText.getText();
+        url = dao.searchUrl(name); // 이름으로 url 검색
+        return url;
     }
 
 }

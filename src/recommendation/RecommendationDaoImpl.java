@@ -101,7 +101,26 @@ public class RecommendationDaoImpl implements RecommendationDao {
         }
         return list;
     }
-    
-    
-    
+    @Override
+    public String searchUrl(String name) {
+        String url = null;
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SEARCH_URL);
+            stmt.setString(1, name);
+            
+            rs=stmt.executeQuery();
+            rs.next();
+            url = rs.getString(COL_URL);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return url;
+    } 
 }
