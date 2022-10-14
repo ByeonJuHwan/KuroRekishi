@@ -135,17 +135,25 @@ public class DateFrame extends JFrame {
     }
 
     private void search() {
+        // 값들을 가져온다
         List<Recommendation> list = new ArrayList<>();
         String loc = (String) comboBoxLoc.getSelectedItem();
         String category = (String) comboBoxCategory.getSelectedItem();
         
+        // 이미 검색된 내용이 있으면 테이블을 한번 초기화 시킨다.
+        resetTable();
         
-        // TODO dao에서 검색내용 불러옴
+        // 검색내용을 테이블에 추가한다.
         list = dao.search(loc,category);
         for(Recommendation r : list) {
             Object[] row = {r.getName(),r.getLoc(),r.getCategory(),r.getEnjoy()};
             model.addRow(row);
         }
         
+    }
+
+    private void resetTable() {
+        model = new DefaultTableModel(null, COLUMN_NAMES);
+        table.setModel(model);
     }
 }
