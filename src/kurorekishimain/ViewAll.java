@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -36,6 +37,7 @@ public class ViewAll extends JFrame {
     private Recommendation rec;
     private JLabel lblImage1;
     private RecommendationDaoImpl dao;
+    private JLabel lblImage2;
     /**
      * Launch the application.
      * @param rec 
@@ -72,7 +74,7 @@ public class ViewAll extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         int x = parent.getX();
         int y = parent.getY();
-        setBounds(x+665, y, 664, 400);
+        setBounds(x+665, y, 724, 541);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -88,7 +90,7 @@ public class ViewAll extends JFrame {
         nameText = new JTextField();
         nameText.setFont(new Font("D2Coding", Font.BOLD, 15));
         nameText.setEditable(false);
-        nameText.setBounds(131, 10, 141, 41);
+        nameText.setBounds(131, 10, 188, 41);
         contentPane.add(nameText);
         nameText.setColumns(10);
         
@@ -102,7 +104,7 @@ public class ViewAll extends JFrame {
         cateText.setFont(new Font("D2Coding", Font.BOLD, 15));
         cateText.setEditable(false);
         cateText.setColumns(10);
-        cateText.setBounds(445, 10, 141, 41);
+        cateText.setBounds(445, 10, 190, 41);
         contentPane.add(cateText);
         
         JLabel lblNewLabel_2 = new JLabel("위치");
@@ -115,7 +117,7 @@ public class ViewAll extends JFrame {
         locText.setFont(new Font("D2Coding", Font.BOLD, 15));
         locText.setEditable(false);
         locText.setColumns(10);
-        locText.setBounds(131, 61, 141, 41);
+        locText.setBounds(131, 61, 188, 41);
         contentPane.add(locText);
         
         JLabel lblNewLabel_2_1 = new JLabel("후기");
@@ -128,7 +130,7 @@ public class ViewAll extends JFrame {
         enjoyText.setFont(new Font("D2Coding", Font.BOLD, 15));
         enjoyText.setEditable(false);
         enjoyText.setColumns(10);
-        enjoyText.setBounds(131, 112, 455, 41);
+        enjoyText.setBounds(131, 112, 504, 41);
         contentPane.add(enjoyText);
         
         JButton btnLink = new JButton("자세히보기");
@@ -144,21 +146,61 @@ public class ViewAll extends JFrame {
         JLabel lblNewLabel_2_1_1 = new JLabel("방문자 사진");
         lblNewLabel_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_2_1_1.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblNewLabel_2_1_1.setBounds(12, 226, 96, 41);
+        lblNewLabel_2_1_1.setBounds(12, 298, 96, 41);
         contentPane.add(lblNewLabel_2_1_1);
         
-        try {
-            //TODO 이미지 나오게 설정
-            URL url = new URL("https://map.naver.com/v5/entry/place/19479566?c=14146078.102695633%2C4493752.402414959%2C13%2C0%2C0%2C0%2Cdh&placePath=%2Fphoto&entry=plt");
-            lblImage1 = new JLabel(new ImageIcon(url));
-            lblImage1.setBounds(131, 163, 210, 176);
-            contentPane.add(lblImage1);
-        }catch(Exception e1) {
-            e1.printStackTrace();
-        }
-        JLabel lblImage2 = new JLabel();
-        lblImage2.setBounds(376, 163, 210, 176);
+       
+            
+          
+        lblImage1 = new JLabel(new ImageIcon(getImage1()));
+        lblImage1.setBounds(131, 163, 245, 312);
+        contentPane.add(lblImage1);
+       
+        lblImage2 = new JLabel(new ImageIcon(getImage2()));
+        lblImage2.setBounds(402, 165, 245, 312);
         contentPane.add(lblImage2);
+        
+        JLabel lblNewLabel_1_1 = new JLabel("위치,정보");
+        lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_1_1.setFont(new Font("Dialog", Font.BOLD, 15));
+        lblNewLabel_1_1.setBounds(331, 63, 102, 41);
+        contentPane.add(lblNewLabel_1_1);
+    }
+
+    private Image getImage2() {
+        Image image = null;
+        String name = rec.getName();
+        try {
+            URL url = new URL(getImageUrl2(name));
+            image = ImageIO.read(url);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
+    private String getImageUrl2(String name) {
+        // TODO 2번째 사진 링크 넣기
+        String url = dao.searchImageUrl2(name);
+        return url;
+    }
+
+    private Image getImage1() {
+        Image image = null;
+        String name = rec.getName();
+        try {
+            URL url = new URL(getImageUrl1(name));
+            image = ImageIO.read(url);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
+
+    private String getImageUrl1(String name) {
+        String url = dao.searchImageUrl(name);
+        return url;
     }
 
     private void linkBun(java.awt.event.MouseEvent evt) {
@@ -180,5 +222,4 @@ public class ViewAll extends JFrame {
         url = dao.searchUrl(name); // 이름으로 url 검색
         return url;
     }
-
 }

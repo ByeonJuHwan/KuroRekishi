@@ -122,5 +122,49 @@ public class RecommendationDaoImpl implements RecommendationDao {
             }
         }
         return url;
-    } 
+    }
+    @Override
+    public String searchImageUrl(String name) {
+        String url = null;
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SEARCH_IMAGEURL);
+            stmt.setString(1, name);
+            
+            rs = stmt.executeQuery();
+            rs.next();
+            url = rs.getString(COL_IMAGEURL);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return url;
+    }
+    @Override
+    public String searchImageUrl2(String name) {
+        String url = null;
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SEARCH_IMAGEURL2);
+            stmt.setString(1, name);
+            
+            rs = stmt.executeQuery();
+            rs.next();
+            url = rs.getString(COL_IMAGEURL2);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return url;
+    }
 }

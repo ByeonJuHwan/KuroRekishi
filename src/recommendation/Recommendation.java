@@ -8,6 +8,8 @@ public class Recommendation {
         String COL_ENJOY = "ENJOY";
         String COL_CATEGORY = "CATEGORY";
         String COL_URL = "URL";
+        String COL_IMAGEURL = "IMAGEURL";
+        String COL_IMAGEURL2 = "IMAGEURL2";
     }
     
     
@@ -17,6 +19,8 @@ public class Recommendation {
     private String enjoy;
     private String category;
     private String URL;
+    private String IMAGEURL;
+    private String IMAGEURL2;
     
     public String getURL() {
         return URL;
@@ -53,6 +57,14 @@ public class Recommendation {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getIMAGEURL() {
+        return IMAGEURL;
+    }
+
+    public String getIMAGEURL2() {
+        return IMAGEURL2;
     }
     
 }
