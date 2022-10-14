@@ -5,8 +5,8 @@ import static member.Member.Entity.*;
 public interface JdbcSql { 
 	
 	// 회원가입 -> 새로운 회원 등록
-	String SQL_INSERT_MEMBER = String.format("insert into %s (%s,%s,%s,%s,%s,%s) values(?,?,?,?,?,?)",
-			TBL_MEMBER,COL_MEM_ID,COL_MEM_PW,COL_MEM_NAME,COL_MEM_SEX,COL_MEM_LOC,COL_MEM_HISTORY);
+	String SQL_INSERT_MEMBER = String.format("insert into %s (%s,%s,%s,%s,%s,%s,%s,%s,%s) values(?,?,?,?,?,?,?,?,?)",
+			TBL_MEMBER,COL_MEM_ID,COL_MEM_PW,COL_MEM_NAME,COL_MEM_SEX,COL_MEM_LOC,COL_MEM_HISTORY,COL_MEM_HIGHT,COL_MEM_AGE,COL_MEM_MBTI);
 	
 	// 회원 아이디 중복확인 -- for Window
 	String SQL_ISEXIST = String.format("select decode(count(*),1,'true','false') as result from %s where %s =?",
@@ -16,8 +16,8 @@ public interface JdbcSql {
 	String SQL_ISEXIST_FOR_MAC = String.format("select if(count(*)>0,'true','false') as result from %s where %s=?", TBL_MEMBER,COL_MEM_ID);
 	
 	// 프로필 수정
-	String SQL_UPDATE_MEMBER = String.format("update %s set %s=?,%s=?,%s=?,%s=?,%s=?,%s=? where %s=?",
-	        TBL_MEMBER,COL_MEM_ID,COL_MEM_PW,COL_MEM_NAME,COL_MEM_LOC,COL_MEM_SEX,COL_MEM_HISTORY,COL_MEM_ID);
+	String SQL_UPDATE_MEMBER = String.format("update %s set %s=?,%s=?,%s=?,%s=?,%s=?,%s=?,%s=?,%s=?,%s=? where %s=?",
+	        TBL_MEMBER,COL_MEM_ID,COL_MEM_PW,COL_MEM_NAME,COL_MEM_LOC,COL_MEM_SEX,COL_MEM_HISTORY,COL_MEM_HIGHT,COL_MEM_AGE,COL_MEM_MBTI,COL_MEM_ID);
 	
 	// 로그인
 	String SQL_LOGIN = String.format("select decode(count(*),1,'true','false') as result from %s where %s =? and %s = ?",

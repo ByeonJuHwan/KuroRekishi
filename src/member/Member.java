@@ -12,9 +12,10 @@ public class Member {
     	String COL_MEM_HISTORY = "HISTORY"; // 회원 흑역사
     	String COL_MEM_GAVEDTHUMBNAME = "GAVEDTHUMB";
     	String COL_MEM_GIVETHUMBNAME = "GIVETHUMB";
+    	String COL_MEM_HIGHT = "HIGHT";
+    	String COL_MEM_AGE = "AGE";
+    	String COL_MEM_MBTI= "MBTI";
     }
-    
-    
     
     // field
 	private String id;
@@ -25,8 +26,13 @@ public class Member {
 	private String history;
 	private String gavedThumbName;
 	private String givedThumbName;
+	private String hight;
+	private String age;
+	private String mbti;
 	
-	// 기본 생성자 (default constructor)
+	
+
+    // 기본 생성자 (default constructor)
 	public Member() {}
 	
 	public Member(String name, String gavedThumbName, String givedThumbName) {
@@ -37,20 +43,22 @@ public class Member {
 	}
 
 	// argument를 갖는 생성자
-	public Member(String id, String pw, String name, String sex, String location, String history) {
-		super();
-		this.id = id;
-		this.pw = pw;
-		this.name = name;
-		this.sex = sex;
-		this.location = location;
-		this.history = history;
-	}
-	
-	
-	
 
-	// getters / setters
+	public Member(String id, String pw, String name, String location,String sex, String history, String hight,
+            String age, String mbti) {
+        super();
+        this.id = id;
+        this.pw = pw;
+        this.name = name;
+        this.sex = sex;
+        this.location = location;
+        this.history = history;
+        this.hight = hight;
+        this.age = age;
+        this.mbti = mbti;
+    }
+
+    // getters / setters
 	
 	public String getSex() {
 		return sex;
@@ -115,6 +123,30 @@ public class Member {
 	public void setGivedThumbName(String givedThumbName) {
 		this.givedThumbName = givedThumbName;
 	}
+
+    public String getHight() {
+        return hight;
+    }
+
+    public void setHight(String hight) {
+        this.hight = hight;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getMbti() {
+        return mbti;
+    }
+
+    public void setMbti(String mbti) {
+        this.mbti = mbti;
+    }
 	
 	
 	

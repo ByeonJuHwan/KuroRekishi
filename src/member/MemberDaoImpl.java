@@ -118,6 +118,9 @@ public class MemberDaoImpl implements MemberDao{
 			stmt.setString(4, member.getSex());
 			stmt.setString(5, member.getLocation());
 			stmt.setString(6, member.getHistory());
+			stmt.setString(7, member.getHight());
+			stmt.setString(8, member.getAge());
+			stmt.setString(9, member.getMbti());
 			
 			result  = stmt.executeUpdate();
 	
@@ -147,10 +150,13 @@ public class MemberDaoImpl implements MemberDao{
 	        stmt.setString(1, member.getId());
 	        stmt.setString(2, member.getPw());
 	        stmt.setString(3, member.getName());
-	        stmt.setString(4, member.getSex());
-	        stmt.setString(5, member.getLocation());
+	        stmt.setString(4, member.getLocation());
+	        stmt.setString(5, member.getSex());
 	        stmt.setString(6, member.getHistory());
-	        stmt.setString(7, member.getId());
+	        stmt.setString(7, member.getHight());
+	        stmt.setString(8, member.getAge());
+	        stmt.setString(9, member.getMbti());
+	        stmt.setString(10, member.getId());
 	        
 	        result = stmt.executeUpdate();
 	    }catch(Exception e) {
@@ -162,7 +168,6 @@ public class MemberDaoImpl implements MemberDao{
                 e.printStackTrace();
             }
 	    }
-	    System.out.println("result = " + result);
 	    return result;
 	}
 	
@@ -247,8 +252,11 @@ public class MemberDaoImpl implements MemberDao{
                 String sex = rs.getString(COL_MEM_SEX);
                 String loc = rs.getString(COL_MEM_LOC);
                 String history = rs.getString(COL_MEM_HISTORY);
+                String hight = rs.getString(COL_MEM_HIGHT);
+                String age = rs.getString(COL_MEM_AGE);
+                String mbti = rs.getString(COL_MEM_MBTI);
                 
-                Member member = new Member(userid,pw,name,sex,loc,history);
+                Member member = new Member(userid,pw,name,sex,loc,history,hight,age,mbti);
                 list.add(member);
             }
         }catch(Exception e) {

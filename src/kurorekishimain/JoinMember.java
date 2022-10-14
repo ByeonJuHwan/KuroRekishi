@@ -49,6 +49,9 @@ public class JoinMember extends JFrame {
 	private JRadioButton radioButtonFemale;
 	private JComboBox LocationcomboBox;
 	private JTextArea textAreaExperience;
+	private JTextField inputHight;
+	private JTextField inputAge;
+	private JTextField inputMbti;
 
 	/**
 	 * Launch the application.
@@ -96,19 +99,19 @@ public class JoinMember extends JFrame {
 		JLabel JoinId = new JLabel("아이디");
 		JoinId.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinId.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinId.setBounds(0, 0, 137, 66);
+		JoinId.setBounds(0, 3, 137, 53);
 		JoinPanel.add(JoinId);
 		
 		JLabel JoinPw = new JLabel("비밀번호");
 		JoinPw.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinPw.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinPw.setBounds(0, 76, 137, 66);
+		JoinPw.setBounds(0, 68, 137, 53);
 		JoinPanel.add(JoinPw);
 		
 		inputId = new JTextField();
 		inputId.setFont(new Font("D2Coding", Font.BOLD, 17));
 		inputId.setColumns(10);
-		inputId.setBounds(149, 10, 313, 53);
+		inputId.setBounds(149, 10, 313, 39);
 		JoinPanel.add(inputId);
 		
 		JButton btnCheckId = new JButton("중복확인");
@@ -118,41 +121,41 @@ public class JoinMember extends JFrame {
 			}
 		});
 		btnCheckId.setFont(new Font("굴림", Font.BOLD, 16));
-		btnCheckId.setBounds(474, 10, 124, 58);
+		btnCheckId.setBounds(497, 10, 124, 47);
 		JoinPanel.add(btnCheckId);
 		
 		JLabel JoinName = new JLabel("이름");
 		JoinName.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinName.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinName.setBounds(0, 152, 137, 66);
+		JoinName.setBounds(0, 138, 137, 47);
 		JoinPanel.add(JoinName);
 		
 		inputName = new JTextField();
 		inputName.setFont(new Font("D2Coding", Font.BOLD, 17));
 		inputName.setColumns(10);
-		inputName.setBounds(149, 152, 313, 53);
+		inputName.setBounds(149, 142, 313, 39);
 		JoinPanel.add(inputName);
 		
 		JLabel JoinName_1 = new JLabel("주소");
 		JoinName_1.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinName_1.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinName_1.setBounds(0, 228, 137, 66);
+		JoinName_1.setBounds(0, 197, 137, 47);
 		JoinPanel.add(JoinName_1);
 		
 		LocationcomboBox = new JComboBox(locations);
 		LocationcomboBox.setFont(new Font("D2Coding", Font.BOLD, 17));
-		LocationcomboBox.setBounds(149, 235, 313, 53);
+		LocationcomboBox.setBounds(149, 193, 313, 53);
 		JoinPanel.add(LocationcomboBox);
 		
 		JLabel JoinExperience = new JLabel("흑역사");
 		JoinExperience.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinExperience.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinExperience.setBounds(0, 382, 137, 66);
+		JoinExperience.setBounds(0, 510, 137, 66);
 		JoinPanel.add(JoinExperience);
 		
 		textAreaExperience = new JTextArea();
 		textAreaExperience.setFont(new Font("D2Coding", Font.BOLD, 17));
-		textAreaExperience.setBounds(149, 382, 313, 264);
+		textAreaExperience.setBounds(149, 530, 313, 116);
 		JoinPanel.add(textAreaExperience);
 		
 		JButton btnMemberJoin = new JButton("사진넣기");
@@ -194,24 +197,60 @@ public class JoinMember extends JFrame {
 		JLabel JoinSex = new JLabel("성별");
 		JoinSex.setHorizontalAlignment(SwingConstants.CENTER);
 		JoinSex.setFont(new Font("굴림체", Font.BOLD, 18));
-		JoinSex.setBounds(0, 304, 137, 66);
+		JoinSex.setBounds(0, 256, 137, 47);
 		JoinPanel.add(JoinSex);
 		
 		inputPw = new JPasswordField();
-		inputPw.setBounds(149, 76, 313, 53);
+		inputPw.setBounds(149, 76, 313, 39);
 		JoinPanel.add(inputPw);
 		
 		radioButtonMale = new JRadioButton("남자");
 		radioButtonMale.setFont(new Font("D2Coding", Font.BOLD, 15));
 		buttonGroup.add(radioButtonMale);
-		radioButtonMale.setBounds(149, 327, 121, 23);
+		radioButtonMale.setBounds(149, 268, 121, 23);
 		JoinPanel.add(radioButtonMale);
 		
 		radioButtonFemale = new JRadioButton("여자");
 		radioButtonFemale.setFont(new Font("D2Coding", Font.BOLD, 15));
 		buttonGroup.add(radioButtonFemale);
-		radioButtonFemale.setBounds(341, 327, 121, 23);
+		radioButtonFemale.setBounds(341, 268, 121, 23);
 		JoinPanel.add(radioButtonFemale);
+		
+		JLabel JoinSex_1 = new JLabel("키");
+		JoinSex_1.setHorizontalAlignment(SwingConstants.CENTER);
+		JoinSex_1.setFont(new Font("Dialog", Font.BOLD, 18));
+		JoinSex_1.setBounds(0, 315, 137, 53);
+		JoinPanel.add(JoinSex_1);
+		
+		JLabel JoinSex_1_1 = new JLabel("나이");
+		JoinSex_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		JoinSex_1_1.setFont(new Font("Dialog", Font.BOLD, 18));
+		JoinSex_1_1.setBounds(0, 380, 137, 53);
+		JoinPanel.add(JoinSex_1_1);
+		
+		JLabel JoinSex_1_2 = new JLabel("MBTI");
+		JoinSex_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+		JoinSex_1_2.setFont(new Font("Dialog", Font.BOLD, 18));
+		JoinSex_1_2.setBounds(0, 445, 137, 53);
+		JoinPanel.add(JoinSex_1_2);
+		
+		inputHight = new JTextField();
+		inputHight.setFont(new Font("Dialog", Font.BOLD, 17));
+		inputHight.setColumns(10);
+		inputHight.setBounds(149, 322, 313, 39);
+		JoinPanel.add(inputHight);
+		
+		inputAge = new JTextField();
+		inputAge.setFont(new Font("Dialog", Font.BOLD, 17));
+		inputAge.setColumns(10);
+		inputAge.setBounds(149, 380, 313, 39);
+		JoinPanel.add(inputAge);
+		
+		inputMbti = new JTextField();
+		inputMbti.setFont(new Font("Dialog", Font.BOLD, 17));
+		inputMbti.setColumns(10);
+		inputMbti.setBounds(149, 452, 313, 39);
+		JoinPanel.add(inputMbti);
 		
 		
 		
@@ -259,9 +298,14 @@ public class JoinMember extends JFrame {
                 sex = radioButtonFemale.getText();
             }
             String location = (String) LocationcomboBox.getSelectedItem();
+            String hight = inputHight.getText().toString();
+            String age = inputAge.getText().toString();
+            String mbti = inputMbti.getText();
             String history = textAreaExperience.getText();
+            
 	    
-            Member member  = new Member(id,pw,name,sex,location,history);
+            Member member  = new Member(id,pw,name,location,sex,history,hight,age,mbti);
+            
 	    
             int result = dao.addmember(member);
 	    
