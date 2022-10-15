@@ -48,4 +48,7 @@ public interface JdbcSql {
 	
 	// 메인창에 띄울 주소 리턴
 	String SQL_SELECT_LOC = String.format("select %s from %s where %s=?", COL_MEM_LOC,TBL_MEMBER,COL_MEM_ID);
+	
+	// TODO 검색 조건 에서 키만 입력한경우
+	String SQL_SELECT_HIGHT_SET = String.format("select %s from %s where %s>=? and %s<=?", null);
 }

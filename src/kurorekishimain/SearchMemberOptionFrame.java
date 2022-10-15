@@ -17,6 +17,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 public class SearchMemberOptionFrame extends JFrame {
+    public static String[] hights = new String [2];
+    public static String[] ages = new String [2];
+    public static String mbtis;
+    
 
     private JPanel contentPane;
     private String sex; // 로그인한 사람의 성별 ex) 남자면 남자 여자면 여자
@@ -328,19 +332,31 @@ public class SearchMemberOptionFrame extends JFrame {
         // hight,mbti 가 선택되서 수정불가 상태에서 나를 한쪽만 입력했을경우.
         if(lowAge.getText().equals("") || maxAge.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "나이를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
-          }   
+        }else {
+            String lowage = lowAge.getText();
+            String maxage = maxAge.getText();
+            ages[0] = lowage;
+            ages[1] = maxage;
+            
+        }
     }
 
     private void checkHight() {
         // age,mbti 가 선택되서 수정불가 상태에서 키를 한쪽만 입력했을경우.
-        if(ageCheck.isSelected()&&mbtiCheck.isSelected()) {
+        
             if(lowHight.getText().equals("") || maxHight.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "키를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }else {
+                String lowhight = lowHight.getText();
+                String maxhight = maxHight.getText();
+                hights[0] = lowhight;
+                hights[1] = maxhight;
+                // TODO dao의 명령어로 NAME 리턴받기 여기서 그 인터페이스 사용해서 메인창에서 해야할일 해야함
+                
             }
         }
-        
-    }
+    
 
     private void checkAll() {
         // 3칸다 아무것도 입력하지 않았을경우
