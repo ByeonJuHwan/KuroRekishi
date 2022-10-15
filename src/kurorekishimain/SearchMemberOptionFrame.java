@@ -144,38 +144,53 @@ public class SearchMemberOptionFrame extends JFrame {
         btnMemberSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
              
-                // 아무것도 입력하지 않고 누를시 경고 메세지
+                // 아무것도 입력하지 않고 누를시 경고 메세지 / mbti를 4글자 입력했는지도 검사.
                 if(!hightCheck.isSelected() && !ageCheck.isSelected() && !mbtiCheck.isSelected()) {
                     checkAll();
                     return;
                 }
-                
+                // 전부 체크되어 아무것도 입력이 안되는경우
+                if(hightCheck.isSelected() && ageCheck.isSelected() && mbtiCheck.isSelected()) {                   
+                    checkAllSelect();
+                    return;
+                }
  
                 // 키, 나이에서 한쪽만 입력하지않고 양쪽다 입력했는지
                 // case 1 age,mbti 가 선택되서 수정불가 상태에서 키를 한쪽만 입력했을경우.
-                
-                checkHight();
+                if(ageCheck.isSelected()&&mbtiCheck.isSelected()) {
+                    checkHight();
+                    return;                    
+                }
                 
                 // case 2 hight,mbti 가 선택되서 수정불가 상태에서 나이를 한쪽만 입력했을경우.
-                checkAge();
+                if(hightCheck.isSelected() && mbtiCheck.isSelected()) {
+                    checkAge();
+                    return;
+                }
                 
                 // case 3 hight, age 가 선택되서 수정불가 상태에서 mbti를 입력 안했을경우.
-                checkMbti();
+                if(hightCheck.isSelected() && ageCheck.isSelected()) {                       
+                    checkMbti();   
+                    return;                        
+                }
                 
                 // case 4 hight 가 선택되서 수정불가 상태에서 나이가 입력이 안되있거나 mbti가 입력이 안되어있는경우.
-                checkAgeMbti();
+                if(hightCheck.isSelected()) {
+                    checkAgeMbti();
+                    return;
+                }
                 
                 // case 5 age가 선택되서 수정불가 상태에서 키가 입력이 안되있거나 mbti가 입력이 안되어있는경우.
-                checkHightMbti();
+                if(ageCheck.isSelected()) {
+                    checkHightMbti();
+                    return;
+                }
                 
                 // case 6 mbti가 선택되서 수정불가 상태에서 키가 입력이 안되있거나 age가 입력이 안되어있는경우.
-                checkHightAge();
-                
-                // TODO 전부 체크되어 아무것도 입력이 안되는경우
-                //checkAllSelect();
-                
-                // mbti에 4글자 입력을 했는지 확인
-                checkMbtiLegth();
+                if(mbtiCheck.isSelected()) {
+                    checkHightAge();
+                    return;
+                }
                 
             }
         });
@@ -196,8 +211,15 @@ public class SearchMemberOptionFrame extends JFrame {
         hightCheck = new JCheckBox("");
         hightCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                lowHight.setEditable(false);
-                maxHight.setEditable(false);
+                if(hightCheck.isSelected()) {
+                    lowHight.setEditable(false);
+                    maxHight.setEditable(false);
+                    lowHight.setText("");
+                    maxHight.setText("");
+                }else {
+                    lowHight.setEditable(true);
+                    maxHight.setEditable(true);
+                }
             }
         });
         hightCheck.setBounds(586, 62, 28, 23);
@@ -206,8 +228,15 @@ public class SearchMemberOptionFrame extends JFrame {
         ageCheck = new JCheckBox("");
         ageCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               lowAge.setEditable(false);
-               maxAge.setEditable(false);
+                if(ageCheck.isSelected()) {
+                    lowAge.setEditable(false);
+                    maxAge.setEditable(false);
+                    lowAge.setText("");
+                    maxAge.setText("");
+                }else {
+                    lowAge.setEditable(true);
+                    maxAge.setEditable(true);
+                } 
             }
         });
         ageCheck.setBounds(586, 136, 28, 23);
@@ -216,38 +245,35 @@ public class SearchMemberOptionFrame extends JFrame {
         mbtiCheck = new JCheckBox("");
         mbtiCheck.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                mbti.setEditable(false);
+                if(mbtiCheck.isSelected()) {
+                    mbti.setEditable(false);
+                    mbti.setText("");
+                }else {
+                    mbti.setEditable(true);
+                }
             }
         });
         mbtiCheck.setBounds(585, 210, 28, 23);
         contentPane.add(mbtiCheck);
-    }
+    }// end initialize
 
-    protected void checkMbtiLegth() {
-        if(!mbtiCheck.isSelected()) {
-            int mbtiLength = mbti.getText().length();
-            if(mbtiLength<4) {
-                JOptionPane.showMessageDialog(this, "mbti는 4글자 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            
-            
-        }
-        
+
+    private void checkMbtiLegth() {
+        int mbtiLength = mbti.getText().length();
+        System.out.println(mbtiLength);
+        if(mbtiLength<4) {
+            JOptionPane.showMessageDialog(this, "mbti는 4글자 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+        }  
     }
 
     private void checkAllSelect() {
-        // // 전부 체크되어 아무것도 입력이 안되는경우
-        if(hightCheck.isSelected() && ageCheck.isSelected() && mbtiCheck.isSelected()) {
-            JOptionPane.showMessageDialog(this, "체크를 해제해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
+         // 전부 체크되어 아무것도 입력이 안되는경우
+         JOptionPane.showMessageDialog(this, "체크를 해제해주세요.", "Error", JOptionPane.ERROR_MESSAGE); 
     }
 
     private void checkHightAge() {
         // mbti가 선택되서 수정불가 상태에서 키가 입력이 안되있거나 age가 입력이 안되어있는경우.
-        if(mbtiCheck.isSelected()) {
+        
             if(lowHight.getText().equals("")&&maxHight.getText().equals("")&&
                     lowAge.getText().equals("") && maxAge.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "키와 나이 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -259,13 +285,12 @@ public class SearchMemberOptionFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "나이 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-        }
+        
         
     }
 
     private void checkHightMbti() {
-        // age가 선택되서 수정불가 상태에서 키가 입력이 안되있거나 mbti가 입력이 안되어있는경우.
-        if(ageCheck.isSelected()) {
+        // age가 선택되서 수정불가 상태에서 키가 입력이 안되있거나 mbti가 입력이 안되어있는경우.       
             if(lowHight.getText().equals("")&&maxHight.getText().equals("")&&mbti.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "키와 mbti 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -274,15 +299,11 @@ public class SearchMemberOptionFrame extends JFrame {
                 return;
             }else if(mbti.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "mbti를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
-        
+            }   
     }
 
     private void checkAgeMbti() {
-        // hight 가 선택되서 수정불가 상태에서 나이가 입력이 안되있거나 mbti가 입력이 안되어있는경우.
-        if(hightCheck.isSelected()) {
+        // hight 가 선택되서 수정불가 상태에서 나이가 입력이 안되있거나 mbti가 입력이 안되어있는경우.       
             if(lowAge.getText().equals("") && maxAge.getText().equals("")&&mbti.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "나이와 mbti 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -292,30 +313,22 @@ public class SearchMemberOptionFrame extends JFrame {
             }else if(mbti.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "mbti 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        
     }
     
     private void checkMbti() {
         // hight, age 가 선택되서 수정불가 상태에서 mbti를 입력 안했을경우.
-        if(hightCheck.isSelected() && ageCheck.isSelected()) {
-            if(mbti.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "mbti 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+          if(mbti.getText().equals("")) {
+              JOptionPane.showMessageDialog(this, "mbti 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+              return;            
         }
         
     }
 
     private void checkAge() {
         // hight,mbti 가 선택되서 수정불가 상태에서 나를 한쪽만 입력했을경우.
-        if(hightCheck.isSelected() && mbtiCheck.isSelected()) {
-            if(lowAge.getText().equals("") || maxAge.getText().equals("")) {
-                JOptionPane.showMessageDialog(this, "나이를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        }
-        
+        if(lowAge.getText().equals("") || maxAge.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "나이를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+          }   
     }
 
     private void checkHight() {
@@ -331,14 +344,15 @@ public class SearchMemberOptionFrame extends JFrame {
 
     private void checkAll() {
         // 3칸다 아무것도 입력하지 않았을경우
-       if(!hightCheck.isSelected() && !ageCheck.isSelected() && !mbtiCheck.isSelected()) {
-           if((lowHight.getText().equals("") || maxHight.getText().equals("") 
-                   || lowAge.getText().equals("") && maxAge.getText().equals("")
-                   || mbti.getText().equals(""))){
-               JOptionPane.showMessageDialog(this, "검색내용을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
-               return;
+        if((lowHight.getText().equals("") || maxHight.getText().equals("") 
+                || lowAge.getText().equals("") && maxAge.getText().equals("")
+                || mbti.getText().equals(""))){
+             JOptionPane.showMessageDialog(this, "검색내용을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);   
+       }else if(!mbtiCheck.isSelected()) {
+           int mbtiLength = mbti.getText().length();
+           if(mbtiLength<4) {
+               JOptionPane.showMessageDialog(this, "mbti는 4글자 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
            }
-       } 
-        
-    }
+       }
+    }    
 }

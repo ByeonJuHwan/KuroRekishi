@@ -35,6 +35,7 @@ public class Member {
     // 기본 생성자 (default constructor)
 	public Member() {}
 	
+	// 좋아요 누를때 저장하는 객
 	public Member(String name, String gavedThumbName, String givedThumbName) {
 		super();
 		this.name = name;
@@ -42,8 +43,8 @@ public class Member {
 		this.givedThumbName = givedThumbName;
 	}
 
-	// argument를 갖는 생성자
-
+	
+	// 회원 가입시 저장하는 객체
 	public Member(String id, String pw, String name, String location,String sex, String history, String hight,
             String age, String mbti) {
         super();
@@ -57,6 +58,7 @@ public class Member {
         this.age = age;
         this.mbti = mbti;
     }
+	    
 
     // getters / setters
 	
