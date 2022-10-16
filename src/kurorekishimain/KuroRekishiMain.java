@@ -41,6 +41,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	private ArrayList<String> searchNames;
 	
 	int index=0;
+	int nameIndex = 0;
 	boolean checkLogined;
 	private String sex; // 어떤 성별이 로그인 되느냐에 따라 남자면 여자사진, 여자면 남자사진이 띄워짐.
 	public static String name; // 랜덤으로 받아오는 이름 -- 이 이름에 따라 메인화면에 띄워지는 사진이 바뀐다.
@@ -217,8 +218,21 @@ public class KuroRekishiMain implements sendSearchListener{
         btnNotgood = new JButton("별로에요");
         btnNotgood.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		showDiffrentSexImages();
         		//TODO 하루 5번만 누를수있게 변경
+        		//TODO 세부검색 리스트가 null이아니면 그 안에 있는 사람들만 보여주게한다.
+        		if(searchNames == null) {
+        		    showDiffrentSexImages();
+        		}else {
+        		    nameIndex ++;
+        		    if(nameIndex>=searchNames.size()-1) {
+        		        JOptionPane.showMessageDialog(frame, "마지막 검색 결과입니다! 처음으로 돌아갑니다.","ERROR",JOptionPane.ERROR_MESSAGE);
+        		        nameIndex=0;
+        		        name = searchNames.get(0);
+        		        setSearchImages();
+        		    }else {
+        		        setSearchImages();
+        		    }
+        		}
         	}
         });
         btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -271,6 +285,22 @@ public class KuroRekishiMain implements sendSearchListener{
      // ---------------------------- 메인창작업
 		
 	} // end initialize()
+
+    protected void setSearchImages() {
+        String imageLink = null;
+        if(sex.equals("여자")) { // 여자가 로그인했을때
+            imageLink = "usersImageMale/"+name+"/"+name+nameIndex;
+            System.out.println(imageLink);
+            lblMemberImages.setIcon(new ImageIcon(imageLink));
+            chageImage();
+        }else { // 남자가 로그인했을때
+            imageLink = "usersImageFeMale/"+name+"/"+name+nameIndex;
+            System.out.println(imageLink);
+            lblMemberImages.setIcon(new ImageIcon(imageLink));
+            chageImage();
+        }
+        
+    }
 
     private void checkThumb() {
 		Member member = dao.checkThumb(idKey);
@@ -408,7 +438,6 @@ public class KuroRekishiMain implements sendSearchListener{
 			
 			// TODO 이 회원이 검색 설정을 했는지 안했는지 확인하고 세부검색을 한 회원이면 검색한 내용만 세부검색을 하지 않았으면 전체에서 랜덤하게 나오게 설정.
 			
-			
 			// 기본이미지 설정
 			showDiffrentSexImages();
 			
@@ -429,11 +458,18 @@ public class KuroRekishiMain implements sendSearchListener{
     @Override
     public void sendSearchResult(ArrayList<String> searchOptoinNameList) {
         searchNames = searchOptoinNameList;
-        String name = searchNames.get(0);
+        name = searchNames.get(0);
         String imageLink = null;
-        imageLink = "usersImageFeMale/"+name+"/"+name+0;
-        System.out.println(imageLink);
-        lblMemberImages.setIcon(new ImageIcon(imageLink));
-        chageImage();
+        if(sex.equals("여자")) { // 여자가 로그인했을때
+            imageLink = "usersImageMale/"+name+"/"+name+nameIndex;
+            System.out.println(imageLink);
+            lblMemberImages.setIcon(new ImageIcon(imageLink));
+            chageImage();
+        }else { // 남자가 로그인했을때
+            imageLink = "usersImageFeMale/"+name+"/"+name+nameIndex;
+            System.out.println(imageLink);
+            lblMemberImages.setIcon(new ImageIcon(imageLink));
+            chageImage();
+        }
     }
 }

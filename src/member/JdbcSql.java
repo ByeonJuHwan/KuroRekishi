@@ -52,8 +52,10 @@ public interface JdbcSql {
 	// 검색한 경우 그 사람의 정보에 세부검색을 했는지 안했는지 여부를 남긴다.
 	String SQL_UPDATE_SEARCHSET = String.format("update %s set %s=true where %s=?", TBL_MEMBER,COL_MEM_SETSEARCH, COL_MEM_ID);
 	
-	// 검색 조건 에서 키만 입력한경우
+	// 검색 조건에서 키만 입력한경우
 	String SQL_SELECT_HIGHT_SET = String.format("select %s from %s where %s>=? and %s<=?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_HIGHT,COL_MEM_HIGHT);
 	
+	// 검색 조건에서 나이만 입력한 경우
+	String SQL_SELECT_AGE_SET = String.format("select %s from %s where %s>=? and %s<=?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_AGE,COL_MEM_AGE);
 	
 }

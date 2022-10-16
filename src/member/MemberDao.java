@@ -91,9 +91,16 @@ public interface MemberDao {
     
     
     /**
-     * 검색을 한경우 설정에 옵션으로만 사람들이 보이게 설정.
+     * 회원이 세부검색을 했으면 false를 true 로 바꿔준다.
      * @param id
      */
     public void setSearch(String id);
 		
+    
+    /**
+     * 검색 상세 옵션에서 키만 입력한 경
+     * @param hight
+     * @return 검색한 키의 범위내의 이름을 리턴해준다.
+     */
+    public List<String> findAgeOption(String lowAge, String maxAge);
 }

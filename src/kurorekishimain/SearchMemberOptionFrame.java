@@ -25,7 +25,7 @@ public class SearchMemberOptionFrame extends JFrame {
     }
     private sendSearchListener listener;
     
-    
+   
     public static ArrayList<String> searchOptoinNameList;
     public static String[] hights = new String [2];
     public static String[] ages = new String [2];
@@ -353,7 +353,11 @@ public class SearchMemberOptionFrame extends JFrame {
             String maxage = maxAge.getText();
             ages[0] = lowage;
             ages[1] = maxage;
-            
+            searchOptoinNameList = (ArrayList<String>) dao.findAgeOption(lowage, maxage);
+            listener.sendSearchResult(searchOptoinNameList);
+            // 세부수정한경우 다시 로그인했을때도 설정한 내용대로 사람들이뜨게 db에 설정.
+            dao.setSearch(id);
+            JOptionPane.showMessageDialog(this, "세부 검색 설정 완료.");
         }
     }
 
@@ -368,12 +372,12 @@ public class SearchMemberOptionFrame extends JFrame {
                 String maxhight = maxHight.getText();
                 hights[0] = lowhight;
                 hights[1] = maxhight;
-                // TODO dao의 명령어로 NAME 리턴받기 여기서 그 인터페이스 사용해서 메인창에서 해야할일 해야함
+                // dao의 명령어로 NAME 리턴받기 여기서 그 인터페이스 사용해서 메인창에서 해야할일 해야함
                 searchOptoinNameList = (ArrayList<String>) dao.findHightOption(lowhight, maxhight);
                 listener.sendSearchResult(searchOptoinNameList);
                 // 세부수정한경우 다시 로그인했을때도 설정한 내용대로 사람들이뜨게 db에 설정.
                 dao.setSearch(id);
-                JOptionPane.showMessageDialog(this, "수정완료");
+                JOptionPane.showMessageDialog(this, "세부 검색 설정 완료.");
             }
         }
     
