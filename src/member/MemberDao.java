@@ -83,7 +83,7 @@ public interface MemberDao {
     public String findLocById(String id);
     
     /**
-     * 검색 상세 옵션에서 키만 입력한 경
+     * 검색 상세 옵션에서 키만 입력한 경우
      * @param hight
      * @return 검색한 키의 범위내의 이름을 리턴해준다.
      */
@@ -98,9 +98,15 @@ public interface MemberDao {
 		
     
     /**
-     * 검색 상세 옵션에서 키만 입력한 경
+     * 검색 상세 옵션에서 키만 입력한 경우
      * @param hight
-     * @return 검색한 키의 범위내의 이름을 리턴해준다.
+     * @return 검색한 나이의 범위내의 이름을 리턴해준다.
      */
     public List<String> findAgeOption(String lowAge, String maxAge);
+    /**
+     * mbti만 검색 상세 옵션에서 입력한 경우
+     * @param mbti
+     * @return 검색한 mbti인 사람들의 이름들을 리턴한다.
+     */
+    public List<String> findMbtiOption(String mbti);
 }

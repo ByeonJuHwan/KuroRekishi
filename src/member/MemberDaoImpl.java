@@ -484,5 +484,31 @@ public class MemberDaoImpl implements MemberDao{
     }
 
 
+    @Override
+    public List<String> findMbtiOption(String mbti) {
+        String name = null;
+        List<String>searchOptoinNameList = new ArrayList<>(); 
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SELECT_MBTI_SET);
+            stmt.setString(1, mbti);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                name = rs.getString(COL_MEM_NAME);
+                searchOptoinNameList.add(name);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return searchOptoinNameList;
+    }
+
+
     
 }

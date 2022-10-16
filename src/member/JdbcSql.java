@@ -58,4 +58,7 @@ public interface JdbcSql {
 	// 검색 조건에서 나이만 입력한 경우
 	String SQL_SELECT_AGE_SET = String.format("select %s from %s where %s>=? and %s<=?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_AGE,COL_MEM_AGE);
 	
+	// 검색 조건에서 mbti만 입력한 경우
+	String SQL_SELECT_MBTI_SET = String.format("select %s from %s where %s=?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_MBTI);
+	
 }

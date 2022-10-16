@@ -340,6 +340,12 @@ public class SearchMemberOptionFrame extends JFrame {
           if(mbti.getText().equals("")) {
               JOptionPane.showMessageDialog(this, "mbti 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
               return;            
+        }else {
+            mbtis = mbti.getText();
+            searchOptoinNameList = (ArrayList<String>) dao.findMbtiOption(mbtis);
+            listener.sendSearchResult(searchOptoinNameList);
+            dao.setSearch(id);
+            JOptionPane.showMessageDialog(this, "세부 검색 설정 완료.");
         }
         
     }

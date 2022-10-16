@@ -219,7 +219,7 @@ public class KuroRekishiMain implements sendSearchListener{
         btnNotgood.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		//TODO 하루 5번만 누를수있게 변경
-        		//TODO 세부검색 리스트가 null이아니면 그 안에 있는 사람들만 보여주게한다.
+        		
         	    index=0;
         		if(searchNames == null) {
         		    showDiffrentSexImages();
