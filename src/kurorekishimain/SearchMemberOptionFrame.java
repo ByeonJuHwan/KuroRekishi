@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -16,12 +17,23 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import member.MemberDaoImpl;
+
 public class SearchMemberOptionFrame extends JFrame {
+    public interface sendSearchListener{
+        void sendSearchResult(ArrayList<String> searchOptoinNameList);
+    }
+    private sendSearchListener listener;
+    
+    
+    public static ArrayList<String> searchOptoinNameList;
     public static String[] hights = new String [2];
     public static String[] ages = new String [2];
     public static String mbtis;
+    private MemberDaoImpl dao;
+    private String id;
     
-
+   
     private JPanel contentPane;
     private String sex; // 로그인한 사람의 성별 ex) 남자면 남자 여자면 여자
     private JTextField lowHight;
@@ -40,17 +52,21 @@ public class SearchMemberOptionFrame extends JFrame {
      * Launch the application.
      * @param frame 
      * @param sex 
+     * @param id 
      */
-    public static void newSearchMemberOptionFrame(Component parent, String sex) {
+    public static void newSearchMemberOptionFrame(Component parent, String sex,sendSearchListener listener, String id) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                    SearchMemberOptionFrame frame = new SearchMemberOptionFrame(parent,sex);
+                    SearchMemberOptionFrame frame = new SearchMemberOptionFrame(parent,sex,listener,id);
                     frame.setVisible(true);
             }
         });
     }
     
-    public SearchMemberOptionFrame(Component parent, String sex) {
+    public SearchMemberOptionFrame(Component parent, String sex, sendSearchListener listener, String id) {
+        this.listener = listener;
+        this.id = id;
+        dao = MemberDaoImpl.getInstance();
         this.parent = parent;
         this.sex = sex;
         initialize();
@@ -353,7 +369,11 @@ public class SearchMemberOptionFrame extends JFrame {
                 hights[0] = lowhight;
                 hights[1] = maxhight;
                 // TODO dao의 명령어로 NAME 리턴받기 여기서 그 인터페이스 사용해서 메인창에서 해야할일 해야함
-                
+                searchOptoinNameList = (ArrayList<String>) dao.findHightOption(lowhight, maxhight);
+                listener.sendSearchResult(searchOptoinNameList);
+                // 세부수정한경우 다시 로그인했을때도 설정한 내용대로 사람들이뜨게 db에 설정.
+                dao.setSearch(id);
+                JOptionPane.showMessageDialog(this, "수정완료");
             }
         }
     

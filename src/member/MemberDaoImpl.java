@@ -407,14 +407,14 @@ public class MemberDaoImpl implements MemberDao{
 
 
     @Override
-    public List<String> findHightOption(String hight) {
+    public List<String> findHightOption(String lowHight, String maxHight) {
         String name = null;
         List<String>searchOptoinNameList = new ArrayList<>();
         try {
             connDB();
             stmt = conn.prepareStatement(SQL_SELECT_HIGHT_SET);
-            stmt.setString(1, hight);
-            stmt.setString(2, hight);
+            stmt.setString(1, lowHight);
+            stmt.setString(2, maxHight);
             rs = stmt.executeQuery();
             while(rs.next()) {
                 name = rs.getString(COL_MEM_NAME);
@@ -432,5 +432,25 @@ public class MemberDaoImpl implements MemberDao{
         }
         
         return searchOptoinNameList;
+    }
+
+
+    @Override
+    public void setSearch(String id) {
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_UPDATE_SEARCHSET);
+            stmt.setString(1, id);
+            stmt.executeUpdate();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
     }
 }

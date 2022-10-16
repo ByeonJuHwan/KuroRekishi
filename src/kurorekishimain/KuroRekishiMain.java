@@ -26,19 +26,19 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import kurorekishimain.SearchMemberOptionFrame.sendSearchListener;
 import member.Member;
 import member.MemberDaoImpl;
 import server.MultiServerThread;
 import server.ServerMain;
 
 
-public class KuroRekishiMain {
+public class KuroRekishiMain implements sendSearchListener{
 	private static final BufferedImage[] images =  new BufferedImage[5];
 	public static Map<String,String> userInfo = new  HashMap<>(); // 로그인시 로그인한 아이디, 이름을 다른 클래스에서도 쓰기위해서
 	public static String idKey = null; // idKey를 통해서 map에 저장한 value값을 가져온다.
 	public static ArrayList<MultiServerThread> list;
-	public static ArrayList<String> searchOptoinNameList;
-	
+	private ArrayList<String> searchNames;
 	
 	int index=0;
 	boolean checkLogined;
@@ -195,7 +195,7 @@ public class KuroRekishiMain {
             public void actionPerformed(ActionEvent e) {
                 // TODO 나이,키, mbti로 검색 
                 System.out.println(sex); // 로그인한 사람의 성
-                SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex);
+                SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex,KuroRekishiMain.this,idKey);
             }
         });
         searchOption.setBounds(70, 5, 122, 45);
@@ -271,12 +271,6 @@ public class KuroRekishiMain {
      // ---------------------------- 메인창작업
 		
 	} // end initialize()
-
-
-    private String setName() {
-        
-        return null;
-    }
 
     private void checkThumb() {
 		Member member = dao.checkThumb(idKey);
@@ -412,6 +406,9 @@ public class KuroRekishiMain {
 			// 아이디에따른 성별도 가져옴
 			sex = dao.loginedUserSex(idKey);
 			
+			// TODO 이 회원이 검색 설정을 했는지 안했는지 확인하고 세부검색을 한 회원이면 검색한 내용만 세부검색을 하지 않았으면 전체에서 랜덤하게 나오게 설정.
+			
+			
 			// 기본이미지 설정
 			showDiffrentSexImages();
 			
@@ -428,4 +425,15 @@ public class KuroRekishiMain {
 		String name = dao.fineName(id);
 		return name;
 	}
+
+    @Override
+    public void sendSearchResult(ArrayList<String> searchOptoinNameList) {
+        searchNames = searchOptoinNameList;
+        String name = searchNames.get(0);
+        String imageLink = null;
+        imageLink = "usersImageFeMale/"+name+"/"+name+0;
+        System.out.println(imageLink);
+        lblMemberImages.setIcon(new ImageIcon(imageLink));
+        chageImage();
+    }
 }

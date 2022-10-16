@@ -15,6 +15,7 @@ public class Member {
     	String COL_MEM_HIGHT = "HIGHT";
     	String COL_MEM_AGE = "AGE";
     	String COL_MEM_MBTI= "MBTI";
+    	String COL_MEM_SETSEARCH = "SETSEARCH";
     }
     
     // field
@@ -29,6 +30,7 @@ public class Member {
 	private String hight;
 	private String age;
 	private String mbti;
+	private String setSearch;
 	
 	
 
@@ -149,6 +151,12 @@ public class Member {
     public void setMbti(String mbti) {
         this.mbti = mbti;
     }
+
+    public String getSetSearch() {
+        return setSearch;
+    }
+
+    
 	
 	
 	

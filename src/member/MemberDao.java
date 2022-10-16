@@ -87,6 +87,13 @@ public interface MemberDao {
      * @param hight
      * @return 검색한 키의 범위내의 이름을 리턴해준다.
      */
-    public List<String> findHightOption(String hight);
+    public List<String> findHightOption(String lowHight, String maxHight);
+    
+    
+    /**
+     * 검색을 한경우 설정에 옵션으로만 사람들이 보이게 설정.
+     * @param id
+     */
+    public void setSearch(String id);
 		
 }
