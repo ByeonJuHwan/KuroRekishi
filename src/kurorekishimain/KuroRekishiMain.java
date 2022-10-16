@@ -220,16 +220,18 @@ public class KuroRekishiMain implements sendSearchListener{
         	public void actionPerformed(ActionEvent e) {
         		//TODO 하루 5번만 누를수있게 변경
         		//TODO 세부검색 리스트가 null이아니면 그 안에 있는 사람들만 보여주게한다.
+        	    index=0;
         		if(searchNames == null) {
         		    showDiffrentSexImages();
         		}else {
         		    nameIndex ++;
-        		    if(nameIndex>=searchNames.size()-1) {
+        		    if(nameIndex>=searchNames.size()) {
         		        JOptionPane.showMessageDialog(frame, "마지막 검색 결과입니다! 처음으로 돌아갑니다.","ERROR",JOptionPane.ERROR_MESSAGE);
         		        nameIndex=0;
-        		        name = searchNames.get(0);
+        		        name = searchNames.get(nameIndex);
         		        setSearchImages();
         		    }else {
+        		        name = searchNames.get(nameIndex);
         		        setSearchImages();
         		    }
         		}
@@ -289,12 +291,12 @@ public class KuroRekishiMain implements sendSearchListener{
     protected void setSearchImages() {
         String imageLink = null;
         if(sex.equals("여자")) { // 여자가 로그인했을때
-            imageLink = "usersImageMale/"+name+"/"+name+nameIndex;
+            imageLink = "usersImageMale/"+name+"/"+name+index;
             System.out.println(imageLink);
             lblMemberImages.setIcon(new ImageIcon(imageLink));
             chageImage();
         }else { // 남자가 로그인했을때
-            imageLink = "usersImageFeMale/"+name+"/"+name+nameIndex;
+            imageLink = "usersImageFeMale/"+name+"/"+name+index;
             System.out.println(imageLink);
             lblMemberImages.setIcon(new ImageIcon(imageLink));
             chageImage();
