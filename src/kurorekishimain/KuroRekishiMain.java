@@ -37,6 +37,7 @@ public class KuroRekishiMain {
 	public static Map<String,String> userInfo = new  HashMap<>(); // 로그인시 로그인한 아이디, 이름을 다른 클래스에서도 쓰기위해서
 	public static String idKey = null; // idKey를 통해서 map에 저장한 value값을 가져온다.
 	public static ArrayList<MultiServerThread> list;
+	public static ArrayList<String> searchOptoinNameList;
 	
 	
 	int index=0;

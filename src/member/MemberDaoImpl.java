@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import kurorekishimain.KuroRekishiMain;
 import oracle.jdbc.OracleDriver;
 import static ojdbc.MysqlJdbc.*; // 맥북용 Mysql jdbc
 import static member.Member.Entity.*;
@@ -402,5 +403,34 @@ public class MemberDaoImpl implements MemberDao{
         
         
         return loc;
+    }
+
+
+    @Override
+    public List<String> findHightOption(String hight) {
+        String name = null;
+        List<String>searchOptoinNameList = new ArrayList<>();
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SELECT_HIGHT_SET);
+            stmt.setString(1, hight);
+            stmt.setString(2, hight);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                name = rs.getString(COL_MEM_NAME);
+                searchOptoinNameList.add(name);
+            }
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        return searchOptoinNameList;
     }
 }
