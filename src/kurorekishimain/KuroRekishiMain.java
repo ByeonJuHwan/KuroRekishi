@@ -106,69 +106,7 @@ public class KuroRekishiMain implements sendSearchListener{
 		frame.getContentPane().setLayout(null);
 		
 		
-		Login = new JPanel();
-        Login.setBounds(0, 0, 658, 766);
-        frame.getContentPane().add(Login);
-        Login.setLayout(null);
-        
-        JLabel lblId = new JLabel("아이디");
-        lblId.setBackground(Color.WHITE);
-        lblId.setOpaque(true);
-        lblId.setForeground(Color.BLACK);
-        lblId.setHorizontalAlignment(SwingConstants.CENTER);
-        lblId.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblId.setEnabled(true);
-        lblId.setBounds(37, 634, 95, 41);
-        Login.add(lblId);
 		
-        JLabel lblPw = new JLabel("비밀번호");
-        lblPw.setBackground(Color.WHITE);
-        lblPw.setOpaque(true);
-        lblPw.setForeground(Color.BLACK);
-        lblPw.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblPw.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPw.setBounds(37, 685, 95, 41);
-        Login.add(lblPw);
-		
-        textId = new JTextField();
-        textId.setFont(new Font("D2Coding", Font.BOLD, 15));
-        textId.setBounds(187, 634, 260, 41);
-        Login.add(textId);
-        textId.setColumns(10);
-        
-        passwordField = new JPasswordField();
-        passwordField.setFont(new Font("D2Coding", Font.BOLD, 15));
-        passwordField.setBounds(187, 685, 260, 41);
-        Login.add(passwordField);
-        
-        btnLogin = new JButton("로그인");
-        btnLogin.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	   Login();
-        	   checkThumb();
-        	}
-        });
-        btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnLogin.setBounds(492, 635, 119, 41);
-        Login.add(btnLogin);
-        
-        btnJoin = new JButton("회원가입");
-        btnJoin.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		JoinMember.newJoinMember(frame);
-        	}
-        });
-        btnJoin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnJoin.setBounds(492, 685, 119, 41);
-        Login.add(btnJoin);
-
-        
-        lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
-        lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblImage.setBackground(Color.WHITE);
-        lblImage.setBounds(0, 0, 658, 766);
-        Login.add(lblImage);
-        
 
         
         
@@ -198,7 +136,7 @@ public class KuroRekishiMain implements sendSearchListener{
             }
         });
         btnProfile.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnProfile.setBounds(420, 10, 122, 45);
+        btnProfile.setBounds(490, 6, 122, 45);
         mainButtonPanel.add(btnProfile);
         
         JButton searchOption = new JButton("검색 설정");
@@ -208,14 +146,14 @@ public class KuroRekishiMain implements sendSearchListener{
                 SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex,KuroRekishiMain.this,idKey);
             }
         });
-        searchOption.setBounds(70, 10, 122, 45);
+        searchOption.setBounds(26, 6, 122, 45);
         searchOption.setFont(new Font("D2Coding", Font.BOLD, 16));
         mainButtonPanel.add(searchOption);
         
         
         
         JButton btnNewChat = new JButton("데이트추천");
-        btnNewChat.setBounds(250, 10, 122, 45);
+        btnNewChat.setBounds(177, 6, 122, 45);
         mainButtonPanel.add(btnNewChat);
         btnNewChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -223,6 +161,17 @@ public class KuroRekishiMain implements sendSearchListener{
             }
         });
         btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
+        
+        JButton btnCheckChat = new JButton("채팅방");
+        btnCheckChat.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                //TODO 새 프레임으로 채팅하고싶은 사람 목록 띄우기.
+                ChatRoomFrame.newChatRoomFrame(frame,idKey);
+            }
+        });
+        btnCheckChat.setFont(new Font("Dialog", Font.BOLD, 16));
+        btnCheckChat.setBounds(337, 6, 122, 45);
+        mainButtonPanel.add(btnCheckChat);
         
         
         JButton btnGoPreImage = new JButton("<");
@@ -244,7 +193,7 @@ public class KuroRekishiMain implements sendSearchListener{
         Main.add(btnGoNextImage);
         
         btnNotgood = new JButton("별로에요");
-        btnNotgood.setBounds(72, 658, 122, 45);
+        btnNotgood.setBounds(85, 658, 122, 45);
         Main.add(btnNotgood);
         btnNotgood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -271,7 +220,7 @@ public class KuroRekishiMain implements sendSearchListener{
         btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
         
         JButton btnGood = new JButton("좋아요");
-        btnGood.setBounds(249, 658, 122, 45);
+        btnGood.setBounds(485, 658, 122, 45);
         Main.add(btnGood);
         btnGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -289,7 +238,7 @@ public class KuroRekishiMain implements sendSearchListener{
         btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
         
         btnSendStar = new JButton("점수주기");
-        btnSendStar.setBounds(535, 658, 122, 45);
+        btnSendStar.setBounds(351, 658, 122, 45);
         btnSendStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                if(dao.checkStarId(name).equals(idKey)) {
@@ -304,7 +253,7 @@ public class KuroRekishiMain implements sendSearchListener{
         Main.add(btnSendStar);
         
         starComboBox = new JComboBox(stars);
-        starComboBox.setBounds(413, 657, 120, 50);
+        starComboBox.setBounds(219, 656, 120, 50);
         Main.add(starComboBox);
         
         lblHistory = new JLabel();
@@ -321,6 +270,71 @@ public class KuroRekishiMain implements sendSearchListener{
         	
      // ---------------------------- 메인창작업
 		
+        Login = new JPanel();
+        Login.setBounds(0, 0, 658, 766);
+        frame.getContentPane().add(Login);
+        Login.setLayout(null);
+        
+        JLabel lblId = new JLabel("아이디");
+        lblId.setBackground(Color.WHITE);
+        lblId.setOpaque(true);
+        lblId.setForeground(Color.BLACK);
+        lblId.setHorizontalAlignment(SwingConstants.CENTER);
+        lblId.setFont(new Font("궁서체", Font.BOLD, 15));
+        lblId.setEnabled(true);
+        lblId.setBounds(37, 634, 95, 41);
+        Login.add(lblId);
+        
+        JLabel lblPw = new JLabel("비밀번호");
+        lblPw.setBackground(Color.WHITE);
+        lblPw.setOpaque(true);
+        lblPw.setForeground(Color.BLACK);
+        lblPw.setFont(new Font("궁서체", Font.BOLD, 15));
+        lblPw.setHorizontalAlignment(SwingConstants.CENTER);
+        lblPw.setBounds(37, 685, 95, 41);
+        Login.add(lblPw);
+        
+        textId = new JTextField();
+        textId.setFont(new Font("D2Coding", Font.BOLD, 15));
+        textId.setBounds(187, 634, 260, 41);
+        Login.add(textId);
+        textId.setColumns(10);
+        
+        passwordField = new JPasswordField();
+        passwordField.setFont(new Font("D2Coding", Font.BOLD, 15));
+        passwordField.setBounds(187, 685, 260, 41);
+        Login.add(passwordField);
+        
+        btnLogin = new JButton("로그인");
+        btnLogin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               Login();
+               checkThumb();
+            }
+        });
+        btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
+        btnLogin.setBounds(492, 635, 119, 41);
+        Login.add(btnLogin);
+        
+        btnJoin = new JButton("회원가입");
+        btnJoin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JoinMember.newJoinMember(frame);
+            }
+        });
+        btnJoin.setFont(new Font("궁서체", Font.BOLD, 15));
+        btnJoin.setBounds(492, 685, 119, 41);
+        Login.add(btnJoin);
+
+        
+        lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
+        lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
+        lblImage.setBackground(Color.WHITE);
+        lblImage.setBounds(0, 0, 658, 766);
+        Login.add(lblImage);
+        
+        
+        
 	} // end initialize()
 
     private void insertStar() {
@@ -416,12 +430,8 @@ public class KuroRekishiMain implements sendSearchListener{
 		int result = dao.giveThumb(userInfo.get(idKey),name);
 		if(result == 1) {
 			JOptionPane.showMessageDialog(frame, name + " 님에게 좋아요를 보냈습니다.");
-			//TODO 좋아요 보낼시 내아이디 시간보내야
 			String id = dao.findIdByName(name);
-			int sendResult = chatDao.insertId(idKey, id);
-			if(sendResult == 1) {
-			    System.out.println("db저장성공");
-			}
+			chatDao.insertId(idKey, id);
 		}else {
 			JOptionPane.showMessageDialog(frame, "좋아요를 보낼수 없습니다.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -561,7 +571,6 @@ public class KuroRekishiMain implements sendSearchListener{
     }
 
     private void checkMyPoint() {
-        // TODO Auto-generated method stub
         Member member = dao.getStarPoint(userInfo.get(idKey));
         if(member.getPoint()>0) {
             int point = member.getPoint();

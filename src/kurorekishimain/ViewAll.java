@@ -180,7 +180,6 @@ public class ViewAll extends JFrame {
     }
 
     private String getImageUrl2(String name) {
-        // TODO 2번째 사진 링크 넣기
         String url = dao.searchImageUrl2(name);
         return url;
     }
