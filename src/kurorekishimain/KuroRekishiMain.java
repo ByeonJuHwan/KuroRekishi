@@ -26,6 +26,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import chat.ChatDaoImpl;
 import kurorekishimain.SearchMemberOptionFrame.sendSearchListener;
 import member.Member;
 import member.MemberDaoImpl;
@@ -50,6 +51,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	public static String name; // 랜덤으로 받아오는 이름 -- 이 이름에 따라 메인화면에 띄워지는 사진이 바뀐다.
 	
 	private MemberDaoImpl dao;
+	private ChatDaoImpl chatDao;
 	
 	private JFrame frame;
 	private JLabel lblImage;
@@ -87,6 +89,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	 * Create the application.
 	 */
 	public KuroRekishiMain() {
+	    chatDao = ChatDaoImpl.getInstance();
 		dao = MemberDaoImpl.getInstance();
 		initialize();
 	}
@@ -414,7 +417,11 @@ public class KuroRekishiMain implements sendSearchListener{
 		if(result == 1) {
 			JOptionPane.showMessageDialog(frame, name + " 님에게 좋아요를 보냈습니다.");
 			//TODO 좋아요 보낼시 내아이디 시간보내야
-			//int sendResult = dao.
+			String id = dao.findIdByName(name);
+			int sendResult = chatDao.insertId(idKey, id);
+			if(sendResult == 1) {
+			    System.out.println("db저장성공");
+			}
 		}else {
 			JOptionPane.showMessageDialog(frame, "좋아요를 보낼수 없습니다.", "Error", JOptionPane.ERROR_MESSAGE);
 		}

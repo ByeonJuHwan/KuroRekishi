@@ -720,4 +720,28 @@ public class MemberDaoImpl implements MemberDao{
         }
         return id;
     }
+
+
+    @Override
+    public String findIdByName(String name) {
+        String id = null;
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SELECT_ID_BY_NAME);
+            stmt.setString(1, name);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                id = rs.getString(COL_MEM_ID);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return id;
+    }
 }

@@ -1,7 +1,7 @@
 package chat;
 
 import static ojdbc.MysqlJdbc.*;
-
+import static chat.ChatSql.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -56,11 +56,19 @@ public class ChatDaoImpl implements ChatDao {
     public int insertId(String id, String id2) {
         int result = 0;
         try {
-            
+            connDB();
+            stmt = conn.prepareStatement(SQL_CHAT_INSERT_ID);
+            stmt.setString(1, id);
+            stmt.setString(2, id2);
+            result = stmt.executeUpdate();
         }catch(Exception e) {
             e.printStackTrace();
         }finally {
-            
+            try {
+                closeResources(conn, stmt);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return result;
     }

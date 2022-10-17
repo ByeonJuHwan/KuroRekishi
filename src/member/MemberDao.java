@@ -176,4 +176,11 @@ public interface MemberDao {
      * @return 점수를 준사람의 아이디를 리턴한다.
      */
     public String checkStarId(String name);
+    
+    /**
+     * 이름을 가지고 id를 검색해준다.
+     * @param name
+     * @return id
+     */
+    public String findIdByName(String name);
 }

@@ -84,5 +84,7 @@ public interface JdbcSql {
 	
 	// 별주기 중복방지 selet 문
 	String SQL_CHECK_ALREADY_GIVESTAR = String.format("select %s from %s where %s=?", COL_MEM_GIVESTARID,TBL_MEMBER,COL_MEM_NAME);
-//	select givestarid from member where name = '김태연';
+	
+	// 이름으로 ID 찾기
+	String SQL_SELECT_ID_BY_NAME = String.format("select %s from %s where %s=?", COL_MEM_ID,TBL_MEMBER,COL_MEM_NAME);
 }
