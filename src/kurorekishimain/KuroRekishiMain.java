@@ -541,12 +541,35 @@ public class KuroRekishiMain implements sendSearchListener{
 			Login.setVisible(false);
 			Main.setVisible(true);
 			
-			// TODO 점수 확인
+			// 점수 확인
+			checkMyPoint();
 		}else {
 		    // 회원이 아닌경우 회원가입 유도.
 			JOptionPane.showMessageDialog(frame, "등록된 아이디가 없습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
 		}
 	
+    }
+
+    private void checkMyPoint() {
+        // TODO Auto-generated method stub
+        Member member = dao.getStarPoint(userInfo.get(idKey));
+        if(member.getPoint()>0) {
+            int point = member.getPoint();
+            int starGiveNum = member.getGiveStarNum();
+            double avg =(double) point/starGiveNum;
+            String userAvg = String.format("%.1f", avg);
+            if(avg<=1) {
+                JOptionPane.showMessageDialog(frame,"당신의 점수는 " + userAvg + " 점 입니다.\n" + " 와 증말로 못생기셨네요...");
+            }else if(avg<=2) {
+                JOptionPane.showMessageDialog(frame,"당신의 점수는 " + userAvg + " 점 입니다.\n" + " 진짜 못생기셨네요...");
+            }else if(avg<=3) {
+                JOptionPane.showMessageDialog(frame,"당신의 점수는 " + userAvg + " 점 입니다.\n" + "평타 그 이하입니다.");
+            }else if(avg<=4) {
+                JOptionPane.showMessageDialog(frame,"당신의 점수는 " + userAvg + " 점 입니다.\n" + "딱 평타 이상 그 이하도 아닙니다.");
+            }else {
+                JOptionPane.showMessageDialog(frame,"당신의 점수는 " + userAvg + " 점 입니다.\n" + "good");
+            }
+        }
     }
 
     private String findName(String id) {
