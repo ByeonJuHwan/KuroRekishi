@@ -413,9 +413,12 @@ public class KuroRekishiMain implements sendSearchListener{
 		int result = dao.giveThumb(userInfo.get(idKey),name);
 		if(result == 1) {
 			JOptionPane.showMessageDialog(frame, name + " 님에게 좋아요를 보냈습니다.");
+			//TODO 좋아요 보낼시 내아이디 시간보내야
+			//int sendResult = dao.
 		}else {
 			JOptionPane.showMessageDialog(frame, "좋아요를 보낼수 없습니다.", "Error", JOptionPane.ERROR_MESSAGE);
 		}
+		
 	}
 
 	// 사진을 다음장으로 이동
