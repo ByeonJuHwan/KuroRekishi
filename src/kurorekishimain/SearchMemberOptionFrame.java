@@ -27,8 +27,6 @@ public class SearchMemberOptionFrame extends JFrame {
     
    
     public static ArrayList<String> searchOptoinNameList;
-    public static String[] hights = new String [2];
-    public static String[] ages = new String [2];
     public static String mbtis;
     private MemberDaoImpl dao;
     private String id;
@@ -278,14 +276,6 @@ public class SearchMemberOptionFrame extends JFrame {
     }// end initialize
 
 
-    private void checkMbtiLegth() {
-        int mbtiLength = mbti.getText().length();
-        System.out.println(mbtiLength);
-        if(mbtiLength<4) {
-            JOptionPane.showMessageDialog(this, "mbti는 4글자 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
-        }  
-    }
-
     private void checkAllSelect() {
          // 전부 체크되어 아무것도 입력이 안되는경우
          JOptionPane.showMessageDialog(this, "체크를 해제해주세요.", "Error", JOptionPane.ERROR_MESSAGE); 
@@ -304,9 +294,16 @@ public class SearchMemberOptionFrame extends JFrame {
             }else if(lowAge.getText().equals("")||maxAge.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "나이 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }else { // 키와 나이를 받아야함.
+                String lowhight = lowHight.getText();
+                String maxhight = maxHight.getText();
+                String lowage = lowAge.getText();
+                String maxage = maxAge.getText();
+                searchOptoinNameList = (ArrayList<String>) dao.findHightAgeOption(lowhight, maxhight, lowage, maxage);
+                listener.sendSearchResult(searchOptoinNameList);
+                dao.setSearch(id);
+                JOptionPane.showMessageDialog(this, "세부 검색 설정 완료.");
             }
-        
-        
     }
 
     private void checkHightMbti() {
@@ -319,7 +316,16 @@ public class SearchMemberOptionFrame extends JFrame {
                 return;
             }else if(mbti.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "mbti를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
-            }   
+            } else { // 키와 mbti를 받아야함
+                String lowhight = lowHight.getText();
+                String maxhight = maxHight.getText();
+                mbtis = mbti.getText();
+                searchOptoinNameList = (ArrayList<String>) dao.findHightMbtiOption(lowhight, maxhight, mbtis);
+                listener.sendSearchResult(searchOptoinNameList);
+                dao.setSearch(id);
+                JOptionPane.showMessageDialog(this, "세부 검색 설정 완료.");
+
+            }
     }
 
     private void checkAgeMbti() {
@@ -332,6 +338,14 @@ public class SearchMemberOptionFrame extends JFrame {
                 return;
             }else if(mbti.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "mbti 를 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);
+            }else { // 나이 mbti를 넣어야함.
+                String lowage = lowAge.getText();
+                String maxage = maxAge.getText();
+                mbtis = mbti.getText();
+                searchOptoinNameList = (ArrayList<String>) dao.findAgeMbtiOption(lowage, maxage, mbtis);
+                listener.sendSearchResult(searchOptoinNameList);
+                dao.setSearch(id);
+                JOptionPane.showMessageDialog(this, "세부 검색 설정 완료.");
             }
     }
     
@@ -357,8 +371,6 @@ public class SearchMemberOptionFrame extends JFrame {
         }else {
             String lowage = lowAge.getText();
             String maxage = maxAge.getText();
-            ages[0] = lowage;
-            ages[1] = maxage;
             searchOptoinNameList = (ArrayList<String>) dao.findAgeOption(lowage, maxage);
             listener.sendSearchResult(searchOptoinNameList);
             // 세부수정한경우 다시 로그인했을때도 설정한 내용대로 사람들이뜨게 db에 설정.
@@ -376,8 +388,7 @@ public class SearchMemberOptionFrame extends JFrame {
             }else {
                 String lowhight = lowHight.getText();
                 String maxhight = maxHight.getText();
-                hights[0] = lowhight;
-                hights[1] = maxhight;
+
                 // dao의 명령어로 NAME 리턴받기 여기서 그 인터페이스 사용해서 메인창에서 해야할일 해야함
                 searchOptoinNameList = (ArrayList<String>) dao.findHightOption(lowhight, maxhight);
                 listener.sendSearchResult(searchOptoinNameList);
@@ -394,10 +405,20 @@ public class SearchMemberOptionFrame extends JFrame {
                 || lowAge.getText().equals("") && maxAge.getText().equals("")
                 || mbti.getText().equals(""))){
              JOptionPane.showMessageDialog(this, "검색내용을 입력해주세요.", "Error", JOptionPane.ERROR_MESSAGE);   
-       }else if(!mbtiCheck.isSelected()) {
+        }else if(!mbtiCheck.isSelected()) {
            int mbtiLength = mbti.getText().length();
            if(mbtiLength<4) {
                JOptionPane.showMessageDialog(this, "mbti는 4글자 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+           }else {
+               String lowhight = lowHight.getText();
+               String maxhight = maxHight.getText();
+               String lowage = lowAge.getText();
+               String maxage = maxAge.getText();
+               mbtis = mbti.getText();
+               searchOptoinNameList = (ArrayList<String>) dao.findHightAgeMBTIOption(lowhight, maxhight, lowage, maxage, mbtis);
+               listener.sendSearchResult(searchOptoinNameList);
+               dao.setSearch(id);
+               JOptionPane.showMessageDialog(this, "세부 검색 설정 완료.");
            }
        }
     }    

@@ -103,10 +103,50 @@ public interface MemberDao {
      * @return 검색한 나이의 범위내의 이름을 리턴해준다.
      */
     public List<String> findAgeOption(String lowAge, String maxAge);
+    
     /**
      * mbti만 검색 상세 옵션에서 입력한 경우
      * @param mbti
      * @return 검색한 mbti인 사람들의 이름들을 리턴한다.
      */
     public List<String> findMbtiOption(String mbti);
+    
+    /**
+     * mbti와 나이 2가지를 상세옵션에서 입력한 경우
+     * @param lowAge
+     * @param maxAge
+     * @param mbti
+     * @return 범위에 맞는 이름을 리턴해준다.
+     */
+    public List<String> findAgeMbtiOption(String lowAge, String maxAge, String mbti); 
+    
+    /**
+     * 키, mbti 2가지를 상세옵션에서 입력한 경우.
+     * @param lowHight
+     * @param maxHight
+     * @param mbti
+     * @return 범위에 맞는 이름을 리턴해준다.
+     */
+    public List<String> findHightMbtiOption(String lowHight, String maxHight, String mbti); 
+    
+    /**
+     * 키,나이 2가지를 상세옵션에서 입력한 경우.
+     * @param lowHight
+     * @param maxHight
+     * @param lowAge
+     * @param maxAge
+     * @return 범위에 맞는 이름을 리턴해준다.
+     */
+    public List<String> findHightAgeOption(String lowHight, String maxHight, String lowAge, String maxAge); 
+    
+    /**
+     * 키, 나이, mbti 모두를 상세옵션에서 입력한 경우.
+     * @param lowHight
+     * @param maxHight
+     * @param lowAge
+     * @param maxAge
+     * @return 범위에 맞는 이름을 리턴해준다.
+     */
+    public List<String> findHightAgeMBTIOption(String lowHight, String maxHight, String lowAge, String maxAge, String mbti); 
+    
 }

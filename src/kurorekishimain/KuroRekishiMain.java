@@ -42,6 +42,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	
 	int index=0;
 	int nameIndex = 0;
+	int likeIndex=0;
 	boolean checkLogined;
 	private String sex; // 어떤 성별이 로그인 되느냐에 따라 남자면 여자사진, 여자면 남자사진이 띄워짐.
 	public static String name; // 랜덤으로 받아오는 이름 -- 이 이름에 따라 메인화면에 띄워지는 사진이 바뀐다.
@@ -194,7 +195,6 @@ public class KuroRekishiMain implements sendSearchListener{
         JButton searchOption = new JButton("검색 설정");
         searchOption.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO 나이,키, mbti로 검색 
                 System.out.println(sex); // 로그인한 사람의 성
                 SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex,KuroRekishiMain.this,idKey);
             }
@@ -218,8 +218,6 @@ public class KuroRekishiMain implements sendSearchListener{
         btnNotgood = new JButton("별로에요");
         btnNotgood.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		//TODO 하루 5번만 누를수있게 변경
-        		
         	    index=0;
         		if(searchNames == null) {
         		    showDiffrentSexImages();
@@ -244,6 +242,12 @@ public class KuroRekishiMain implements sendSearchListener{
         JButton btnGood = new JButton("좋아요");
         btnGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                likeIndex++;
+                if(likeIndex==5) {
+                    JOptionPane.showMessageDialog(frame, "좋아요는 하루에 5번만 누를수 있습니다!","ERROR",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
             	giveThumb();
             	JOptionPane.showMessageDialog(frame, "상대방의 응답을 기다려보세요!");
             	ChatFrame.newChatFrame(frame);

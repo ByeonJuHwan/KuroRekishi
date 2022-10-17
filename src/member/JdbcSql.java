@@ -61,4 +61,16 @@ public interface JdbcSql {
 	// 검색 조건에서 mbti만 입력한 경우
 	String SQL_SELECT_MBTI_SET = String.format("select %s from %s where %s=?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_MBTI);
 	
+	// 검색 조건에서 나이,mbti를 입력한 경우
+	String SQL_SELECT_AGE_MBTI_SET = String.format("select %s from %s where (%s>=? and %s<=?) and %s=?", COL_MEM_NAME, TBL_MEMBER,COL_MEM_AGE,COL_MEM_AGE,COL_MEM_MBTI);
+	
+	// 검색 조건에서 키,mbti를 입력한 경우
+	String SQL_SELECT_HIGHT_MBTI_SET = String.format("select %s from %s where (%s>=? and %s<=?) and %s=?", COL_MEM_NAME, TBL_MEMBER,COL_MEM_HIGHT,COL_MEM_HIGHT,COL_MEM_MBTI);
+	
+	// 검색 조건에서 키, 나이를 입력한 경우
+	String SQL_SELECT_HIGHT_AGE_SET = String.format("select %s from %s where (%s>=? and %s<=?) and (%s>=? and %s<=?)", COL_MEM_NAME,TBL_MEMBER,COL_MEM_HIGHT,COL_MEM_HIGHT,COL_MEM_AGE,COL_MEM_AGE);
+	
+	// 검색 조건에서 키,나이,mbti 전부 입력한 경우
+	String SQL_SELECT_HIGHT_AGE_MBTI_SET = String.format("select %s from %s where (%s>=? and %s<=?) and (%s>=? and %s<=?) and %s=?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_HIGHT,COL_MEM_HIGHT,COL_MEM_AGE,COL_MEM_AGE,COL_MEM_MBTI);
+	
 }

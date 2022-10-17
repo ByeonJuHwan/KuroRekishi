@@ -510,5 +510,118 @@ public class MemberDaoImpl implements MemberDao{
     }
 
 
-    
+    @Override
+    public List<String> findAgeMbtiOption(String lowAge, String maxAge, String mbti) {
+        String name = null;
+        List<String>searchOptoinNameList = new ArrayList<>(); 
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SELECT_AGE_MBTI_SET);
+            stmt.setString(1, lowAge);
+            stmt.setString(2, maxAge);
+            stmt.setString(3, mbti);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                name = rs.getString(COL_MEM_NAME);
+                searchOptoinNameList.add(name);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return searchOptoinNameList;
+    }
+
+
+    @Override
+    public List<String> findHightMbtiOption(String lowHight, String maxHight, String mbti) {
+        String name = null;
+        List<String>searchOptoinNameList = new ArrayList<>(); 
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SELECT_HIGHT_MBTI_SET);
+            stmt.setString(1, lowHight);
+            stmt.setString(2, maxHight);
+            stmt.setString(3, mbti);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                name = rs.getString(COL_MEM_NAME);
+                searchOptoinNameList.add(name);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }        
+        return searchOptoinNameList;
+    }
+
+
+    @Override
+    public List<String> findHightAgeOption(String lowHight, String maxHight, String lowAge, String maxAge) {
+        String name = null;
+        List<String>searchOptoinNameList = new ArrayList<>(); 
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SELECT_HIGHT_AGE_SET);
+            stmt.setString(1, lowHight);
+            stmt.setString(2, maxHight);
+            stmt.setString(3, lowAge);
+            stmt.setString(4, maxAge);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                name = rs.getString(COL_MEM_NAME);
+                searchOptoinNameList.add(name);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return searchOptoinNameList;
+    }
+
+
+    @Override
+    public List<String> findHightAgeMBTIOption(String lowHight, String maxHight, String lowAge, String maxAge, String mbti) {
+        String name = null;
+        List<String>searchOptoinNameList = new ArrayList<>(); 
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SELECT_HIGHT_AGE_MBTI_SET);
+            stmt.setString(1, lowHight);
+            stmt.setString(2, maxHight);
+            stmt.setString(3, lowAge);
+            stmt.setString(4, maxAge);
+            stmt.setString(5, mbti);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                name = rs.getString(COL_MEM_NAME);
+                searchOptoinNameList.add(name);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }       
+        }
+        return searchOptoinNameList;
+    }
+
 }
