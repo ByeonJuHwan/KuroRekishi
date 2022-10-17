@@ -16,6 +16,9 @@ public class Member {
     	String COL_MEM_AGE = "AGE";
     	String COL_MEM_MBTI= "MBTI";
     	String COL_MEM_SETSEARCH = "SETSEARCH";
+    	String COL_MEM_POINT = "POINT";
+    	String COL_MEM_GIVESTARNUM = "GIVESTARNUM";
+    	String COL_MEM_GIVESTARID = "GIVESTARID";
     }
     
     // field
@@ -31,8 +34,15 @@ public class Member {
 	private String age;
 	private String mbti;
 	private String setSearch;
+	private int point;
+	private int giveStarNum;
+	private String giveStarId;
 	
 	
+
+    public String getGiveStarId() {
+        return giveStarId;
+    }
 
     // 기본 생성자 (default constructor)
 	public Member() {}
@@ -44,9 +54,23 @@ public class Member {
 		this.gavedThumbName = gavedThumbName;
 		this.givedThumbName = givedThumbName;
 	}
-
 	
-	// 회원 가입시 저장하는 객체
+	
+	public Member(int point, int giveStarNum) {
+        super();
+        this.point = point;
+        this.giveStarNum = giveStarNum;
+    }
+	
+
+    public Member(int point, int giveStarNum, String giveStarId) {
+        super();
+        this.point = point;
+        this.giveStarNum = giveStarNum;
+        this.giveStarId = giveStarId;
+    }
+
+    // 회원 가입시 저장하는 객체
 	public Member(String id, String pw, String name, String location,String sex, String history, String hight,
             String age, String mbti) {
         super();
@@ -154,6 +178,14 @@ public class Member {
 
     public String getSetSearch() {
         return setSearch;
+    }
+
+    public int getPoint() {
+        return point;
+    }
+
+    public int getGiveStarNum() {
+        return giveStarNum;
     }
 
     

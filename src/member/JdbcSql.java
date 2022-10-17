@@ -73,4 +73,16 @@ public interface JdbcSql {
 	// 검색 조건에서 키,나이,mbti 전부 입력한 경우
 	String SQL_SELECT_HIGHT_AGE_MBTI_SET = String.format("select %s from %s where (%s>=? and %s<=?) and (%s>=? and %s<=?) and %s=?", COL_MEM_NAME,TBL_MEMBER,COL_MEM_HIGHT,COL_MEM_HIGHT,COL_MEM_AGE,COL_MEM_AGE,COL_MEM_MBTI);
 	
+	// 로그인한 회원의 흑역사를 가져온다.
+	String SQL_SELECT_HISTORY = String.format("select %s from %s where %s=?", COL_MEM_HISTORY,TBL_MEMBER,COL_MEM_NAME);
+	
+	//  별을 점수화 해서 넣고 인수를 넣고 보낸사람 아이디도 넣는다.
+	String SQL_UPDATE_STAR = String.format("update %s set %s=?,%s=?,%s=? where %s=?", TBL_MEMBER,COL_MEM_POINT,COL_MEM_GIVESTARNUM,COL_MEM_GIVESTARID,COL_MEM_NAME);
+	
+	// 별을 넣기위해 가지고 있는 점수와, 몇명이 투표했는지 가져온다.
+	String SQL_GET_STARPOINT = String.format("select %s,%s from %s where %s = ?", COL_MEM_POINT,COL_MEM_GIVESTARNUM,TBL_MEMBER,COL_MEM_NAME);
+	
+	// 별주기 중복방지 selet 문
+	String SQL_CHECK_ALREADY_GIVESTAR = String.format("select %s from %s where %s=?", COL_MEM_GIVESTARID,TBL_MEMBER,COL_MEM_NAME);
+//	select givestarid from member where name = '김태연';
 }

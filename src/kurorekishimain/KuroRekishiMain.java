@@ -31,6 +31,7 @@ import member.Member;
 import member.MemberDaoImpl;
 import server.MultiServerThread;
 import server.ServerMain;
+import javax.swing.JComboBox;
 
 
 public class KuroRekishiMain implements sendSearchListener{
@@ -39,6 +40,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	public static String idKey = null; // idKey를 통해서 map에 저장한 value값을 가져온다.
 	public static ArrayList<MultiServerThread> list;
 	private ArrayList<String> searchNames;
+	private static final String[] stars = {"✿","✿✿","✿✿✿","✿✿✿✿","✿✿✿✿✿"};
 	
 	int index=0;
 	int nameIndex = 0;
@@ -61,6 +63,9 @@ public class KuroRekishiMain implements sendSearchListener{
 	private JLabel lblMemberImages;
 	private JLabel lblBack;
 	private JLabel lblButtonBack;
+	private JLabel lblHistory;
+	private JButton btnSendStar;
+	private JComboBox starComboBox;
 	
 	/**
 	 * Launch the application.
@@ -141,7 +146,7 @@ public class KuroRekishiMain implements sendSearchListener{
         	}
         });
         btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnLogin.setBounds(492, 634, 119, 41);
+        btnLogin.setBounds(492, 635, 119, 41);
         Login.add(btnLogin);
         
         btnJoin = new JButton("회원가입");
@@ -161,6 +166,7 @@ public class KuroRekishiMain implements sendSearchListener{
         lblImage.setBounds(0, 0, 658, 766);
         Login.add(lblImage);
         
+
         
         
 	    //------------------------------ 로그인창
@@ -175,7 +181,7 @@ public class KuroRekishiMain implements sendSearchListener{
         
         
         JPanel mainButtonPanel = new JPanel();
-        mainButtonPanel.setBounds(0, 701, 648, 60);
+        mainButtonPanel.setBounds(0, 708, 648, 53);
         Main.add(mainButtonPanel);
         mainButtonPanel.setLayout(null);
         
@@ -189,7 +195,7 @@ public class KuroRekishiMain implements sendSearchListener{
             }
         });
         btnProfile.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnProfile.setBounds(420, 5, 122, 45);
+        btnProfile.setBounds(420, 10, 122, 45);
         mainButtonPanel.add(btnProfile);
         
         JButton searchOption = new JButton("검색 설정");
@@ -199,14 +205,14 @@ public class KuroRekishiMain implements sendSearchListener{
                 SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex,KuroRekishiMain.this,idKey);
             }
         });
-        searchOption.setBounds(70, 5, 122, 45);
+        searchOption.setBounds(70, 10, 122, 45);
         searchOption.setFont(new Font("D2Coding", Font.BOLD, 16));
         mainButtonPanel.add(searchOption);
         
         
         
         JButton btnNewChat = new JButton("데이트추천");
-        btnNewChat.setBounds(250, 5, 122, 45);
+        btnNewChat.setBounds(250, 10, 122, 45);
         mainButtonPanel.add(btnNewChat);
         btnNewChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -214,48 +220,6 @@ public class KuroRekishiMain implements sendSearchListener{
             }
         });
         btnNewChat.setFont(new Font("D2Coding", Font.BOLD, 16));
-        
-        btnNotgood = new JButton("별로에요");
-        btnNotgood.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	    index=0;
-        		if(searchNames == null) {
-        		    showDiffrentSexImages();
-        		}else {
-        		    nameIndex ++;
-        		    if(nameIndex>=searchNames.size()) {
-        		        JOptionPane.showMessageDialog(frame, "마지막 검색 결과입니다! 처음으로 돌아갑니다.","ERROR",JOptionPane.ERROR_MESSAGE);
-        		        nameIndex=0;
-        		        name = searchNames.get(nameIndex);
-        		        setSearchImages();
-        		    }else {
-        		        name = searchNames.get(nameIndex);
-        		        setSearchImages();
-        		    }
-        		}
-        	}
-        });
-        btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnNotgood.setBounds(141, 651, 122, 45);
-        Main.add(btnNotgood);
-        
-        JButton btnGood = new JButton("좋아요");
-        btnGood.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                likeIndex++;
-                if(likeIndex==5) {
-                    JOptionPane.showMessageDialog(frame, "좋아요는 하루에 5번만 누를수 있습니다!","ERROR",JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                
-            	giveThumb();
-            	JOptionPane.showMessageDialog(frame, "상대방의 응답을 기다려보세요!");
-            	ChatFrame.newChatFrame(frame);
-            }
-        });
-        btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
-        btnGood.setBounds(380, 651, 122, 45);
-        Main.add(btnGood);
         
         
         JButton btnGoPreImage = new JButton("<");
@@ -276,21 +240,147 @@ public class KuroRekishiMain implements sendSearchListener{
         btnGoNextImage.setBounds(595, 264, 41, 45);
         Main.add(btnGoNextImage);
         
+        btnNotgood = new JButton("별로에요");
+        btnNotgood.setBounds(72, 658, 122, 45);
+        Main.add(btnNotgood);
+        btnNotgood.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                index=0;
+                if(searchNames == null) {
+                    showDiffrentSexImages();
+                    getHistory();
+                }else {
+                    nameIndex ++;
+                    if(nameIndex>=searchNames.size()) {
+                        JOptionPane.showMessageDialog(frame, "마지막 검색 결과입니다! 처음으로 돌아갑니다.","ERROR",JOptionPane.ERROR_MESSAGE);
+                        nameIndex=0;
+                        name = searchNames.get(nameIndex);
+                        setSearchImages();
+                        getHistory();
+                    }else {
+                        name = searchNames.get(nameIndex);
+                        setSearchImages();
+                        getHistory();
+                    }
+                }
+            }
+        });
+        btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
+        
+        JButton btnGood = new JButton("좋아요");
+        btnGood.setBounds(249, 658, 122, 45);
+        Main.add(btnGood);
+        btnGood.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                likeIndex++;
+                if(likeIndex==5) {
+                    JOptionPane.showMessageDialog(frame, "좋아요는 하루에 5번만 누를수 있습니다!","ERROR",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                giveThumb();
+                JOptionPane.showMessageDialog(frame, "상대방의 응답을 기다려보세요!");
+                ChatFrame.newChatFrame(frame);
+            }
+        });
+        btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
+        
+        btnSendStar = new JButton("점수주기");
+        btnSendStar.setBounds(535, 658, 122, 45);
+        btnSendStar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+               if(dao.checkStarId(name).equals(idKey)) {
+                   JOptionPane.showMessageDialog(frame, "이미 같은 대상에게 점수를주셨습니다..","ERROR",JOptionPane.ERROR_MESSAGE);
+                   return;
+               }else {
+                   insertStar();
+               }
+            }
+        });
+        btnSendStar.setFont(new Font("D2Coding", Font.BOLD, 16));
+        Main.add(btnSendStar);
+        
+        starComboBox = new JComboBox(stars);
+        starComboBox.setBounds(413, 657, 120, 50);
+        Main.add(starComboBox);
+        
+        lblHistory = new JLabel();
+        lblHistory.setFont(new Font("Lucida Grande", Font.BOLD, 14));
+        lblHistory.setHorizontalAlignment(SwingConstants.CENTER);
+        lblHistory.setBounds(74, 640, 498, 16);
+        Main.add(lblHistory);
+        
         lblMemberImages = new JLabel(new ImageIcon());
         lblMemberImages.setFont(new Font("궁서체", Font.BOLD, 14));
         lblMemberImages.setBackground(new Color(240, 240, 240));
-        lblMemberImages.setBounds(0, 0, 648, 641);
+        lblMemberImages.setBounds(0, 0, 662, 596);
         Main.add(lblMemberImages);
-        
-        
-        
-//        lblBack = new JLabel(new ImageIcon("backgroundimage/배경.png"));
-//        lblBack.setBounds(0, 0, 646, 766);
-//        Main.add(lblBack);
-		
+        	
      // ---------------------------- 메인창작업
 		
 	} // end initialize()
+
+    private void insertStar() {
+        String star = (String) starComboBox.getSelectedItem();
+        int starPoint = 0;
+        int point = 0;
+        int giveNum = 0;
+        if(star.equals("✿")) {
+            starPoint = 1;
+            Member member = dao.getStarPoint(name);
+            point = member.getPoint() + 1;
+            giveNum = member.getGiveStarNum() + 1;
+            Member starMember = new Member(point,giveNum,idKey);
+            insertPoint_ID(starMember , name);
+        }else if(star.equals("✿✿")) {
+            starPoint = 2;
+            Member member = dao.getStarPoint(name);
+            point = member.getPoint() + 2;
+            giveNum = member.getGiveStarNum() + 1;
+            Member starMember = new Member(point,giveNum,idKey);
+            insertPoint_ID(starMember , name);
+        }else if(star.equals("✿✿✿")) {
+            starPoint = 3;
+            Member member = dao.getStarPoint(name);
+            point = member.getPoint() + 3;
+            giveNum = member.getGiveStarNum() + 1;
+            Member starMember = new Member(point,giveNum,idKey);
+            insertPoint_ID(starMember , name);
+        }else if(star.equals("✿✿✿✿")) {
+            starPoint = 4;
+            Member member = dao.getStarPoint(name);
+            point = member.getPoint() + 4;
+            giveNum = member.getGiveStarNum() + 1;
+            Member starMember = new Member(point,giveNum,idKey);
+            insertPoint_ID(starMember , name);
+        }else {
+            starPoint = 5;
+            Member member = dao.getStarPoint(name);
+            point = member.getPoint() + 5;
+            giveNum = member.getGiveStarNum() + 1;
+            Member starMember = new Member(point,giveNum,idKey);
+            insertPoint_ID(starMember , name);
+        }
+    }
+
+    private void insertPoint_ID(Member starMember, String name) {
+        // 점수와 아이디를 넣는다.
+        Member member = starMember;
+        String userName = name;
+        int result = dao.updateStarPoint(member, userName);
+        if(result == 1) {
+            JOptionPane.showMessageDialog(frame, "점수 반영 성공!");
+        }else {
+            JOptionPane.showMessageDialog(frame, "점수 반영 실패...");
+        }
+        
+    }
+
+    private void getHistory() {
+        String history = null;
+        history = dao.findHistory(name);
+        lblHistory.setText(history);
+    }
 
     protected void setSearchImages() {
         String imageLink = null;
@@ -442,13 +532,16 @@ public class KuroRekishiMain implements sendSearchListener{
 			// 아이디에따른 성별도 가져옴
 			sex = dao.loginedUserSex(idKey);
 			
-			// TODO 이 회원이 검색 설정을 했는지 안했는지 확인하고 세부검색을 한 회원이면 검색한 내용만 세부검색을 하지 않았으면 전체에서 랜덤하게 나오게 설정.
-			
 			// 기본이미지 설정
-			showDiffrentSexImages();
+	        showDiffrentSexImages();
+	        
+	        // 흑역사 설정
+	        getHistory();
 			
 			Login.setVisible(false);
 			Main.setVisible(true);
+			
+			// TODO 점수 확인
 		}else {
 		    // 회원이 아닌경우 회원가입 유도.
 			JOptionPane.showMessageDialog(frame, "등록된 아이디가 없습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -464,6 +557,13 @@ public class KuroRekishiMain implements sendSearchListener{
     @Override
     public void sendSearchResult(ArrayList<String> searchOptoinNameList) {
         searchNames = searchOptoinNameList;
+        if(searchNames.size()==0) {
+            JOptionPane.showMessageDialog(frame, "조건에 부합하는 검색결과가 없습니다. 다시 검색해주세요.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else {
+            dao.setSearch(idKey);
+            JOptionPane.showMessageDialog(frame, "세부검색 설정 완료.", "완료", JOptionPane.PLAIN_MESSAGE);
+        }
         name = searchNames.get(0);
         String imageLink = null;
         if(sex.equals("여자")) { // 여자가 로그인했을때
