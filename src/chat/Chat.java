@@ -9,6 +9,7 @@ public class Chat {
         String COL_GIVEID = "GIVEID";
         String COL_GAVEDID = "GAVEDID";
         String COL_SENDTIME = "SENDTIME";
+        String COL_TIME = "SENDTIME";
     }
     
     private String giveId;

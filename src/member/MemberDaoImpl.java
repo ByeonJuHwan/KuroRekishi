@@ -744,4 +744,38 @@ public class MemberDaoImpl implements MemberDao{
         }
         return id;
     }
+
+
+    @Override
+    public Member findMemberById(String id) {
+        Member member = null;
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_SELECT_MEMBER_BY_ID);
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                String userid = rs.getString(COL_MEM_ID);
+                String pw = rs.getString(COL_MEM_PW);
+                String name = rs.getString(COL_MEM_NAME);
+                String sex = rs.getString(COL_MEM_SEX);
+                String loc = rs.getString(COL_MEM_LOC);
+                String history = rs.getString(COL_MEM_HISTORY);
+                String hight = rs.getString(COL_MEM_HIGHT);
+                String age = rs.getString(COL_MEM_AGE);
+                String mbti = rs.getString(COL_MEM_MBTI);
+                
+                member = new Member(userid,pw,name,sex,loc,history,hight,age,mbti);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return member;
+    }
 }

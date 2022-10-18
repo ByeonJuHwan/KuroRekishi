@@ -183,4 +183,11 @@ public interface MemberDao {
      * @return id
      */
     public String findIdByName(String name);
+    
+    /**
+     * 아이디로 회원 정보를 객체로 받는다.
+     * @param id
+     * @return 회원 정보를 객체로 리턴.
+     */
+    public Member findMemberById(String id);
 }

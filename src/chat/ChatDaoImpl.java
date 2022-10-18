@@ -2,6 +2,7 @@ package chat;
 
 import static ojdbc.MysqlJdbc.*;
 import static chat.ChatSql.*;
+import static chat.Chat.Entity.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ChatDaoImpl implements ChatDao {
@@ -71,5 +74,30 @@ public class ChatDaoImpl implements ChatDao {
             }
         }
         return result;
+    }
+
+    @Override
+    public List<String> idList(String id) {
+        List<String>idList = new ArrayList<>();
+        String userId = null;
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_FIND_ID_LIST);
+            stmt.setString(1, id);
+            rs = stmt.executeQuery();
+            while(rs.next()) {
+                userId = rs.getString(COL_GIVEID);
+                idList.add(userId);
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return idList;
     }
 }
