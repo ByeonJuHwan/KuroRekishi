@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -30,6 +31,8 @@ import chat.ChatDaoImpl;
 import kurorekishimain.SearchMemberOptionFrame.sendSearchListener;
 import member.Member;
 import member.MemberDaoImpl;
+import point.Point;
+import point.PointDaoImpl;
 import server.MultiServerThread;
 import server.ServerMain;
 import javax.swing.JComboBox;
@@ -52,6 +55,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	
 	private MemberDaoImpl dao;
 	private ChatDaoImpl chatDao;
+	private PointDaoImpl pointDao;
 	
 	private JFrame frame;
 	private JLabel lblImage;
@@ -91,6 +95,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	public KuroRekishiMain() {
 	    chatDao = ChatDaoImpl.getInstance();
 		dao = MemberDaoImpl.getInstance();
+		pointDao = PointDaoImpl.getInstance();
 		initialize();
 	}
 
@@ -165,7 +170,6 @@ public class KuroRekishiMain implements sendSearchListener{
         JButton btnCheckChat = new JButton("채팅방");
         btnCheckChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //TODO 새 프레임으로 채팅하고싶은 사람 목록 띄우기.
                 ChatRoomFrame.newChatRoomFrame(frame,idKey);
             }
         });
@@ -241,12 +245,17 @@ public class KuroRekishiMain implements sendSearchListener{
         btnSendStar.setBounds(351, 658, 122, 45);
         btnSendStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               if(dao.checkStarId(name).equals(idKey)) {
-                   JOptionPane.showMessageDialog(frame, "이미 같은 대상에게 점수를주셨습니다..","ERROR",JOptionPane.ERROR_MESSAGE);
-                   return;
-               }else {
-                   insertStar();
-               }
+                List<String>giveIdList = new ArrayList<>();
+                String id = dao.findIdByName(name);
+                giveIdList = pointDao.getGiveId(id);
+                for(String s : giveIdList) {
+                    if(s.equals(idKey)) {
+                        JOptionPane.showMessageDialog(frame, "이미 같은 대상에게 점수를주셨습니다..","ERROR",JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }else {
+                        insertStar();
+                    }
+                }
             }
         });
         btnSendStar.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -339,58 +348,58 @@ public class KuroRekishiMain implements sendSearchListener{
 
     private void insertStar() {
         String star = (String) starComboBox.getSelectedItem();
-        int starPoint = 0;
-        int point = 0;
-        int giveNum = 0;
+        int result = 0;
         if(star.equals("✿")) {
-            starPoint = 1;
-            Member member = dao.getStarPoint(name);
-            point = member.getPoint() + 1;
-            giveNum = member.getGiveStarNum() + 1;
-            Member starMember = new Member(point,giveNum,idKey);
-            insertPoint_ID(starMember , name);
+            // 1. 넣을 점수, 입력하는 사람 아이디,받는 사람 아이디를 가져와서 넣는다.
+            String id = dao.findIdByName(name);
+            Point point = new Point(1,idKey,id);
+            result = pointDao.insertPoint(point);
+            if(result == 1) {
+                JOptionPane.showMessageDialog(frame, "점수 반영 성공!");
+            }else {
+                JOptionPane.showMessageDialog(frame, "점수 반영 실패!");
+            }
         }else if(star.equals("✿✿")) {
-            starPoint = 2;
-            Member member = dao.getStarPoint(name);
-            point = member.getPoint() + 2;
-            giveNum = member.getGiveStarNum() + 1;
-            Member starMember = new Member(point,giveNum,idKey);
-            insertPoint_ID(starMember , name);
+            String id = dao.findIdByName(name);
+            Point point = new Point(2,idKey,id);
+            result = pointDao.insertPoint(point);
+            if(result == 1) {
+                JOptionPane.showMessageDialog(frame, "점수 반영 성공!");
+            }else {
+                JOptionPane.showMessageDialog(frame, "점수 반영 실패!");
+            }   
         }else if(star.equals("✿✿✿")) {
-            starPoint = 3;
-            Member member = dao.getStarPoint(name);
-            point = member.getPoint() + 3;
-            giveNum = member.getGiveStarNum() + 1;
-            Member starMember = new Member(point,giveNum,idKey);
-            insertPoint_ID(starMember , name);
+            String id = dao.findIdByName(name);
+            Point point = new Point(3,idKey,id);
+            result = pointDao.insertPoint(point);
+            if(result == 1) {
+                JOptionPane.showMessageDialog(frame, "점수 반영 성공!");
+            }else {
+                JOptionPane.showMessageDialog(frame, "점수 반영 실패!");
+            } 
+            
+            
         }else if(star.equals("✿✿✿✿")) {
-            starPoint = 4;
-            Member member = dao.getStarPoint(name);
-            point = member.getPoint() + 4;
-            giveNum = member.getGiveStarNum() + 1;
-            Member starMember = new Member(point,giveNum,idKey);
-            insertPoint_ID(starMember , name);
+            String id = dao.findIdByName(name);
+            Point point = new Point(4,idKey,id);
+            result = pointDao.insertPoint(point);
+            if(result == 1) {
+                JOptionPane.showMessageDialog(frame, "점수 반영 성공!");
+            }else {
+                JOptionPane.showMessageDialog(frame, "점수 반영 실패!");
+            } 
+            
         }else {
-            starPoint = 5;
-            Member member = dao.getStarPoint(name);
-            point = member.getPoint() + 5;
-            giveNum = member.getGiveStarNum() + 1;
-            Member starMember = new Member(point,giveNum,idKey);
-            insertPoint_ID(starMember , name);
+            String id = dao.findIdByName(name);
+            Point point = new Point(5,idKey,id);
+            result = pointDao.insertPoint(point);
+            if(result == 1) {
+                JOptionPane.showMessageDialog(frame, "점수 반영 성공!");
+            }else {
+                JOptionPane.showMessageDialog(frame, "점수 반영 실패!");
+            } 
+           
         }
-    }
-
-    private void insertPoint_ID(Member starMember, String name) {
-        // 점수와 아이디를 넣는다.
-        Member member = starMember;
-        String userName = name;
-        int result = dao.updateStarPoint(member, userName);
-        if(result == 1) {
-            JOptionPane.showMessageDialog(frame, "점수 반영 성공!");
-        }else {
-            JOptionPane.showMessageDialog(frame, "점수 반영 실패...");
-        }
-        
     }
 
     private void getHistory() {
