@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import chat.ChatDaoImpl;
 import kurorekishimain.SearchMemberOptionFrame.sendSearchListener;
@@ -123,9 +124,7 @@ public class KuroRekishiMain implements sendSearchListener{
         frame.getContentPane().add(Main);
         Main.setLayout(null);
         Main.setVisible(false);
-        
-        
-        
+       
         
         JPanel mainButtonPanel = new JPanel();
         mainButtonPanel.setBounds(0, 708, 648, 53);
@@ -240,8 +239,7 @@ public class KuroRekishiMain implements sendSearchListener{
                 }
                 
                 giveThumb();
-                JOptionPane.showMessageDialog(frame, "상대방의 응답을 기다려보세요!");
-                ChatFrame.newChatFrame(frame);
+                
             }
         });
         btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -438,7 +436,7 @@ public class KuroRekishiMain implements sendSearchListener{
 				ChatFrame.newChatFrame(frame);
 			}else {
 			    // no 누를시 delete givethumb, gavethumb 을 null 값으로 바꿔준다.
-			    dao.updateNullThumbs(userInfo.get(idKey), name);
+			    dao.updateNullThumbs(userInfo.get(idKey), member.getGivedThumbName());
 			}
 		}
 	}
@@ -448,7 +446,14 @@ public class KuroRekishiMain implements sendSearchListener{
 		if(result == 1) {
 			JOptionPane.showMessageDialog(frame, name + " 님에게 좋아요를 보냈습니다.");
 			String id = dao.findIdByName(name);
-			chatDao.insertId(idKey, id);
+			if(chatDao.checkDuplicateThumb(id)) {
+			    JOptionPane.showMessageDialog(frame, "이미 좋아요를 보낸 대상입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+			    return;
+			}else {
+			    chatDao.insertId(idKey, id);
+			    JOptionPane.showMessageDialog(frame, "상대방의 응답을 기다려보세요!");
+                ChatFrame.newChatFrame(frame);
+			}
 		}else {
 			JOptionPane.showMessageDialog(frame, "좋아요를 보낼수 없습니다.", "Error", JOptionPane.ERROR_MESSAGE);
 		}

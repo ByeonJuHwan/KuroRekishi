@@ -100,4 +100,26 @@ public class ChatDaoImpl implements ChatDao {
         }
         return idList;
     }
+
+    @Override
+    public boolean checkDuplicateThumb(String id) {
+        boolean result = false;
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_CHECK_GAVEDID);
+            stmt.setString(1, id);
+            rs = stmt.executeQuery(); 
+            rs.next(); 
+            result = Boolean.parseBoolean(rs.getString("result"));
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt, rs);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

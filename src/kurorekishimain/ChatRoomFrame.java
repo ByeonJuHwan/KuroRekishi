@@ -31,7 +31,7 @@ public class ChatRoomFrame extends JFrame {
             COL_MEM_NAME,COL_MEM_LOC,COL_MEM_AGE,COL_MEM_HISTORY
     };
     
-    private static List<String> gavedIdList = new ArrayList<>();
+    private static List<String> gavedIdList;
     private static List<Member> list = new ArrayList<>();
     
     private MemberDaoImpl dao;
@@ -40,8 +40,8 @@ public class ChatRoomFrame extends JFrame {
     
     private Component parent;
     private JPanel contentPane;
-    private JTable table;
-    private DefaultTableModel model;
+    public JTable table;
+    public DefaultTableModel model;
     private String userId;
     private String userName;
 
@@ -68,17 +68,22 @@ public class ChatRoomFrame extends JFrame {
         initializeTable(); // 화면에서의 JTable 데이터 초기화
     }
 
+
     private void initializeTable() {
         gavedIdList = chatDao.idList(userId);
+        
+        list = new ArrayList<>();
         for(String s : gavedIdList) {
             Member member = dao.findMemberById(s);
             list.add(member);
         }
         
+        model = new DefaultTableModel(null, COLUMN_NAMES);
         for(Member m : list) {
             Object[] row = {m.getName(),m.getLocation(),m.getAge(),m.getHistory()};
             model.addRow(row);
         }
+        table.setModel(model);
     }
 
     /**
@@ -98,9 +103,7 @@ public class ChatRoomFrame extends JFrame {
         JButton btnNewButton = new JButton("채팅하기");
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO 채팅방 구현
                 goChatTable();
-                
             }
         });
         btnNewButton.setFont(new Font("Lucida Grande", Font.BOLD, 15));
@@ -129,10 +132,12 @@ public class ChatRoomFrame extends JFrame {
     }
 
     private void giveThumb() {
-        int result = dao.giveThumb(userId,userName);
+        int row = table.getSelectedRow();
+        Member member = list.get(row);
+        int result = dao.giveThumb(userId,member.getName());
         if(result == 1) {
-            JOptionPane.showMessageDialog(parent, userName + " 님을 재촉합니다.");
-            String id = dao.findIdByName(userName);
+            JOptionPane.showMessageDialog(parent, member.getName() + " 님을 재촉합니다.");
+            String id = dao.findIdByName(member.getName());
             chatDao.insertId(userId, id);
         }else {
             JOptionPane.showMessageDialog(parent, "좋아요를 보낼수 없습니다.", "Error", JOptionPane.ERROR_MESSAGE);
