@@ -155,27 +155,7 @@ public interface MemberDao {
      * @return 회원가입때 입력한 흑역사를 보여준다.
      */
     public String findHistory(String name);
-    
-    /**
-     * 화면에 보이는 이성의 얼평을위해 점수와 평균을 내기위해 점수와 인수를 구한다.
-     * @param name
-     * @return 지금까지 받은 점수와 몇명이 투표했는지 가져온다.
-     */
-    public Member getStarPoint(String name);
-    
-    /**
-     * 점수를 반영한다.
-     * @param name
-     * @return 점수반영에 성공하면 1, 실패하면 0.
-     */
-    public int updateStarPoint(Member member ,String name);
-    
-    /**
-     * 동일한 대상에게 점수를 줬는지 체크한다.
-     * @param name
-     * @return 점수를 준사람의 아이디를 리턴한다.
-     */
-    public String checkStarId(String name);
+   
     
     /**
      * 이름을 가지고 id를 검색해준다.

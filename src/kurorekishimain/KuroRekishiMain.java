@@ -580,10 +580,12 @@ public class KuroRekishiMain implements sendSearchListener{
     }
 
     private void checkMyPoint() {
-        Member member = dao.getStarPoint(userInfo.get(idKey));
-        if(member.getPoint()>0) {
-            int point = member.getPoint();
-            int starGiveNum = member.getGiveStarNum();
+        // TODO
+        List<Integer> pointList = new ArrayList<>();
+        pointList = pointDao.getStarPoint(idKey);
+        int point = pointList.get(1);
+        int starGiveNum = pointList.get(0);
+        if(point>0) {
             double avg =(double) point/starGiveNum;
             String userAvg = String.format("%.1f", avg);
             if(avg<=1) {
