@@ -704,4 +704,25 @@ public class MemberDaoImpl implements MemberDao{
         }
         return member;
     }
+
+
+    @Override
+    public void updateNullThumbs(String giveName, String gaveName) {
+        try {
+            connDB();
+            stmt = conn.prepareStatement(SQL_UPDATE_NULL_THUMBS);
+            stmt.setString(1, giveName);
+            stmt.setString(2, gaveName);
+            stmt.executeUpdate();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+    }
 }

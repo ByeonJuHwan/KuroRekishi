@@ -170,4 +170,11 @@ public interface MemberDao {
      * @return 회원 정보를 객체로 리턴.
      */
     public Member findMemberById(String id);
+    
+    /**
+     *  채팅을 원치 않아서 no를 클릭시 db에 저장된이름을 초기화되게한다.
+     * @param giveName 좋아요를 누른사람 이름
+     * @param gaveName 좋아요를 받은사람 이름
+     */
+    public void updateNullThumbs(String giveName, String gaveName);
 }

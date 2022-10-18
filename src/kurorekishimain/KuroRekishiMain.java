@@ -431,6 +431,9 @@ public class KuroRekishiMain implements sendSearchListener{
 			int result = JOptionPane.showConfirmDialog(frame, member.getGivedThumbName() + " 님 께서 채팅을 원합니다.", "알림", JOptionPane.YES_NO_OPTION);
 			if(result == JOptionPane.YES_OPTION) {
 				ChatFrame.newChatFrame(frame);
+			}else {
+			    // no 누를시 delete givethumb, gavethumb
+			    dao.updateNullThumbs(userInfo.get(idKey), name);
 			}
 		}
 	}

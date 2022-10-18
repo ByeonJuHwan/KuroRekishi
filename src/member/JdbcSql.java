@@ -78,4 +78,7 @@ public interface JdbcSql {
 	
 	// 이름으로 ID 찾기
 	String SQL_SELECT_ID_BY_NAME = String.format("select %s from %s where %s=?", COL_MEM_ID,TBL_MEMBER,COL_MEM_NAME);
+	
+	// 채팅을 원치 않아서 no를 클릭시 db에 저장된이름을 초기화되게한다.
+	String SQL_UPDATE_NULL_THUMBS = String.format("update %s set %s = null, %s = null where %s=? and %s=?", TBL_MEMBER,COL_MEM_GIVETHUMBNAME,COL_MEM_GAVEDTHUMBNAME,COL_MEM_GAVEDTHUMBNAME,COL_MEM_GIVETHUMBNAME);
 }
