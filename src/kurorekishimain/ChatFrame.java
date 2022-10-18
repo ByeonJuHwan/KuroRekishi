@@ -41,7 +41,7 @@ public class ChatFrame extends JFrame implements Runnable{
 	private JPanel contentPane;
 	public static JTextField textField;
 	private JButton btnSend;
-	private String chatName;
+	public static String chatName;
 	private String ip;
 	private InputStream is;
 	private OutputStream os;
@@ -70,9 +70,8 @@ public class ChatFrame extends JFrame implements Runnable{
 		initialize();
 		init();
 	}
-	
 
-	private void insertChatName() {
+    private void insertChatName() {
 		chatName = KuroRekishiMain.userInfo.get(KuroRekishiMain.idKey);
 		if(chatName.length() == 0 || chatName ==null) {
 			System.exit(0);
@@ -177,7 +176,7 @@ public class ChatFrame extends JFrame implements Runnable{
 				e.printStackTrace();
 				isStop = true; // 프로그램 종료
 			}// end try-catch
-			System.out.println(receiveMag[0] + ":" + receiveMag[1]);
+			System.out.println(receiveMag[0] + " : " + receiveMag[1]);
 			if(receiveMag[1].equals("exit")) { // 해당 사용자의 exit
 				if(receiveMag[1].equals(chatName)) {
 					System.exit(0);
@@ -193,7 +192,7 @@ public class ChatFrame extends JFrame implements Runnable{
                         textArea.getDocument().getLength());
 			}
 			else { // exit이 아닌 경우 채팅 내용을 화면에 보여준다.
-				textArea.append(receiveMag[0] + ":" + receiveMag[1] + "\n");
+				textArea.append(receiveMag[0] + " : " + receiveMag[1] + "\n");
 				textArea.setCaretPosition(
 						textArea.getDocument().getLength());
 			}

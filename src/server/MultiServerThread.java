@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import kurorekishimain.ChatFrame;
 
@@ -21,9 +23,12 @@ public class MultiServerThread extends Thread{
     BufferedWriter bw;
     String message = null;
     
+    public static List<String>chatList = new ArrayList<>();
+    
     @Override
     public void run() {
         System.out.println("MultiServerThread is called");
+        
         boolean isStop = false;
         try {
             is = ServerMain.socket.getInputStream();
@@ -32,16 +37,27 @@ public class MultiServerThread extends Thread{
             bw = new BufferedWriter(new OutputStreamWriter(os));
             pw = new PrintWriter(bw,true);
             if(ServerMain.list.size()==2) {
-                chatALL("대화가#시작됩니다.");
+                MultiServerThread mt = ServerMain.list.get(1);
+                for(String s : chatList) {
+                    String message = s;
+                    mt.send(message);
+                }
             }
             while(!isStop) {
                 message = br_in.readLine();
                 String[] str = message.split("#");
-                if(str[1].equals("exit")) {
+                System.out.println(ServerMain.list.size());
+                if(ServerMain.list.size()==1) { // 채팅룸에 혼자 들어와있을
+                    chatList.add(str[0]+"#"+str[1]);
                     chat(message);
-                    isStop = true;
-                }else {
-                	chat(message);
+                    
+                }else { // 두명이 있을때
+                    if(str[1].equals("exit")) {
+                        chat(message);
+                        isStop = true;
+                    }else {
+                        chat(message);
+                    }
                 }
             }
             ServerMain.list.remove(this);
@@ -56,7 +72,8 @@ public class MultiServerThread extends Thread{
         }
     }
 
-	private void chatALL(String message) {
+
+    private void chatALL(String message) {
 	    System.out.println("Chatt ALL");
         for(MultiServerThread mt : ServerMain.list) {
             mt.send(message);

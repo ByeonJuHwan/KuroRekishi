@@ -72,6 +72,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	private JLabel lblHistory;
 	private JButton btnSendStar;
 	private JComboBox starComboBox;
+	private JButton btnGood;
 	
 	/**
 	 * Launch the application.
@@ -104,7 +105,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(200, 200, 664, 800);
+		frame.setBounds(10, 200, 664, 800);
 		frame.setTitle("쿠로렉시");
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -197,7 +198,9 @@ public class KuroRekishiMain implements sendSearchListener{
         Main.add(btnGoNextImage);
         
         btnNotgood = new JButton("별로에요");
-        btnNotgood.setBounds(85, 658, 122, 45);
+        btnNotgood.setOpaque(true);
+        btnNotgood.setBackground(new Color(0, 191, 255));
+        btnNotgood.setBounds(45, 658, 122, 45);
         Main.add(btnNotgood);
         btnNotgood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -223,8 +226,10 @@ public class KuroRekishiMain implements sendSearchListener{
         });
         btnNotgood.setFont(new Font("D2Coding", Font.BOLD, 16));
         
-        JButton btnGood = new JButton("좋아요");
-        btnGood.setBounds(485, 658, 122, 45);
+        btnGood = new JButton("좋아요");
+        btnGood.setOpaque(true);
+        btnGood.setBackground(new Color(219, 112, 147));
+        btnGood.setBounds(445, 658, 122, 45);
         Main.add(btnGood);
         btnGood.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -242,7 +247,7 @@ public class KuroRekishiMain implements sendSearchListener{
         btnGood.setFont(new Font("D2Coding", Font.BOLD, 16));
         
         btnSendStar = new JButton("점수주기");
-        btnSendStar.setBounds(351, 658, 122, 45);
+        btnSendStar.setBounds(311, 658, 122, 45);
         btnSendStar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 List<String>giveIdList = new ArrayList<>();
@@ -262,7 +267,7 @@ public class KuroRekishiMain implements sendSearchListener{
         Main.add(btnSendStar);
         
         starComboBox = new JComboBox(stars);
-        starComboBox.setBounds(219, 656, 120, 50);
+        starComboBox.setBounds(179, 656, 120, 50);
         Main.add(starComboBox);
         
         lblHistory = new JLabel();
@@ -432,7 +437,7 @@ public class KuroRekishiMain implements sendSearchListener{
 			if(result == JOptionPane.YES_OPTION) {
 				ChatFrame.newChatFrame(frame);
 			}else {
-			    // no 누를시 delete givethumb, gavethumb
+			    // no 누를시 delete givethumb, gavethumb 을 null 값으로 바꿔준다.
 			    dao.updateNullThumbs(userInfo.get(idKey), name);
 			}
 		}
