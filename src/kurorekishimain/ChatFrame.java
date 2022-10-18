@@ -41,7 +41,7 @@ public class ChatFrame extends JFrame implements Runnable{
 	private JPanel contentPane;
 	public static JTextField textField;
 	private JButton btnSend;
-	public static String chatName;
+	private String chatName;
 	private String ip;
 	private InputStream is;
 	private OutputStream os;
@@ -133,7 +133,7 @@ public class ChatFrame extends JFrame implements Runnable{
 				}catch(Exception ee) {
 					ee.printStackTrace();
 				}
-				System.exit(0);
+				dispose();
 			}
 		});
 		btnSend.setBounds(536, 429, 112, 32);

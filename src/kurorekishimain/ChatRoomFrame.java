@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import static member.Member.Entity.*;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
@@ -41,23 +42,26 @@ public class ChatRoomFrame extends JFrame {
     private JPanel contentPane;
     private JTable table;
     private DefaultTableModel model;
-    private String id;
+    private String userId;
+    private String userName;
 
     /**
      * Launch the application.
+     * @param name 
      */
-    public static void newChatRoomFrame(Component parent,String id) {
+    public static void newChatRoomFrame(Component parent,String userId, String userName) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                    ChatRoomFrame frame = new ChatRoomFrame(parent,id);
+                    ChatRoomFrame frame = new ChatRoomFrame(parent,userId,userName);
                     frame.setVisible(true);
             }
         });
     }
     
-    public ChatRoomFrame(Component parent,String id) {
+    public ChatRoomFrame(Component parent,String userId, String userName) {
+        this.userName = userName;
         this.parent = parent;
-        this.id = id;
+        this.userId = userId;
         chatDao = ChatDaoImpl.getInstance();
         dao= MemberDaoImpl.getInstance();
         initialize();
@@ -65,7 +69,7 @@ public class ChatRoomFrame extends JFrame {
     }
 
     private void initializeTable() {
-        gavedIdList = chatDao.idList(id);
+        gavedIdList = chatDao.idList(userId);
         for(String s : gavedIdList) {
             Member member = dao.findMemberById(s);
             list.add(member);
@@ -95,6 +99,8 @@ public class ChatRoomFrame extends JFrame {
         btnNewButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // TODO 채팅방 구현
+                goChatTable();
+                
             }
         });
         btnNewButton.setFont(new Font("Lucida Grande", Font.BOLD, 15));
@@ -107,6 +113,31 @@ public class ChatRoomFrame extends JFrame {
         model = new DefaultTableModel(null, COLUMN_NAMES);
         table.setModel(model);
         scrollPane.setViewportView(table);
+    }
+
+    private void goChatTable() {
+        int row = table.getSelectedRow();
+        if(row == -1) {
+            JOptionPane.showMessageDialog(parent, "채팅하고 싶은 사람을 선택해주세요.","Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }else {
+            giveThumb();
+            JOptionPane.showMessageDialog(parent, "상대를 유혹하는 한마디를 던져보세요!");
+            ChatFrame.newChatFrame(contentPane);
+        }
+        
+    }
+
+    private void giveThumb() {
+        int result = dao.giveThumb(userId,userName);
+        if(result == 1) {
+            JOptionPane.showMessageDialog(parent, userName + " 님을 재촉합니다.");
+            String id = dao.findIdByName(userName);
+            chatDao.insertId(userId, id);
+        }else {
+            JOptionPane.showMessageDialog(parent, "좋아요를 보낼수 없습니다.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 
 }

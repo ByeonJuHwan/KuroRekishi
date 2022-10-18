@@ -171,7 +171,7 @@ public class KuroRekishiMain implements sendSearchListener{
         JButton btnCheckChat = new JButton("채팅방");
         btnCheckChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ChatRoomFrame.newChatRoomFrame(frame,idKey);
+                ChatRoomFrame.newChatRoomFrame(frame,idKey,name);
             }
         });
         btnCheckChat.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -588,7 +588,6 @@ public class KuroRekishiMain implements sendSearchListener{
     }
 
     private void checkMyPoint() {
-        // TODO
         List<Integer> pointList = new ArrayList<>();
         pointList = pointDao.getStarPoint(idKey);
         int point = pointList.get(1);
