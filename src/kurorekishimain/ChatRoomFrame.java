@@ -43,23 +43,22 @@ public class ChatRoomFrame extends JFrame {
     public JTable table;
     public DefaultTableModel model;
     private String userId;
-    private String userName;
+    
 
     /**
      * Launch the application.
      * @param name 
      */
-    public static void newChatRoomFrame(Component parent,String userId, String userName) {
+    public static void newChatRoomFrame(Component parent,String userId) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                    ChatRoomFrame frame = new ChatRoomFrame(parent,userId,userName);
+                    ChatRoomFrame frame = new ChatRoomFrame(parent,userId);
                     frame.setVisible(true);
             }
         });
     }
     
-    public ChatRoomFrame(Component parent,String userId, String userName) {
-        this.userName = userName;
+    public ChatRoomFrame(Component parent,String userId) {   
         this.parent = parent;
         this.userId = userId;
         chatDao = ChatDaoImpl.getInstance();

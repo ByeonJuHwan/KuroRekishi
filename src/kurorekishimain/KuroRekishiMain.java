@@ -113,10 +113,69 @@ public class KuroRekishiMain implements sendSearchListener{
 		frame.getContentPane().setLayout(null);
 		
 		
-		
+		Login = new JPanel();
+	    Login.setBounds(0, 0, 658, 766);
+	    frame.getContentPane().add(Login);
+	    Login.setLayout(null);
+	        
+	    JLabel lblId = new JLabel("아이디");
+	    lblId.setBackground(Color.WHITE);
+	    lblId.setOpaque(true);
+	    lblId.setForeground(Color.BLACK);
+	    lblId.setHorizontalAlignment(SwingConstants.CENTER);
+	    lblId.setFont(new Font("궁서체", Font.BOLD, 15));
+	    lblId.setEnabled(true);
+	    lblId.setBounds(37, 634, 95, 41);
+	    Login.add(lblId);
+	        
+	    JLabel lblPw = new JLabel("비밀번호");
+	    lblPw.setBackground(Color.WHITE);
+	    lblPw.setOpaque(true);
+	    lblPw.setForeground(Color.BLACK);
+	    lblPw.setFont(new Font("궁서체", Font.BOLD, 15));
+	    lblPw.setHorizontalAlignment(SwingConstants.CENTER);
+	    lblPw.setBounds(37, 685, 95, 41);
+	    Login.add(lblPw);
+	        
+	    textId = new JTextField();
+	    textId.setFont(new Font("D2Coding", Font.BOLD, 15));
+	    textId.setBounds(187, 634, 260, 41);
+	    Login.add(textId);
+	    textId.setColumns(10);
+	        
+	    passwordField = new JPasswordField();
+	    passwordField.setFont(new Font("D2Coding", Font.BOLD, 15));
+	    passwordField.setBounds(187, 685, 260, 41);
+	    Login.add(passwordField);
+	        
+	    btnLogin = new JButton("로그인");
+	    btnLogin.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	           Login();
+	           checkThumb();
+	       }
+	    });
+	    btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
+	    btnLogin.setBounds(492, 635, 119, 41);
+	    Login.add(btnLogin);
+	        
+	    btnJoin = new JButton("회원가입");
+	    btnJoin.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            JoinMember.newJoinMember(frame);
+	        }
+	    });
+	    btnJoin.setFont(new Font("궁서체", Font.BOLD, 15));
+	    btnJoin.setBounds(492, 685, 119, 41);
+	    Login.add(btnJoin);
 
-        
-        
+	        
+	    lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
+	    lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
+	    lblImage.setBackground(Color.WHITE);
+	    lblImage.setBounds(0, 0, 658, 766);
+	    Login.add(lblImage);
+
 	    //------------------------------ 로그인창
         
         Main = new JPanel();
@@ -147,6 +206,7 @@ public class KuroRekishiMain implements sendSearchListener{
         JButton searchOption = new JButton("검색 설정");
         searchOption.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                // TODO 검색 초기화 설정
                 System.out.println(sex); // 로그인한 사람의 성
                 SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex,KuroRekishiMain.this,idKey);
             }
@@ -170,7 +230,7 @@ public class KuroRekishiMain implements sendSearchListener{
         JButton btnCheckChat = new JButton("채팅방");
         btnCheckChat.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ChatRoomFrame.newChatRoomFrame(frame,idKey,name);
+                ChatRoomFrame.newChatRoomFrame(frame,idKey);
             }
         });
         btnCheckChat.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -282,69 +342,7 @@ public class KuroRekishiMain implements sendSearchListener{
         	
      // ---------------------------- 메인창작업
 		
-        Login = new JPanel();
-        Login.setBounds(0, 0, 658, 766);
-        frame.getContentPane().add(Login);
-        Login.setLayout(null);
-        
-        JLabel lblId = new JLabel("아이디");
-        lblId.setBackground(Color.WHITE);
-        lblId.setOpaque(true);
-        lblId.setForeground(Color.BLACK);
-        lblId.setHorizontalAlignment(SwingConstants.CENTER);
-        lblId.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblId.setEnabled(true);
-        lblId.setBounds(37, 634, 95, 41);
-        Login.add(lblId);
-        
-        JLabel lblPw = new JLabel("비밀번호");
-        lblPw.setBackground(Color.WHITE);
-        lblPw.setOpaque(true);
-        lblPw.setForeground(Color.BLACK);
-        lblPw.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblPw.setHorizontalAlignment(SwingConstants.CENTER);
-        lblPw.setBounds(37, 685, 95, 41);
-        Login.add(lblPw);
-        
-        textId = new JTextField();
-        textId.setFont(new Font("D2Coding", Font.BOLD, 15));
-        textId.setBounds(187, 634, 260, 41);
-        Login.add(textId);
-        textId.setColumns(10);
-        
-        passwordField = new JPasswordField();
-        passwordField.setFont(new Font("D2Coding", Font.BOLD, 15));
-        passwordField.setBounds(187, 685, 260, 41);
-        Login.add(passwordField);
-        
-        btnLogin = new JButton("로그인");
-        btnLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-               Login();
-               checkThumb();
-            }
-        });
-        btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnLogin.setBounds(492, 635, 119, 41);
-        Login.add(btnLogin);
-        
-        btnJoin = new JButton("회원가입");
-        btnJoin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JoinMember.newJoinMember(frame);
-            }
-        });
-        btnJoin.setFont(new Font("궁서체", Font.BOLD, 15));
-        btnJoin.setBounds(492, 685, 119, 41);
-        Login.add(btnJoin);
-
-        
-        lblImage = new JLabel(new ImageIcon("appImage/사진.png"));
-        lblImage.setFont(new Font("궁서체", Font.BOLD, 15));
-        lblImage.setBackground(Color.WHITE);
-        lblImage.setBounds(0, 0, 658, 766);
-        Login.add(lblImage);
-        
+       
         
         
 	} // end initialize()
@@ -642,5 +640,13 @@ public class KuroRekishiMain implements sendSearchListener{
             lblMemberImages.setIcon(new ImageIcon(imageLink));
             chageImage();
         }
+    }
+
+    @Override
+    public void sendSearchReset() {
+        // TODO 검색 결과를 초기화 했으니 다시 랜덤으로 불러온다.
+        showDiffrentSexImages();
+        searchNames = null;
+        
     }
 }

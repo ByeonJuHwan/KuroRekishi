@@ -22,9 +22,9 @@ import member.MemberDaoImpl;
 public class SearchMemberOptionFrame extends JFrame {
     public interface sendSearchListener{
         void sendSearchResult(ArrayList<String> searchOptoinNameList);
+        void sendSearchReset();
     }
     private sendSearchListener listener;
-    
    
     public static ArrayList<String> searchOptoinNameList;
     public static String mbtis;
@@ -213,7 +213,7 @@ public class SearchMemberOptionFrame extends JFrame {
             }
         });
         btnMemberSearch.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-        btnMemberSearch.setBounds(349, 272, 145, 44);
+        btnMemberSearch.setBounds(390, 272, 145, 44);
         contentPane.add(btnMemberSearch);
         
         btnGoBack = new JButton("뒤로가기");
@@ -223,7 +223,7 @@ public class SearchMemberOptionFrame extends JFrame {
             }
         });
         btnGoBack.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-        btnGoBack.setBounds(103, 272, 145, 44);
+        btnGoBack.setBounds(62, 272, 145, 44);
         contentPane.add(btnGoBack);
         
         hightCheck = new JCheckBox("");
@@ -273,8 +273,35 @@ public class SearchMemberOptionFrame extends JFrame {
         });
         mbtiCheck.setBounds(585, 210, 28, 23);
         contentPane.add(mbtiCheck);
+        
+        JButton btnSearchReset = new JButton("초기화");
+        btnSearchReset.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                searchReset();
+            }
+        });
+        btnSearchReset.setFont(new Font("Lucida Grande", Font.BOLD, 16));
+        btnSearchReset.setBounds(226, 272, 145, 44);
+        contentPane.add(btnSearchReset);
     }// end initialize
 
+
+    private void searchReset() {
+        // TODO 누르면 검색초기화해서 검색한 영역이 아니라 전체영역으로 변경
+        int result = JOptionPane.showConfirmDialog(this, "검색범위를 초기화 하시겠습니까??", "???", JOptionPane.YES_NO_OPTION);
+        if(result==JOptionPane.YES_OPTION) {
+            // dao.searchreset으로 setsearch부분을 false로 변경.
+            int resetResult = dao.updateSearchReset(id);
+            
+            if(resetResult == 1) {
+                JOptionPane.showMessageDialog(this, "검색범위를 초기화 했습니다.");
+                listener.sendSearchReset();
+            }else {
+                JOptionPane.showMessageDialog(this, "검색범위를 초기화 실패");
+            }
+        }
+        
+    }
 
     private void checkAllSelect() {
          // 전부 체크되어 아무것도 입력이 안되는경우

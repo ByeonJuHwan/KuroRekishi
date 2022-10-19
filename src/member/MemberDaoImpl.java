@@ -725,4 +725,25 @@ public class MemberDaoImpl implements MemberDao{
         }
         
     }
+
+
+    @Override
+    public int updateSearchReset(String id) {
+        int result = 0;
+        try{
+            connDB();
+            stmt = conn.prepareStatement(SQL_UPDATE_SEARCH_RESET);
+            stmt.setString(1, id);
+            result = stmt.executeUpdate();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                closeResources(conn, stmt);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 }

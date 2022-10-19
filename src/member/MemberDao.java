@@ -177,4 +177,11 @@ public interface MemberDao {
      * @param gaveName 좋아요를 받은사람 이름
      */
     public void updateNullThumbs(String giveName, String gaveName);
+    
+    /**
+     * 검색 기록을 초기화 하기위해서 setSearch컬럼을 false로 만든다.
+     * @param id
+     * @return 성공하면 1, 실패하면 0
+     */
+    public int updateSearchReset(String id);
 }
