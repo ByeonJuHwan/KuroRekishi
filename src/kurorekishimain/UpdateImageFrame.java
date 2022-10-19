@@ -100,7 +100,6 @@ public class UpdateImageFrame extends JFrame {
         JButton btnUpdateImage = new JButton("사진변경");
         btnUpdateImage.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO 사진변경하고 변경완료 메세지 출력
                 updateImage();
             }
         });
@@ -172,8 +171,7 @@ public class UpdateImageFrame extends JFrame {
     private void chaneImage() {
         System.out.println(link);
         lblUpdateImage.setIcon(new ImageIcon(link));
-//        lblUpdateImage.setBounds(0, 0, 648, 697);
-//        contentPane.add(lblUpdateImage);
+
     }
     
     private void goBackImage() {

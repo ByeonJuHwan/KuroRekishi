@@ -303,7 +303,13 @@ public class JoinMember extends JFrame {
             String mbti = inputMbti.getText();
             String history = textAreaExperience.getText();
             
-	    
+            if(id.equals("")||pw.equals("")||name.equals("")||location.equals("")||hight.equals("")||age.equals("")
+                    || mbti.equals("")||history.equals("")) {
+                JOptionPane.showConfirmDialog(JoinPanel, "누락된 부분없이 입력해주세요.", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            
             Member member  = new Member(id,pw,name,location,sex,history,hight,age,mbti);
             
 	    
