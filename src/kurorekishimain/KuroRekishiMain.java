@@ -194,9 +194,7 @@ public class KuroRekishiMain implements sendSearchListener{
         btnProfile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // 프로필 수정/업데이트
-                String id = getLoginedId();
-                System.out.println(id);
-                UpdateFrame.newUpdateFrame(frame,id);
+                UpdateFrame.newUpdateFrame(frame,idKey);
             }
         });
         btnProfile.setFont(new Font("D2Coding", Font.BOLD, 16));
@@ -206,7 +204,6 @@ public class KuroRekishiMain implements sendSearchListener{
         JButton searchOption = new JButton("검색 설정");
         searchOption.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // TODO 검색 초기화 설정
                 System.out.println(sex); // 로그인한 사람의 성
                 SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex,KuroRekishiMain.this,idKey);
             }
@@ -531,14 +528,6 @@ public class KuroRekishiMain implements sendSearchListener{
 		lblMemberImages.setBounds(0, 0, 648, 641);
         Main.add(lblMemberImages);
 	}
-
-    private  String getLoginedId() {
-	    String userId = null;
-	    for(String id : userInfo.keySet()) {
-	        userId = id;
-       }
-        return userId;
-    }
 
     private void Login() {
         // 입력창에서 아이디, 비밀번호를 받는다.

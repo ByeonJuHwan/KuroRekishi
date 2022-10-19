@@ -256,7 +256,7 @@ public class MemberDaoImpl implements MemberDao{
                 String age = rs.getString(COL_MEM_AGE);
                 String mbti = rs.getString(COL_MEM_MBTI);
                 
-                Member member = new Member(userid,pw,name,sex,loc,history,hight,age,mbti);
+                Member member = new Member(userid,pw,name,loc,sex,history,hight,age,mbti);
                 list.add(member);
             }
         }catch(Exception e) {

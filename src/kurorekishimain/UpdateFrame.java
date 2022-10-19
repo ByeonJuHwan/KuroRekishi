@@ -73,11 +73,12 @@ public class UpdateFrame extends JFrame {
            updateNameField.setText(m.getName());
            updateTextAreaExperience.setText(m.getHistory());
            // 성별
-           if(m.getSex().equals("남자")) {
-               radioButtonMale.setSelected(true);
-           }else {
+           if(m.getSex().equals("여자")) {
                radioButtonFemale.setSelected(true);
+           }else {
+               radioButtonMale.setSelected(true);
            }
+            
            // 주소
            if(m.getLocation().equals("서울")) {
                updateLocationcomboBox.setSelectedItem(JoinMember.locations[0]);
@@ -97,7 +98,7 @@ public class UpdateFrame extends JFrame {
                updateLocationcomboBox.setSelectedItem(JoinMember.locations[7]);
            }else if(m.getLocation().equals("강원도")) {
                updateLocationcomboBox.setSelectedItem(JoinMember.locations[8]);
-           }else {
+           }else if(m.getLocation().equals("제주")){
                updateLocationcomboBox.setSelectedItem(JoinMember.locations[9]);
            }
            updateHight.setText(m.getHight());

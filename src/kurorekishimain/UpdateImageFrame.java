@@ -51,6 +51,9 @@ public class UpdateImageFrame extends JFrame {
         initialize();
     }
     
+    
+
+
     /**
      * Create the frame.
      */
@@ -120,13 +123,22 @@ public class UpdateImageFrame extends JFrame {
             if(result == JFileChooser.APPROVE_OPTION) {
                 File file = jFileChooser.getSelectedFile();
                 try {
-                    BufferedImage image = ImageIO.read(file);
-                    ImageIO.write(image, "png", updateUserImage);
-                    System.out.println("updateSuccess");
                     int update = JOptionPane.showConfirmDialog(this, "정말 수정하시겠습니까?", "알림", JOptionPane.YES_NO_OPTION);
                     if(update==JOptionPane.YES_OPTION) {
-                        goNextImage();
-                        JOptionPane.showMessageDialog(parent, "수정 완료");
+                        BufferedImage image = ImageIO.read(file);
+                        ImageIO.write(image, "png", updateUserImage);
+                        System.out.println("updateSuccess");
+                        
+                        String fname = "usersImageFemale/"+name+"/"+name+index;
+                        System.out.println("fname : " + fname);
+                        lblUpdateImage.setIcon(new ImageIcon(fname));
+                        
+//                      goNextImage();
+                        JOptionPane.showMessageDialog(this, "수정 완료. 재시작 해주세요.");
+                        int reset = JOptionPane.showConfirmDialog(this, "재시작 하시겠습니까??", "Question",JOptionPane.YES_NO_OPTION);
+                        if(reset == JOptionPane.YES_OPTION) {
+                            System.exit(0);
+                        }
                     }
                 }catch(Exception e) {
                     e.printStackTrace();
@@ -144,6 +156,7 @@ public class UpdateImageFrame extends JFrame {
                     System.out.println("updateSuccess");
                     int update = JOptionPane.showConfirmDialog(this, "정말 수정하시겠습니까?", "알림", JOptionPane.YES_NO_OPTION);
                     if(update==JOptionPane.YES_OPTION) {
+                        
                         goNextImage();
                         JOptionPane.showMessageDialog(parent, "수정 완료");
                     }
@@ -159,8 +172,8 @@ public class UpdateImageFrame extends JFrame {
     private void chaneImage() {
         System.out.println(link);
         lblUpdateImage.setIcon(new ImageIcon(link));
-        lblUpdateImage.setBounds(0, 0, 648, 697);
-        contentPane.add(lblUpdateImage);
+//        lblUpdateImage.setBounds(0, 0, 648, 697);
+//        contentPane.add(lblUpdateImage);
     }
     
     private void goBackImage() {
