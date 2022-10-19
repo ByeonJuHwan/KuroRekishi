@@ -90,7 +90,9 @@ public class ChatRoomFrame extends JFrame {
      */
     public void initialize() {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 457, 536);
+        int x = parent.getX();
+        int y = parent.getY();
+        setBounds(x, y, 457, 536);
         setTitle("채팅목록");
         setResizable(false);
         contentPane = new JPanel();
@@ -125,7 +127,7 @@ public class ChatRoomFrame extends JFrame {
         }else {
             giveThumb();
             JOptionPane.showMessageDialog(parent, "상대를 유혹하는 한마디를 던져보세요!");
-            ChatFrame.newChatFrame(contentPane);
+            ChatFrame.newChatFrame(parent);
         }
         
     }

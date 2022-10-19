@@ -356,7 +356,7 @@ public class JoinMember extends JFrame {
 		}
 		// 5장까지 저장 인지 확인.
         if(index == 5) {
-            JOptionPane.showMessageDialog(null, "5장 다 넣으셨습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "5장 다 넣으셨습니다.", "경고", JOptionPane.WARNING_MESSAGE);
             return;
         }
 	    
@@ -386,7 +386,9 @@ public class JoinMember extends JFrame {
 	                ImageIO.write(image, "png", userImages);
 	                index++;
 	                System.out.println("success");
-	                JOptionPane.showMessageDialog(parent, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
+	                JOptionPane.showMessageDialog(this, "현재("+(index)+"/5) 장", "확인", JOptionPane.PLAIN_MESSAGE);
+	                String sex = sexCheck();
+                    PhotoFrame.newPhotoFrame(this,inputName.getText(),sex);
 	            } catch (Exception e) {
 	                e.printStackTrace();
 	            }	

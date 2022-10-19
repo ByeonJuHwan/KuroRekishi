@@ -54,21 +54,6 @@ public class Member {
 		this.gavedThumbName = gavedThumbName;
 		this.givedThumbName = givedThumbName;
 	}
-	
-	
-	public Member(int point, int giveStarNum) {
-        super();
-        this.point = point;
-        this.giveStarNum = giveStarNum;
-    }
-	
-
-    public Member(int point, int giveStarNum, String giveStarId) {
-        super();
-        this.point = point;
-        this.giveStarNum = giveStarNum;
-        this.giveStarId = giveStarId;
-    }
 
     // 회원 가입시 저장하는 객체
 	public Member(String id, String pw, String name, String location,String sex, String history, String hight,

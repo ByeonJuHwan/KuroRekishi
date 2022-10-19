@@ -573,7 +573,7 @@ public class KuroRekishiMain implements sendSearchListener{
 			
 			Login.setVisible(false);
 			Main.setVisible(true);
-			
+			 
 			// 점수 확인
 			checkMyPoint();
 			

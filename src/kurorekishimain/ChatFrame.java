@@ -179,18 +179,15 @@ public class ChatFrame extends JFrame implements Runnable{
 			}// end try-catch
 			System.out.println(receiveMag[0] + " : " + receiveMag[1]);
 			if(receiveMag[1].equals("exit")) { // 해당 사용자의 exit
-				if(receiveMag[1].equals(chatName)) {
-					System.exit(0);
+				if(receiveMag[0].equals(chatName)) {
+					    dispose();
 				}else {
 					textArea.append(
 							receiveMag[0] + "님이 종료했습니다. \n");
 					textArea.setCaretPosition(
 							textArea.getDocument().getLength());
 				}
-			}else if(receiveMag[1].equals("시작됩니다.")) {
-			    textArea.append(receiveMag[0] + " " + receiveMag[1] + "\n");
-                textArea.setCaretPosition(
-                        textArea.getDocument().getLength());
+				
 			}
 			else { // exit이 아닌 경우 채팅 내용을 화면에 보여준다.
 				textArea.append(receiveMag[0] + " : " + receiveMag[1] + "\n");
