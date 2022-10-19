@@ -287,7 +287,6 @@ public class SearchMemberOptionFrame extends JFrame {
 
 
     private void searchReset() {
-        // TODO 누르면 검색초기화해서 검색한 영역이 아니라 전체영역으로 변경
         int result = JOptionPane.showConfirmDialog(this, "검색범위를 초기화 하시겠습니까??", "???", JOptionPane.YES_NO_OPTION);
         if(result==JOptionPane.YES_OPTION) {
             // dao.searchreset으로 setsearch부분을 false로 변경.
@@ -326,7 +325,12 @@ public class SearchMemberOptionFrame extends JFrame {
                 String maxhight = maxHight.getText();
                 String lowage = lowAge.getText();
                 String maxage = maxAge.getText();
-                searchOptoinNameList = (ArrayList<String>) dao.findHightAgeOption(lowhight, maxhight, lowage, maxage);
+                if(sex.equals("남자")) {
+                    sex="여자";
+                }else {
+                    sex="남자";
+                }
+                searchOptoinNameList = (ArrayList<String>) dao.findHightAgeOption(lowhight, maxhight, lowage, maxage,sex);
                 listener.sendSearchResult(searchOptoinNameList);
                 
             }
@@ -346,7 +350,12 @@ public class SearchMemberOptionFrame extends JFrame {
                 String lowhight = lowHight.getText();
                 String maxhight = maxHight.getText();
                 mbtis = mbti.getText();
-                searchOptoinNameList = (ArrayList<String>) dao.findHightMbtiOption(lowhight, maxhight, mbtis);
+                if(sex.equals("남자")) {
+                    sex="여자";
+                }else {
+                    sex="남자";
+                }
+                searchOptoinNameList = (ArrayList<String>) dao.findHightMbtiOption(lowhight, maxhight, mbtis,sex);
                 listener.sendSearchResult(searchOptoinNameList);
 
             }
@@ -366,7 +375,12 @@ public class SearchMemberOptionFrame extends JFrame {
                 String lowage = lowAge.getText();
                 String maxage = maxAge.getText();
                 mbtis = mbti.getText();
-                searchOptoinNameList = (ArrayList<String>) dao.findAgeMbtiOption(lowage, maxage, mbtis);
+                if(sex.equals("남자")) {
+                    sex="여자";
+                }else {
+                    sex="남자";
+                }
+                searchOptoinNameList = (ArrayList<String>) dao.findAgeMbtiOption(lowage, maxage, mbtis,sex);
                 listener.sendSearchResult(searchOptoinNameList);
             }
     }
@@ -378,7 +392,12 @@ public class SearchMemberOptionFrame extends JFrame {
               return;            
         }else {
             mbtis = mbti.getText();
-            searchOptoinNameList = (ArrayList<String>) dao.findMbtiOption(mbtis);
+            if(sex.equals("남자")) {
+                sex="여자";
+            }else {
+                sex="남자";
+            }
+            searchOptoinNameList = (ArrayList<String>) dao.findMbtiOption(mbtis,sex);
             listener.sendSearchResult(searchOptoinNameList);
         }
         
@@ -391,7 +410,12 @@ public class SearchMemberOptionFrame extends JFrame {
         }else {
             String lowage = lowAge.getText();
             String maxage = maxAge.getText();
-            searchOptoinNameList = (ArrayList<String>) dao.findAgeOption(lowage, maxage);
+            if(sex.equals("남자")) {
+                sex="여자";
+            }else {
+                sex="남자";
+            }
+            searchOptoinNameList = (ArrayList<String>) dao.findAgeOption(lowage, maxage,sex);
             listener.sendSearchResult(searchOptoinNameList);
             // 세부수정한경우 다시 로그인했을때도 설정한 내용대로 사람들이뜨게 db에 설정.
         }
@@ -406,9 +430,14 @@ public class SearchMemberOptionFrame extends JFrame {
             }else {
                 String lowhight = lowHight.getText();
                 String maxhight = maxHight.getText();
+                if(sex.equals("남자")) {
+                    sex="여자";
+                }else {
+                    sex="남자";
+                }
 
                 // dao의 명령어로 NAME 리턴받기 여기서 그 인터페이스 사용해서 메인창에서 해야할일 해야함
-                searchOptoinNameList = (ArrayList<String>) dao.findHightOption(lowhight, maxhight);
+                searchOptoinNameList = (ArrayList<String>) dao.findHightOption(lowhight, maxhight,sex);
                 listener.sendSearchResult(searchOptoinNameList);
                 // 세부수정한경우 다시 로그인했을때도 설정한 내용대로 사람들이뜨게 db에 설정.
             }
@@ -431,7 +460,12 @@ public class SearchMemberOptionFrame extends JFrame {
                String lowage = lowAge.getText();
                String maxage = maxAge.getText();
                mbtis = mbti.getText();
-               searchOptoinNameList = (ArrayList<String>) dao.findHightAgeMBTIOption(lowhight, maxhight, lowage, maxage, mbtis);
+               if(sex.equals("남자")) {
+                   sex="여자";
+               }else {
+                   sex="남자";
+               }
+               searchOptoinNameList = (ArrayList<String>) dao.findHightAgeMBTIOption(lowhight, maxhight, lowage, maxage, mbtis,sex);
                listener.sendSearchResult(searchOptoinNameList);
            }
        }

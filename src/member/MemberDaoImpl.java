@@ -406,7 +406,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
     @Override
-    public List<String> findHightOption(String lowHight, String maxHight) {
+    public List<String> findHightOption(String lowHight, String maxHight, String sex) {
         String name = null;
         List<String>searchOptoinNameList = new ArrayList<>();
         try {
@@ -414,6 +414,7 @@ public class MemberDaoImpl implements MemberDao{
             stmt = conn.prepareStatement(SQL_SELECT_HIGHT_SET);
             stmt.setString(1, lowHight);
             stmt.setString(2, maxHight);
+            stmt.setString(3, sex);
             rs = stmt.executeQuery();
             while(rs.next()) {
                 name = rs.getString(COL_MEM_NAME);
@@ -455,7 +456,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
     @Override
-    public List<String> findAgeOption(String lowAge, String maxAge) {
+    public List<String> findAgeOption(String lowAge, String maxAge, String sex) {
         String name = null;
         List<String>searchOptoinNameList = new ArrayList<>();
         try {
@@ -463,6 +464,7 @@ public class MemberDaoImpl implements MemberDao{
             stmt = conn.prepareStatement(SQL_SELECT_AGE_SET);
             stmt.setString(1, lowAge);
             stmt.setString(2, maxAge);
+            stmt.setString(3, sex);
             rs = stmt.executeQuery();
             while(rs.next()) {
                 name = rs.getString(COL_MEM_NAME);
@@ -484,13 +486,14 @@ public class MemberDaoImpl implements MemberDao{
 
 
     @Override
-    public List<String> findMbtiOption(String mbti) {
+    public List<String> findMbtiOption(String mbti, String sex) {
         String name = null;
         List<String>searchOptoinNameList = new ArrayList<>(); 
         try {
             connDB();
             stmt = conn.prepareStatement(SQL_SELECT_MBTI_SET);
             stmt.setString(1, mbti);
+            stmt.setString(2, sex);
             rs = stmt.executeQuery();
             while(rs.next()) {
                 name = rs.getString(COL_MEM_NAME);
@@ -510,7 +513,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
     @Override
-    public List<String> findAgeMbtiOption(String lowAge, String maxAge, String mbti) {
+    public List<String> findAgeMbtiOption(String lowAge, String maxAge, String mbti, String sex) {
         String name = null;
         List<String>searchOptoinNameList = new ArrayList<>(); 
         try {
@@ -519,6 +522,7 @@ public class MemberDaoImpl implements MemberDao{
             stmt.setString(1, lowAge);
             stmt.setString(2, maxAge);
             stmt.setString(3, mbti);
+            stmt.setString(4, sex);
             rs = stmt.executeQuery();
             while(rs.next()) {
                 name = rs.getString(COL_MEM_NAME);
@@ -538,7 +542,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
     @Override
-    public List<String> findHightMbtiOption(String lowHight, String maxHight, String mbti) {
+    public List<String> findHightMbtiOption(String lowHight, String maxHight, String mbti, String sex) {
         String name = null;
         List<String>searchOptoinNameList = new ArrayList<>(); 
         try {
@@ -547,6 +551,7 @@ public class MemberDaoImpl implements MemberDao{
             stmt.setString(1, lowHight);
             stmt.setString(2, maxHight);
             stmt.setString(3, mbti);
+            stmt.setString(4, sex);
             rs = stmt.executeQuery();
             while(rs.next()) {
                 name = rs.getString(COL_MEM_NAME);
@@ -566,7 +571,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
     @Override
-    public List<String> findHightAgeOption(String lowHight, String maxHight, String lowAge, String maxAge) {
+    public List<String> findHightAgeOption(String lowHight, String maxHight, String lowAge, String maxAge, String sex) {
         String name = null;
         List<String>searchOptoinNameList = new ArrayList<>(); 
         try {
@@ -576,6 +581,7 @@ public class MemberDaoImpl implements MemberDao{
             stmt.setString(2, maxHight);
             stmt.setString(3, lowAge);
             stmt.setString(4, maxAge);
+            stmt.setString(5, sex);
             rs = stmt.executeQuery();
             while(rs.next()) {
                 name = rs.getString(COL_MEM_NAME);
@@ -595,7 +601,7 @@ public class MemberDaoImpl implements MemberDao{
 
 
     @Override
-    public List<String> findHightAgeMBTIOption(String lowHight, String maxHight, String lowAge, String maxAge, String mbti) {
+    public List<String> findHightAgeMBTIOption(String lowHight, String maxHight, String lowAge, String maxAge, String mbti, String sex) {
         String name = null;
         List<String>searchOptoinNameList = new ArrayList<>(); 
         try {
@@ -606,6 +612,7 @@ public class MemberDaoImpl implements MemberDao{
             stmt.setString(3, lowAge);
             stmt.setString(4, maxAge);
             stmt.setString(5, mbti);
+            stmt.setString(6, sex);
             rs = stmt.executeQuery();
             while(rs.next()) {
                 name = rs.getString(COL_MEM_NAME);

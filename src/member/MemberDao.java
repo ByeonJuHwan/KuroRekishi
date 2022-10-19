@@ -87,7 +87,7 @@ public interface MemberDao {
      * @param hight
      * @return 검색한 키의 범위내의 이름을 리턴해준다.
      */
-    public List<String> findHightOption(String lowHight, String maxHight);
+    public List<String> findHightOption(String lowHight, String maxHight,String sex);
     
     
     /**
@@ -102,14 +102,14 @@ public interface MemberDao {
      * @param hight
      * @return 검색한 나이의 범위내의 이름을 리턴해준다.
      */
-    public List<String> findAgeOption(String lowAge, String maxAge);
+    public List<String> findAgeOption(String lowAge, String maxAge,String sex);
     
     /**
      * mbti만 검색 상세 옵션에서 입력한 경우
      * @param mbti
      * @return 검색한 mbti인 사람들의 이름들을 리턴한다.
      */
-    public List<String> findMbtiOption(String mbti);
+    public List<String> findMbtiOption(String mbti,String sex);
     
     /**
      * mbti와 나이 2가지를 상세옵션에서 입력한 경우
@@ -118,7 +118,7 @@ public interface MemberDao {
      * @param mbti
      * @return 범위에 맞는 이름을 리턴해준다.
      */
-    public List<String> findAgeMbtiOption(String lowAge, String maxAge, String mbti); 
+    public List<String> findAgeMbtiOption(String lowAge, String maxAge, String mbti,String sex); 
     
     /**
      * 키, mbti 2가지를 상세옵션에서 입력한 경우.
@@ -127,7 +127,7 @@ public interface MemberDao {
      * @param mbti
      * @return 범위에 맞는 이름을 리턴해준다.
      */
-    public List<String> findHightMbtiOption(String lowHight, String maxHight, String mbti); 
+    public List<String> findHightMbtiOption(String lowHight, String maxHight, String mbti,String sex); 
     
     /**
      * 키,나이 2가지를 상세옵션에서 입력한 경우.
@@ -137,7 +137,7 @@ public interface MemberDao {
      * @param maxAge
      * @return 범위에 맞는 이름을 리턴해준다.
      */
-    public List<String> findHightAgeOption(String lowHight, String maxHight, String lowAge, String maxAge); 
+    public List<String> findHightAgeOption(String lowHight, String maxHight, String lowAge, String maxAgem,String sex); 
     
     /**
      * 키, 나이, mbti 모두를 상세옵션에서 입력한 경우.
@@ -147,7 +147,7 @@ public interface MemberDao {
      * @param maxAge
      * @return 범위에 맞는 이름을 리턴해준다.
      */
-    public List<String> findHightAgeMBTIOption(String lowHight, String maxHight, String lowAge, String maxAge, String mbti); 
+    public List<String> findHightAgeMBTIOption(String lowHight, String maxHight, String lowAge, String maxAge, String mbti,String sex); 
     
     /**
      * 상대방의 흑역사를 가져와서 보여줄때 사용.

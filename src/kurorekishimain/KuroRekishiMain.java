@@ -152,7 +152,7 @@ public class KuroRekishiMain implements sendSearchListener{
 	    btnLogin.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
 	           Login();
-	           checkThumb();
+	           
 	       }
 	    });
 	    btnLogin.setFont(new Font("궁서체", Font.BOLD, 15));
@@ -204,7 +204,7 @@ public class KuroRekishiMain implements sendSearchListener{
         JButton searchOption = new JButton("검색 설정");
         searchOption.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println(sex); // 로그인한 사람의 성
+                // 로그인한 사람의 성
                 SearchMemberOptionFrame.newSearchMemberOptionFrame(frame,sex,KuroRekishiMain.this,idKey);
             }
         });
@@ -307,13 +307,18 @@ public class KuroRekishiMain implements sendSearchListener{
             public void actionPerformed(ActionEvent e) {
                 List<String>giveIdList = new ArrayList<>();
                 String id = dao.findIdByName(name);
+                System.out.println(id);
                 giveIdList = pointDao.getGiveId(id);
-                for(String s : giveIdList) {
-                    if(s.equals(idKey)) {
-                        JOptionPane.showMessageDialog(frame, "이미 같은 대상에게 점수를주셨습니다..","ERROR",JOptionPane.ERROR_MESSAGE);
-                        break;
-                    }else {
-                        insertStar();
+                System.out.println(giveIdList);
+                if(giveIdList.size()==0) {
+                    System.out.println("insert");
+                    insertStar();
+                }else {
+                    for(String s : giveIdList) {
+                        if(s.equals(idKey)) {
+                            JOptionPane.showMessageDialog(frame, "이미 같은 대상에게 점수를주셨습니다..","ERROR",JOptionPane.ERROR_MESSAGE);
+                            break;
+                        }  
                     }
                 }
             }
@@ -424,7 +429,6 @@ public class KuroRekishiMain implements sendSearchListener{
 
     private void checkThumb() {
 		Member member = dao.checkThumb(idKey);
-		System.out.println(member.getName());
 		if(member.getName().equals(member.getGavedThumbName())) {
 			int result = JOptionPane.showConfirmDialog(frame, member.getGivedThumbName() + " 님 께서 채팅을 원합니다.", "알림", JOptionPane.YES_NO_OPTION);
 			if(result == JOptionPane.YES_OPTION) {
@@ -572,6 +576,9 @@ public class KuroRekishiMain implements sendSearchListener{
 			
 			// 점수 확인
 			checkMyPoint();
+			
+			// 좋아요가 왔는지 확인.
+			checkThumb();
 		}else {
 		    // 회원이 아닌경우 회원가입 유도.
 			JOptionPane.showMessageDialog(frame, "등록된 아이디가 없습니다.", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -633,7 +640,7 @@ public class KuroRekishiMain implements sendSearchListener{
 
     @Override
     public void sendSearchReset() {
-        // TODO 검색 결과를 초기화 했으니 다시 랜덤으로 불러온다.
+        //검색 결과를 초기화 했으니 다시 랜덤으로 불러온다.
         showDiffrentSexImages();
         searchNames = null;
         

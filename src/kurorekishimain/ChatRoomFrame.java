@@ -133,7 +133,8 @@ public class ChatRoomFrame extends JFrame {
     private void giveThumb() {
         int row = table.getSelectedRow();
         Member member = list.get(row);
-        int result = dao.giveThumb(userId,member.getName());
+        String name = dao.fineName(userId);
+        int result = dao.giveThumb(name,member.getName());
         if(result == 1) {
             JOptionPane.showMessageDialog(parent, member.getName() + " 님을 재촉합니다.");
             String id = dao.findIdByName(member.getName());
