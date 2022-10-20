@@ -73,15 +73,6 @@ public class MultiServerThread extends Thread{
     }
 
 
-    private void chatALL(String message) {
-	    System.out.println("Chatt ALL");
-        for(MultiServerThread mt : ServerMain.list) {
-            mt.send(message);
-        }
-        
-        
-    }
-
     private void chat(String message) {
         System.out.println("Chatting");
         for(MultiServerThread mt : ServerMain.list) {

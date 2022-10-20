@@ -350,6 +350,11 @@ public class SearchMemberOptionFrame extends JFrame {
                 String lowhight = lowHight.getText();
                 String maxhight = maxHight.getText();
                 mbtis = mbti.getText();
+                int mbtiLength = mbti.getText().length();
+                if(mbtiLength<4) { // mbti가 4글자가 아닐때 확인 종료
+                    JOptionPane.showMessageDialog(this, "mbti는 4글자 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 if(sex.equals("남자")) {
                     sex="여자";
                 }else {
@@ -375,6 +380,11 @@ public class SearchMemberOptionFrame extends JFrame {
                 String lowage = lowAge.getText();
                 String maxage = maxAge.getText();
                 mbtis = mbti.getText();
+                int mbtiLength = mbti.getText().length();
+                if(mbtiLength<4) { // mbti가 4글자가 아닐때 확인 종료
+                    JOptionPane.showMessageDialog(this, "mbti는 4글자 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 if(sex.equals("남자")) {
                     sex="여자";
                 }else {
@@ -392,6 +402,11 @@ public class SearchMemberOptionFrame extends JFrame {
               return;            
         }else {
             mbtis = mbti.getText();
+            int mbtiLength = mbti.getText().length();
+            if(mbtiLength<4) { // mbti가 4글자가 아닐때 확인 종료
+                JOptionPane.showMessageDialog(this, "mbti는 4글자 입니다.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             if(sex.equals("남자")) {
                 sex="여자";
             }else {
