@@ -4,12 +4,6 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.JOptionPane;
-
-import kurorekishimain.KuroRekishiMain;
 
 public class ServerMain {
     public static ArrayList<MultiServerThread> list;
